@@ -44,15 +44,16 @@ export default (Component, dispatch) => {
       }),
       drop: item => {
         dispatch({
-          type: `drop${position}`,
+          type: 'dropExisting',
           source: item.name,
-          target: name
+          target: name,
+          position
         })
       }
     });
 
-    const [{ isOver:isOverTop }, dropTop] = useDrop(dropArgs('Before'));
-    const [{ isOver:isOverBottom }, dropBottom] = useDrop(dropArgs('After'));
+    const [{ isOver:isOverTop }, dropTop] = useDrop(dropArgs('before'));
+    const [{ isOver:isOverBottom }, dropBottom] = useDrop(dropArgs('after'));
 
     return (
       <div className={classSet({'de-component-wrapper': true, 'drag': isDragging})} ref={preview}>
