@@ -1,0 +1,86 @@
+.de {
+  &.drag .de-component-wrapper {
+    .de-component-handle, .de-component-toolbox {
+      z-index: auto;
+    }
+  }
+
+  .de-component-wrapper {
+    display: flex;
+    align-items: stretch;
+    padding: 0px 10px 0px 10px;
+    position: relative;
+
+    @mixin dashed-border {
+      margin: 10px 0px 10px 0px;
+      border: 2px dashed rgba(0, 0, 0, 0.1);
+    }
+
+    @mixin gradient($rotate) {
+      background: linear-gradient($rotate, rgba(255,255,255,0) 60%, rgba(0,221,255,0.2) 100%);
+    }
+
+    &.drag {
+      opacity: 0.5;
+    }
+
+    &:not(.drag) {
+      .de-component-overlay {
+        .hover-top {
+          @include gradient(180deg);
+        }
+
+        .hover-bottom {
+          @include gradient(0deg);
+        }
+      }
+    }
+
+    .de-component-item {
+      @include dashed-border;
+      padding: 10px 10px 10px 10px;
+      width: 100%;
+    }
+
+    .de-component-handle {
+      margin: 10px 0px 10px 0px;
+      background-color: rgba(0, 0, 0, 0.1);
+      width: 1em;
+      z-index: 10;
+      cursor: grab;
+    }
+
+    .de-component-toolbox {
+      @include dashed-border;
+      width: 2em;
+      z-index: 10;
+      border-left: none;
+    }
+
+    .de-component-overlay {
+      // To avoid double border glitches with the borders when dragging an object, there is an offset on the overlays
+      // for compensating the border thickness. This way the upper item's bottom border is being rendered at the same
+      // position as the lower item's top border. If an item is being moved between the drop overlays of two objects,
+      // the two borders switch each other seamlessly.
+      $border-thickness: 2px;
+      position: absolute;
+      top: -$border-thickness;
+      right: 0;
+      bottom: 0;
+      left: 0;
+
+      & > div {
+        height: 50%;
+
+        &.over {
+          &.overlay-top {
+            border-top: $border-thickness solid rgba(0, 0, 0, 0.4);
+          }
+          &.overlay-bottom {
+            border-bottom: $border-thickness solid rgba(0, 0, 0, 0.4);
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,55 @@
+# Logs
+logs/
+*.log
+
+# Demo
+demo/demo-app.jsx
+
+# Runtime data
+pids
+*.pid
+*.seed
+
+# Users Environment Variables
+.lock-wscript
+
+dist/assets/
+dist/css
+dist/data/
+dist/docs/
+dist/js
+dist/**/demo-app.*
+dist/*.ttf
+dist/*.eot
+dist/*.svg
+dist/*.woff
+dist/*.woff2
+.tmp/
+.bower/
+libs/
+node_modules/
+bower_components/
+dist/index.html
+tsd/
+typings/
+*.css.map
+*.js.map
+dist/*
+
+._*
+.DS_Store
+
+# idea files
+.idea/
+*.ipr
+*.iws
+*.iml
+
+.out
+coverage
+yarn.lock
+package-lock.json
+!/scripts/plugins.js
+
+# vsCode files
+.vscode/
