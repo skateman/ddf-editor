@@ -1,6 +1,7 @@
 import React, { useReducer, useMemo } from "react";
 import FormRender, { layoutComponents } from '@data-driven-forms/react-form-renderer';
 import { formFieldsMapper, layoutMapper } from '@data-driven-forms/pf3-component-mapper';
+import { Grid, Row, Col } from 'patternfly-react';
 import classSet from 'react-classset';
 import Draggable from './draggable';
 import Reducer from './reducer';
@@ -26,13 +27,19 @@ export default ({...props}) => {
   );
 
   return (
-    <div className={classSet({'de': true, 'drag': isDragging})}>
-      <FormRender
-        formFieldsMapper={draggableFormFieldsMapper}
-        layoutMapper={layoutMapper}
-        onSubmit={() => undefined}
-        schema={schema}
-      />
-    </div>
+    <Grid fluid={true}>
+      <Row>
+        <Col xs={2}></Col>
+        <Col xs={6} className={classSet({'de': true, 'drag': isDragging})}>
+          <FormRender
+            formFieldsMapper={draggableFormFieldsMapper}
+            layoutMapper={layoutMapper}
+            onSubmit={() => undefined}
+            schema={schema}
+          />
+        </Col>
+        <Col xs={4}></Col>
+      </Row>
+    </Grid>
    )
 };
