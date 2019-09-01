@@ -31,7 +31,9 @@ export default ({...props}) => {
   return (
     <Grid fluid={true}>
       <Row>
-        <Col xs={2} className="de-toolbox"><Toolbox/></Col>
+        <Col xs={1}>
+          <Toolbox/>
+        </Col>
         <Col xs={6} className={classSet({'de': true, 'drag': isDragging})}>
           <FormRender
             formFieldsMapper={draggableFormFieldsMapper}
@@ -40,7 +42,7 @@ export default ({...props}) => {
             schema={schema}
           />
         </Col>
-        <Col xs={4}></Col>
+        <Col xs={5}></Col>
       </Row>
     </Grid>
    )

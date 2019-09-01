@@ -85,8 +85,19 @@
   }
 }
 
-.de-toolbox {
-  ul.toolbox {
-    list-style-type: none;
+ul.de-toolbox {
+  width: 100%;
+  padding-left: 0;
+  list-style-type: none;
+  border: 2px dashed rgba(0, 0, 0, 0.1);
+
+  & > li.toolbox-field {
+    width: 100%;
+    text-align: center;
+    border: 2px dashed rgba(0, 0, 0, 0.1);
+
+    .icon {
+      font-size: xx-large;
+    }
   }
 }
