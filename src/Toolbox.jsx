@@ -1,36 +1,37 @@
 import React from "react";
 import ToolboxField from "./ToolboxField";
+import { componentTypes } from '@data-driven-forms/react-form-renderer';
 
 export const toolboxFields = {
-  'text-field': {
+  [componentTypes.TEXT_FIELD]: {
     title: 'Text Box',
     icon: 'fa fa-font',
   },
-  'textarea-field': {
+  [componentTypes.TEXTAREA_FIELD]: {
     title: 'Text Area',
     icon: 'fa fa-file-text-o',
   },
-  'checkbox': {
+  [componentTypes.CHECKBOX]: {
     title: 'Checkbox',
     icon: 'fa fa-check-square-o',
   },
-  'dropdown': {
+  [componentTypes.DROPDOWN]: {
     title: 'Dropdown',
     icon: 'fa fa-caret-square-o-down',
   },
-  'radio': {
+  [componentTypes.RADIO]: {
     title: 'Radio Button',
     icon: 'fa fa-circle-o',
   },
-  'date-picker': {
+  [componentTypes.DATE_PICKER]: {
     title: 'Datepicker',
     icon: 'fa fa-calendar',
   },
-  'time-picker': {
+  [componentTypes.TIME_PICKER]: {
     title: 'Timepicker',
     icon: 'fa fa-clock-o',
   },
-  'tag-control': {
+  [componentTypes.TAG_CONTROL]: {
     title: 'Tag Control',
     icon: 'fa fa-tags',
   },
