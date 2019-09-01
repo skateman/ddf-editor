@@ -36,13 +36,13 @@ export const toolboxFields = {
   },
 };
 
-const Toolbox = () => {
+const Toolbox = ({dispatch}) => {
   return (
     <ul className="de-toolbox">
       {
         Object.keys(toolboxFields).map(key => (
           <li key={key} className="toolbox-field">
-            <ToolboxField kind={key} {...toolboxFields[key]}/>
+            <ToolboxField dispatch={dispatch} kind={key} {...toolboxFields[key]}/>
           </li>
         ))
       }

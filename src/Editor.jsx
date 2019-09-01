@@ -32,7 +32,7 @@ export default ({...props}) => {
     <Grid fluid={true}>
       <Row>
         <Col xs={1}>
-          <Toolbox/>
+          <Toolbox dispatch={dispatch}/>
         </Col>
         <Col xs={6} className={classSet({'de': true, 'drag': isDragging})}>
           <FormRender

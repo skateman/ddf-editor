@@ -2,7 +2,7 @@ import React from "react";
 import { useDrag } from 'react-dnd';
 import classSet from 'react-classset';
 
-const ToolboxField = ({kind, title, icon}) => {
+const ToolboxField = ({dispatch, kind, title, icon}) => {
   const [, drag, preview] = useDrag({
     item: { type: 'newInput', kind  }
   });
