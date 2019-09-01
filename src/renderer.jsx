@@ -3,6 +3,8 @@ import FormRender, { layoutComponents } from '@data-driven-forms/react-form-rend
 import { formFieldsMapper, layoutMapper } from '@data-driven-forms/pf3-component-mapper';
 import { Grid, Row, Col } from 'patternfly-react';
 import classSet from 'react-classset';
+
+import { toolboxFields } from './toolbox';
 import Draggable from './draggable';
 import Reducer from './reducer';
 
@@ -16,12 +18,12 @@ export default ({...props}) => {
   // Memoize the decorated component mapping for a better performance
   const draggableFormFieldsMapper = useMemo(
     () =>
-      Object.keys(formFieldsMapper).reduce(
+      Object.keys(toolboxFields).reduce(
         (obj, key) => ({
           ...obj,
           [key]: Draggable(formFieldsMapper[key], dispatch)
         }),
-        {}
+        {...formFieldsMapper}
       ),
     [formFieldsMapper, dispatch]
   );
