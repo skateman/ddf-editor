@@ -1,5 +1,5 @@
 import React from "react";
-import ToolboxField from "./toolboxField";
+import ToolboxField from "./ToolboxField";
 
 export const toolboxFields = {
   'text-field': {

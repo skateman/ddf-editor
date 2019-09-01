@@ -4,9 +4,9 @@ import { formFieldsMapper, layoutMapper } from '@data-driven-forms/pf3-component
 import { Grid, Row, Col } from 'patternfly-react';
 import classSet from 'react-classset';
 
-import Toolbox, { toolboxFields } from './toolbox';
-import Draggable from './draggable';
-import Reducer from './reducer';
+import Toolbox, { toolboxFields } from './Toolbox';
+import Draggable from './Draggable';
+import Reducer from './Reducer';
 
 export default ({...props}) => {
   const { schema:initialSchema } = props;
