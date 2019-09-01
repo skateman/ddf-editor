@@ -36,7 +36,7 @@ export const toolboxFields = {
   },
 };
 
-export default () => {
+const Toolbox = () => {
   return (
     <ul className="toolbox">
       {
@@ -49,3 +49,5 @@ export default () => {
     </ul>
   )
 };
+
+export default Toolbox;
