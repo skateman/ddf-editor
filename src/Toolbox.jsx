@@ -42,7 +42,7 @@ const Toolbox = () => {
       {
         Object.keys(toolboxFields).map(key => (
           <li key={key} className="toolbox-field">
-            <ToolboxField key={key} {...toolboxFields[key]}/>
+            <ToolboxField kind={key} {...toolboxFields[key]}/>
           </li>
         ))
       }
