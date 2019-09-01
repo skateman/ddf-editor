@@ -96,8 +96,13 @@ ul.de-toolbox {
     text-align: center;
     border: 2px dashed rgba(0, 0, 0, 0.1);
 
-    .icon {
-      font-size: xx-large;
+    .toolbox-field-inner {
+      cursor: grab;
+
+      .icon {
+        font-size: xx-large;
+      }
     }
+
   }
 }

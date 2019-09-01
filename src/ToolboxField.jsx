@@ -4,7 +4,11 @@ import classSet from 'react-classset';
 
 const ToolboxField = ({dispatch, kind, title, icon}) => {
   const [, drag, preview] = useDrag({
-    item: { type: 'newInput', kind  }
+    item: { type: 'newInput', kind },
+    begin: () => {
+      setTimeout(() => dispatch({type: 'dragStart'}));
+    },
+    end: () => dispatch({type: 'dragEnd'})
   });
 
   return (
