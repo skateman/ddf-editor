@@ -24,34 +24,41 @@ export default (Component, dispatch) => {
         // setTimeout function. Long story short: this set of "hacks" is necessary :)
         setTimeout(() => dispatch({type: 'dragStart'}));
       },
-      end: () => dispatch({type: 'dragEnd'})
+      end: (_, monitor) => {
+        // If the dragging operation ended with an invalid drop target, we just tell the main component that
+        // the drag operation has ended.
+        if (!monitor.didDrop()) {
+          return dispatch({type: 'dragEnd'});
+        }
+
+        // If the dragging operation finished with a valid drop target, we can retrieve the position and the
+        // name of this target.
+        const { name:target, position } = monitor.getDropResult();
+
+        dispatch({
+          type: 'dropExisting',
+          source: name,
+          target,
+          position
+        });
+      }
     });
 
-    // To avoid using coordinate arithmetics, the drop overlay has been vertically split up between two drop
-    // handlers. The handlers are almost identical, the only difference they have is the type of the event
-    // to be dispatched. If an object has been dropped into the upper part of the drop overlay, we tell the
-    // reducer to move the dropped object before the drop zone's owner object. The lower part is analogously
-    // dispatches an event to move the dropped object after the drop zone's owner object.
-    //
-    // The visual marking of where the object is supposed to be inserted upon a drop is also handled here. I
-    // am using the `over` CSS class on the affected drop overlay part. Everything else is being handled by
-    // the styling.
+    // As it is possible to drag different kind of items and drop them into the same drop zone, this handler
+    // only passes the name of the drop target and the before/after position to the dragging handler.
     const dropArgs = (position) => ({
       accept: 'input',
       canDrop: item => item.name !== name,
       collect: monitor => ({
         isOver: monitor.canDrop() && monitor.isOver()
       }),
-      drop: item => {
-        dispatch({
-          type: 'dropExisting',
-          source: item.name,
-          target: name,
-          position
-        })
-      }
+      drop: () => ({name, position}),
     });
 
+    // To avoid using coordinate arithmetics, the drop overlay has been vertically split up between two drop
+    // handlers. The upper handler is responsible for prepending, while the lower one is analogously invokes
+    // appending. Both overlays have a little border to indicate the future location of the dragged item. It
+    // is being handled by a CSS class which is being set based on the isOverTop and isOverBottom variables.
     const [{ isOver:isOverTop }, dropTop] = useDrop(dropArgs('before'));
     const [{ isOver:isOverBottom }, dropBottom] = useDrop(dropArgs('after'));
 

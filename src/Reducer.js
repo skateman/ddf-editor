@@ -62,7 +62,7 @@ export default (state, { type, ...action }) => {
       sourceFields.splice(sourceIndex, 1); // Delete the source item from its original location
       targetFields.splice(targetIndex + correction, 0, sourceField); // Push the source item to its new location
 
-      return { ...state };
+      return { ...state, isDragging: false };
     default:
       throw new Error();
   }
