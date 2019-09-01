@@ -5,7 +5,7 @@ import { Grid, Row, Col } from 'patternfly-react';
 import classSet from 'react-classset';
 
 import Toolbox, { toolboxFields } from './Toolbox';
-import Draggable from './Draggable';
+import DraggableFormField from './DraggableFormField';
 import Reducer from './Reducer';
 
 export default ({...props}) => {
@@ -21,7 +21,7 @@ export default ({...props}) => {
       Object.keys(toolboxFields).reduce(
         (obj, key) => ({
           ...obj,
-          [key]: Draggable(formFieldsMapper[key], dispatch)
+          [key]: DraggableFormField(formFieldsMapper[key], dispatch)
         }),
         {...formFieldsMapper}
       ),
