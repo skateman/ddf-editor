@@ -1,5 +1,7 @@
 {
-  "rules": {},
+  "rules": {
+    "react/prop-types": 0
+  },
   "env": {
     "es6": true,
     "browser": true
@@ -11,7 +13,10 @@
       "jsx": true
     }
   },
-  "extends": "eslint:recommended",
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended"
+  ],
   "globals": {
     "Atomics": "readonly",
     "SharedArrayBuffer": "readonly"
