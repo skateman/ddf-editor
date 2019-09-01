@@ -4,11 +4,25 @@ import classSet from 'react-classset';
 
 const ToolboxField = ({dispatch, kind, title, icon}) => {
   const [, drag, preview] = useDrag({
-    item: { type: 'newInput', kind },
+    item: { type: 'input', kind },
     begin: () => {
       setTimeout(() => dispatch({type: 'dragStart'}));
     },
-    end: () => dispatch({type: 'dragEnd'})
+    end: (_, monitor) => {
+      if (!monitor.didDrop()) {
+        return dispatch({type: 'dragEnd'});
+      }
+
+      const { name:target, position } = monitor.getDropResult();
+
+      dispatch({
+        type: 'dropNew',
+        kind,
+        title,
+        target,
+        position
+      });
+    }
   });
 
   return (

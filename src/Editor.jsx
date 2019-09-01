@@ -12,7 +12,8 @@ export default ({...props}) => {
   const { schema:initialSchema } = props;
   const [{schema, isDragging}, dispatch] = useReducer(Reducer, {
     isDragging: false,
-    schema: initialSchema
+    fieldCounter: {},
+    schema: initialSchema,
   });
 
   // Memoize the decorated component mapping for a better performance
