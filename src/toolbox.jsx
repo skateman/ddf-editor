@@ -1,3 +1,6 @@
+import React from "react";
+import ToolboxField from "./toolboxField";
+
 export const toolboxFields = {
   'text-field': {
     title: 'Text Box',
@@ -33,3 +36,16 @@ export const toolboxFields = {
   },
 };
 
+export default () => {
+  return (
+    <ul className="toolbox">
+      {
+        Object.keys(toolboxFields).map(key => (
+          <li>
+            <ToolboxField key={key} {...toolboxFields[key]}/>
+          </li>
+        ))
+      }
+    </ul>
+  )
+};

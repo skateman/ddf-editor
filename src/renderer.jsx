@@ -4,7 +4,7 @@ import { formFieldsMapper, layoutMapper } from '@data-driven-forms/pf3-component
 import { Grid, Row, Col } from 'patternfly-react';
 import classSet from 'react-classset';
 
-import { toolboxFields } from './toolbox';
+import Toolbox, { toolboxFields } from './toolbox';
 import Draggable from './draggable';
 import Reducer from './reducer';
 
@@ -31,7 +31,7 @@ export default ({...props}) => {
   return (
     <Grid fluid={true}>
       <Row>
-        <Col xs={2}></Col>
+        <Col xs={2} className="de-toolbox"><Toolbox/></Col>
         <Col xs={6} className={classSet({'de': true, 'drag': isDragging})}>
           <FormRender
             formFieldsMapper={draggableFormFieldsMapper}
