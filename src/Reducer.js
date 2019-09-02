@@ -17,10 +17,10 @@ const traverse = ({ ...needles }, haystack, found = {}) => {
 
 const parsePosition = (position) => {
    switch (position) {
+     case 'before':
+       return 0;
      case 'after':
        return 1;
-     case 'before':
-       return -1;
      default:
        throw new Error();
    }
@@ -50,9 +50,10 @@ export default (state, { type, ...action }) => {
       return { ...state, isDragging: false };
     case 'dropNew': {
       const { target: { fields, index } } = traverse({target : action.target}, state.schema);
-      const correction = parsePosition(action.position);
+      // As there is no deletion, the target index doesn't change
+      const positionAdjust = parsePosition(action.position);
 
-      fields.splice(index + correction, 0, {
+      fields.splice(index + positionAdjust, 0, {
         component: action.kind,
         name: randomName(action.kind, state.fieldCounter, state.schema),
         label: action.title
@@ -69,26 +70,26 @@ export default (state, { type, ...action }) => {
         },
         target: {
           fields: targetFields,
+          field: targetField,
           index: targetIndex
         }
       } = traverse({ source: action.source, target: action.target }, state.schema);
 
-      // The initial value of the index correction comes from the before/after position
-      let correction = parsePosition(action.position);
+      // The initial value of the position adjustment comes from the before/after position
+      let positionAdjust = parsePosition(action.position);
 
-      // If the context of the drag & drop happens in a single array
-      if (sourceFields === targetFields) {
-        // Ignore the operation if the item would be moved to its original place
-        if (sourceIndex === targetIndex + correction) {
-          return { ...state };
-        }
+      // Delete the source item from its original location
+      sourceFields.splice(sourceIndex, 1);
 
-        // The length of the target array is changing upon deletion
-        correction -= 1;
+      // If both the source and target are in the same array, the indexes might be changed upon deletion. This can
+      // be corrected by decrementing the positionAdjust by 1
+      if (sourceFields === targetFields && targetFields[targetIndex] !== targetField) {
+        positionAdjust -= 1;
       }
 
-      sourceFields.splice(sourceIndex, 1); // Delete the source item from its original location
-      targetFields.splice(targetIndex + correction, 0, sourceField); // Push the source item to its new location
+
+      // Push the source item to its new adjusted position before or after the target
+      targetFields.splice(targetIndex + positionAdjust, 0, sourceField);
 
       return { ...state, isDragging: false };
     }
