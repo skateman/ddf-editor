@@ -41,6 +41,7 @@ export default ({...props}) => {
             layoutMapper={layoutMapper}
             onSubmit={() => undefined}
             schema={schema}
+            showFormControls={false}
           />
         </Col>
         <Col xs={5}></Col>
