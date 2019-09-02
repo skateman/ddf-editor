@@ -93,6 +93,13 @@ export default (state, { type, ...action }) => {
 
       return { ...state, isDragging: false };
     }
+    case 'delete': {
+      const { source: { fields, index } } = traverse({source : action.source}, state.schema);
+
+      fields.splice(index, 1);
+
+      return { ...state }
+    }
     default:
       throw new Error();
   }

@@ -55,6 +55,15 @@
       width: 2em;
       z-index: 10;
       border-left: none;
+
+      ul {
+        list-style-type: none;
+        padding-left: 0;
+
+        li {
+          cursor: pointer;
+        }
+      }
     }
 
     .de-component-overlay {

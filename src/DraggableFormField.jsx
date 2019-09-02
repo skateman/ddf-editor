@@ -68,7 +68,11 @@ export default (Component, dispatch) => {
         <div className="de-component-item">
           <Component {...props}/>
         </div>
-        <div className="de-component-toolbox"></div>
+        <div className="de-component-toolbox">
+          <ul>
+            <li onClick={() => dispatch({type: 'delete', source: name})}><i className="fa fa-trash fa-fw"></i></li>
+          </ul>
+        </div>
         <div className="de-component-overlay">
           <div className={classSet({'overlay-top': true, 'over': isOverTop})} ref={dropTop}></div>
           <div className={classSet({'overlay-bottom': true, 'over': isOverBottom})} ref={dropBottom}></div>
