@@ -1,27 +1,24 @@
 import React, { useState } from 'react';
-import { TabContainer, Nav, NavItem, TabContent, TabPane } from 'patternfly-react';
+import { TabContainer, Nav, TabContent, TabPane } from 'patternfly-react';
+
+import DraggableTabHeader from './DraggableTabHeader';
 
 export default (dispatch) => {
   const DraggableTabs = ({ fields, formOptions }) => {
-    const [activeTab, setActiveTab] = useState(0);
-
+    const [activeTab, setActiveTab] = useState(fields[0].name);
     const handleSelect = (eventKey) => setActiveTab(eventKey);
 
-    const renderTabHeader = (items) => items.map(({ title }, index) => {
-      return (
-        <NavItem key={ index } eventKey={ index } className="de-tab-header-wrapper" >
-          { title }
-          <div className="de-tab-header-overlay">
-            <div className="overlay-left"></div>
-            <div className="overlay-right"></div>
-          </div>
-        </NavItem>
-      );
-    });
+    const renderTabHeader = (items) => items.map(({ name, title }) => (
+      <DraggableTabHeader
+        key={name}
+        active={activeTab === name}
+        {...{name, title, handleSelect, dispatch}}
+      />
+    ));
 
-    const renderTabContent = (items, formOptions) => items.map(({ fields }, index) => {
+    const renderTabContent = (items, formOptions) => items.map(({ name, fields }) => {
       return (
-        <TabPane key={ index } eventKey={ index } >
+        <TabPane key={ name } eventKey={ name } >
           { formOptions.renderForm(fields, formOptions) }
         </TabPane>
       )

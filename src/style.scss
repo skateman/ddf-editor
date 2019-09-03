@@ -94,6 +94,32 @@
   }
 
   .de-tab-header-wrapper {
+    span.drag {
+      opacity: 0.5;
+    }
+
+    .de-tab-header-handle {
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      background-color: rgba(0, 0, 0, 0.1);
+      width: 0.5em;
+      z-index: 10;
+      cursor: grab;
+      display: none;
+
+      &.active {
+        display: inline-block;
+      }
+    }
+
+    &:hover {
+      .de-tab-header-handle {
+        display: inline-block;
+      }
+    }
+
     .de-tab-header-overlay {
       // In order to avoid having a dead spot in the drop zone between the tabs, it is necessary for the two overlays
       // to cover each other at least by a single pixel. Of course this has to be compensated with the border width.
@@ -110,15 +136,21 @@
         display: inline-block;
 
         &.over {
-          &.overlay-left:hover {
+          &.overlay-left {
             border-left: $border-thickness solid rgba(0, 0, 0, 0.4);
           }
 
-          &.overlay-right:hover {
+          &.overlay-right {
             border-right: $border-thickness solid rgba(0, 0, 0, 0.4);
           }
         }
       }
+    }
+  }
+
+  &.drag .de-tab-header-wrapper {
+    .de-tab-header-handle {
+      z-index: -1;
     }
   }
 }
