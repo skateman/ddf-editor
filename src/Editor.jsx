@@ -1,10 +1,11 @@
 import React, { useReducer, useMemo } from "react";
-import FormRender, { layoutComponents } from '@data-driven-forms/react-form-renderer';
+import FormRender, { layoutComponents, componentTypes } from '@data-driven-forms/react-form-renderer';
 import { formFieldsMapper, layoutMapper } from '@data-driven-forms/pf3-component-mapper';
 import { Grid, Row, Col } from 'patternfly-react';
 import classSet from 'react-classset';
 
 import Toolbox, { toolboxFields } from './Toolbox';
+import DraggableTabs from './DraggableTabs';
 import DraggableFormField from './DraggableFormField';
 import Reducer from './Reducer';
 
@@ -24,7 +25,10 @@ export default ({...props}) => {
           ...obj,
           [key]: DraggableFormField(formFieldsMapper[key], dispatch)
         }),
-        {...formFieldsMapper}
+        {
+          ...formFieldsMapper,
+          [componentTypes.TABS]: DraggableTabs(dispatch)
+        }
       ),
     [formFieldsMapper, dispatch]
   );
