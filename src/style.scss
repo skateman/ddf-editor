@@ -14,14 +14,14 @@
       opacity: 0.5;
     }
 
-    .de-component-item {
+    & > .de-component-item {
       @include dashed-border;
       border-right: none;
       padding: 10px 10px 10px 10px;
       width: 100%;
     }
 
-    .de-component-handle {
+    & > .de-component-handle {
       margin: 10px 0px 10px 0px;
       background-color: rgba(0, 0, 0, 0.1);
       width: 1em;
@@ -29,14 +29,11 @@
       cursor: grab;
     }
 
-    .de-component-toolbox {
+    & > .de-component-toolbox {
       @include dashed-border;
       width: 3em;
       z-index: 10;
       border-left: none;
-      display: flex;
-      justify-content: center;
-      align-items: center;
       font-size: large;
 
       ul {
@@ -51,7 +48,7 @@
       }
     }
 
-    .de-component-overlay {
+    & > .de-component-overlay {
       // To avoid double border glitches with the borders when dragging an object, there is an offset on the overlays
       // for compensating the border thickness. This way the upper item's bottom border is being rendered at the same
       // position as the lower item's top border. If an item is being moved between the drop overlays of two objects,
@@ -79,7 +76,7 @@
   }
 
   &.drag .de-component-wrapper {
-    .de-component-handle, .de-component-toolbox {
+    & > .de-component-handle, & > .de-component-toolbox {
       z-index: auto;
     }
   }
