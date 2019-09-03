@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { TabContainer, Nav, TabContent, TabPane } from 'patternfly-react';
+import { TabContainer, Nav, NavItem, TabContent, TabPane } from 'patternfly-react';
 
 import DraggableTabHeader from './DraggableTabHeader';
 
 export default (dispatch) => {
-  const DraggableTabs = ({ fields, formOptions }) => {
+  const DraggableTabs = ({ name:target, fields, formOptions }) => {
     const [activeTab, setActiveTab] = useState(fields[0].name);
     const handleSelect = (eventKey) => setActiveTab(eventKey);
 
@@ -25,10 +25,13 @@ export default (dispatch) => {
     });
 
     return (
-      <TabContainer id="basic-tabs-pf" activeKey={activeTab} onSelect={handleSelect}>
+      <TabContainer id="basic-tabs-pf" activeKey={activeTab}>
         <div>
           <Nav bsClass="nav nav-tabs">
             { renderTabHeader(fields) }
+            <NavItem eventKey="newTab" onSelect={() => dispatch({type: 'newTab', target})}>
+              <i className="fa fa-plus"></i> New Tab
+            </NavItem>
           </Nav>
           <TabContent animation>
             { renderTabContent(fields, formOptions) }

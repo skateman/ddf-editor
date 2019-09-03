@@ -93,6 +93,17 @@ export default (state, { type, ...action }) => {
 
       return { ...state, isDragging: false };
     }
+    case 'newTab': {
+      const { target: { field } } = traverse({ target: action.target }, state.schema);
+      field.fields.push({
+        component: 'tab-item',
+        name: randomName('tab-item', state.fieldCounter, state.schema),
+        title: `Tab ${state.fieldCounter['tab-item']}`,
+        fields: []
+      });
+
+      return { ...state };
+    }
     case 'delete': {
       const { source: { fields, index } } = traverse({source : action.source}, state.schema);
 
