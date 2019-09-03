@@ -24,7 +24,7 @@ export default (dispatch) => {
     });
 
     return (
-      <TabContainer id="basic-tabs-pf" activeKey={activeTab}>
+      <TabContainer id="basic-tabs-pf" activeKey={activeTab} onSelect={() => undefined}>
         <div>
           <Nav bsClass="nav nav-tabs">
             { renderTabHeader(fields) }
