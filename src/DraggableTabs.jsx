@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { TabContainer, Nav, NavItem, TabContent, TabPane } from 'patternfly-react';
 
-
 export default (dispatch) => {
   const DraggableTabs = ({ fields, formOptions }) => {
     const [activeTab, setActiveTab] = useState(0);
@@ -10,8 +9,12 @@ export default (dispatch) => {
 
     const renderTabHeader = (items) => items.map(({ title }, index) => {
       return (
-        <NavItem key={ index } eventKey={ index }>
+        <NavItem key={ index } eventKey={ index } className="de-tab-header-wrapper" >
           { title }
+          <div className="de-tab-header-overlay">
+            <div className="overlay-left"></div>
+            <div className="overlay-right"></div>
+          </div>
         </NavItem>
       );
     });
