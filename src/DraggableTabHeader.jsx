@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { NavItem } from 'patternfly-react';
 import { useDrag, useDrop } from 'react-dnd';
 import classSet from 'react-classset';
 
 const DraggableTabHeader = ({name, title, active, setActiveTab, dispatch}) => {
+
   const [{isDragging}, drag, preview] = useDrag({
     item: { name, type: 'tab' },
     collect: monitor => ({
@@ -40,12 +41,20 @@ const DraggableTabHeader = ({name, title, active, setActiveTab, dispatch}) => {
   const [{ isOver:isOverLeft }, dropLeft] = useDrop(dropArgs('before'));
   const [{ isOver:isOverRight }, dropRight] = useDrop(dropArgs('after'));
 
+  const toolboxRef = useRef(null);
+  // Do not fire the tab change when clicking on the edit/delete icon
+  const handleSelect = (_, e) => {
+    if (!toolboxRef.current.contains(e.target)) {
+      setActiveTab(name);
+    }
+  }
+
   return (
-    <NavItem eventKey={ name } active={ active } onSelect={ () => setActiveTab(name) } className="de-tab-header-wrapper">
+    <NavItem eventKey={ name } active={ active } onSelect={ handleSelect } className="de-tab-header-wrapper">
       <span className={classSet({'drag': isDragging})} ref={preview}>
         <div className={classSet({'de-tab-header-handle': true, 'active': active})} ref={drag}></div>
         { title }
-        <ul className="de-tab-header-toolbox">
+        <ul className="de-tab-header-toolbox" ref={toolboxRef}>
           <li onClick={() => console.warn('Not implemented!')}><i className="fa fa-pencil"></i></li>
           <li onClick={() => console.warn('Not implemented!')}><i className="fa fa-times"></i></li>
         </ul>
