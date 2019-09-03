@@ -45,6 +45,10 @@ const DraggableTabHeader = ({name, title, active, handleSelect, dispatch}) => {
       <span className={classSet({'drag': isDragging})} ref={preview}>
         <div className={classSet({'de-tab-header-handle': true, 'active': active})} ref={drag}></div>
         { title }
+        <ul className="de-tab-header-toolbox">
+          <li onClick={() => console.warn('Not implemented!')}><i className="fa fa-pencil"></i></li>
+          <li onClick={() => console.warn('Not implemented!')}><i className="fa fa-times"></i></li>
+        </ul>
         <div className="de-tab-header-overlay">
           <div className={classSet({'overlay-left': true, 'over': isOverLeft})} ref={dropLeft}></div>
           <div className={classSet({'overlay-right': true, 'over': isOverRight})} ref={dropRight}></div>

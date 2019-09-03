@@ -105,6 +105,18 @@
       }
     }
 
+    ul.de-tab-header-toolbox {
+      list-style: none;
+      display: inline-block;
+      padding-left: 0;
+      margin-bottom: 0;
+
+      li {
+        padding-left: 0.5em;
+        display: inline;
+      }
+    }
+
     &:hover {
       .de-tab-header-handle {
         display: inline-block;
