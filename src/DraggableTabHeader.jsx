@@ -3,7 +3,7 @@ import { NavItem } from 'patternfly-react';
 import { useDrag, useDrop } from 'react-dnd';
 import classSet from 'react-classset';
 
-const DraggableTabHeader = ({name, title, active, handleSelect, dispatch}) => {
+const DraggableTabHeader = ({name, title, active, setActiveTab, dispatch}) => {
   const [{isDragging}, drag, preview] = useDrag({
     item: { name, type: 'tab' },
     collect: monitor => ({
@@ -41,7 +41,7 @@ const DraggableTabHeader = ({name, title, active, handleSelect, dispatch}) => {
   const [{ isOver:isOverRight }, dropRight] = useDrop(dropArgs('after'));
 
   return (
-    <NavItem eventKey={ name } active={ active } onSelect={ handleSelect } className="de-tab-header-wrapper">
+    <NavItem eventKey={ name } active={ active } onSelect={ () => setActiveTab(name) } className="de-tab-header-wrapper">
       <span className={classSet({'drag': isDragging})} ref={preview}>
         <div className={classSet({'de-tab-header-handle': true, 'active': active})} ref={drag}></div>
         { title }

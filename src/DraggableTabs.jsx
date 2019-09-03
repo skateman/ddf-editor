@@ -6,13 +6,12 @@ import DraggableTabHeader from './DraggableTabHeader';
 export default (dispatch) => {
   const DraggableTabs = ({ name:target, fields, formOptions }) => {
     const [activeTab, setActiveTab] = useState(fields[0].name);
-    const handleSelect = (eventKey) => setActiveTab(eventKey);
 
     const renderTabHeader = (items) => items.map(({ name, title }) => (
       <DraggableTabHeader
         key={name}
         active={activeTab === name}
-        {...{name, title, handleSelect, dispatch}}
+        {...{name, title, setActiveTab, dispatch}}
       />
     ));
 
