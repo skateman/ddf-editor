@@ -56,7 +56,7 @@ const DraggableTabHeader = ({name, title, active, setActiveTab, dispatch}) => {
         { title }
         <ul className="de-tab-header-toolbox" ref={toolboxRef}>
           <li onClick={() => console.warn('Not implemented!')}><i className="fa fa-pencil"></i></li>
-          <li onClick={() => console.warn('Not implemented!')}><i className="fa fa-times"></i></li>
+          <li onClick={() => dispatch({type: 'delete', source: name})}><i className="fa fa-times"></i></li>
         </ul>
         <div className="de-tab-header-overlay">
           <div className={classSet({'overlay-left': true, 'over': isOverLeft})} ref={dropLeft}></div>
