@@ -12,18 +12,34 @@ const createSchema = () => ({
           title: 'Tab 1',
           fields: [
             {
-              name: 'username',
-              label: 'Username',
-              component: componentTypes.TEXT_FIELD,
-            }, {
-              name: 'password',
-              label: 'Password',
-              component: componentTypes.TEXT_FIELD,
-              type: 'password',
-            }, {
-              component: componentTypes.CHECKBOX,
-              name: 'remember',
-              label: 'Remember me',
+              component: componentTypes.SUB_FORM,
+              name: 'sub-form-1',
+              title: 'Basic info',
+              fields: [
+                {
+                  name: 'username',
+                  label: 'Username',
+                  component: componentTypes.TEXT_FIELD,
+                },
+                {
+                  name: 'password',
+                  label: 'Password',
+                  component: componentTypes.TEXT_FIELD,
+                  type: 'password',
+                },
+              ]
+            },
+            {
+              component: componentTypes.SUB_FORM,
+              name: 'sub-form-2',
+              title: 'Options',
+              fields: [
+                {
+                  component: componentTypes.CHECKBOX,
+                  name: 'remember',
+                  label: 'Remember me',
+                }
+              ]
             }
           ]
         },
