@@ -16,6 +16,7 @@
 
     .de-component-item {
       @include dashed-border;
+      border-right: none;
       padding: 10px 10px 10px 10px;
       width: 100%;
     }
@@ -30,15 +31,21 @@
 
     .de-component-toolbox {
       @include dashed-border;
-      width: 2em;
+      width: 3em;
       z-index: 10;
       border-left: none;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: large;
 
       ul {
         list-style-type: none;
         padding-left: 0;
+        margin-bottom: 0;
 
         li {
+          display: inline;
           cursor: pointer;
         }
       }

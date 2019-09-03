@@ -70,7 +70,8 @@ const DraggableFormField = (Component, dispatch) => {
         </div>
         <div className="de-component-toolbox">
           <ul>
-            <li onClick={() => dispatch({type: 'delete', source: name})}><i className="fa fa-trash fa-fw"></i></li>
+            <li onClick={() => console.warn('Not implemented!')}><i className="fa fa-pencil fa-fw"></i></li>
+            <li onClick={() => dispatch({type: 'delete', source: name})}><i className="fa fa-times fa-fw"></i></li>
           </ul>
         </div>
         <div className="de-component-overlay">
