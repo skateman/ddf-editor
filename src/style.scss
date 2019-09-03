@@ -1,10 +1,4 @@
 .de {
-  &.drag .de-component-wrapper {
-    .de-component-handle, .de-component-toolbox {
-      z-index: auto;
-    }
-  }
-
   .de-component-wrapper {
     display: flex;
     align-items: stretch;
@@ -90,6 +84,12 @@
           }
         }
       }
+    }
+  }
+
+  &.drag .de-component-wrapper {
+    .de-component-handle, .de-component-toolbox {
+      z-index: auto;
     }
   }
 }
