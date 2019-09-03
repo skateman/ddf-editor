@@ -10,24 +10,8 @@
       border: 2px dashed rgba(0, 0, 0, 0.1);
     }
 
-    @mixin gradient($rotate) {
-      background: linear-gradient($rotate, rgba(255,255,255,0) 60%, rgba(0,221,255,0.2) 100%);
-    }
-
     &.drag {
       opacity: 0.5;
-    }
-
-    &:not(.drag) {
-      .de-component-overlay {
-        .hover-top {
-          @include gradient(180deg);
-        }
-
-        .hover-bottom {
-          @include gradient(0deg);
-        }
-      }
     }
 
     .de-component-item {
@@ -94,7 +78,7 @@
   }
 
   .de-tab-header-wrapper {
-    span.drag {
+    .drag {
       opacity: 0.5;
     }
 
@@ -126,15 +110,16 @@
       $border-thickness: 2px;
       position: absolute;
       top: 0;
-      right: calc(#{-$border-thickness} - 1px);
+      right: #{-$border-thickness};
       bottom: 0;
       left: -1px;
+      z-index: auto;
 
       & > div {
         width: 50%;
         height: 100%;
-        display: inline-block;
-
+        display: inline-block
+;
         &.over {
           &.overlay-left {
             border-left: $border-thickness solid rgba(0, 0, 0, 0.4);
@@ -149,8 +134,8 @@
   }
 
   &.drag .de-tab-header-wrapper {
-    .de-tab-header-handle {
-      z-index: -1;
+    .de-tab-header-overlay {
+      z-index: 10;
     }
   }
 }
