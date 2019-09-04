@@ -45,7 +45,7 @@ const randomName = (kind, fieldCounter, haystack) => {
 export default (state, { type, ...action }) => {
   switch (type) {
     case 'dragStart':
-      return { ...state, isDragging: true };
+      return { ...state, isDragging: action.itemType };
     case 'dragEnd':
       return { ...state, isDragging: false };
     case 'dropNew': {

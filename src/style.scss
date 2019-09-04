@@ -74,7 +74,7 @@
     }
   }
 
-  &.drag .de-horizontal-overlay {
+  &.drag-input .de-horizontal-overlay {
     z-index: auto;
   }
 
@@ -146,7 +146,7 @@
     }
   }
 
-  &.drag .de-tab-header-wrapper {
+  &.drag-tab .de-tab-header-wrapper {
     .de-vertical-overlay {
       z-index: auto;
     }

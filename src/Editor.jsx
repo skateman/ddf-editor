@@ -23,7 +23,7 @@ export default ({...props}) => {
       Object.keys(toolboxFields).reduce(
         (obj, key) => ({
           ...obj,
-          [key]: DraggableFormField(formFieldsMapper[key], dispatch)
+          [key]: DraggableFormField(formFieldsMapper[key], 'input', dispatch)
         }),
         {
           ...formFieldsMapper,
@@ -33,13 +33,15 @@ export default ({...props}) => {
     [formFieldsMapper, dispatch]
   );
 
+  const dragClass = isDragging ? `drag-${isDragging}` : undefined;
+
   return (
     <Grid fluid={true}>
       <Row>
         <Col xs={1}>
           <Toolbox dispatch={dispatch}/>
         </Col>
-        <Col xs={6} className={classSet({'de': true, 'drag': isDragging})}>
+        <Col xs={6} className={classSet('de', dragClass)}>
           <FormRender
             formFieldsMapper={draggableFormFieldsMapper}
             layoutMapper={layoutMapper}

@@ -4,14 +4,15 @@ import { useDrag, useDrop } from 'react-dnd';
 import classSet from 'react-classset';
 
 const DraggableTabHeader = ({name, title, active, setActiveTab, dispatch}) => {
+  const itemType = 'tab';
 
   const [{isDragging}, drag, preview] = useDrag({
-    item: { name, type: 'tab' },
+    item: { name, type: itemType },
     collect: monitor => ({
       isDragging: monitor.isDragging()
     }),
     begin: () => {
-      setTimeout(() => dispatch({type: 'dragStart'}));
+      setTimeout(() => dispatch({type: 'dragStart', itemType}));
     },
     end: (_, monitor) => {
       if (!monitor.didDrop()) {
@@ -30,7 +31,7 @@ const DraggableTabHeader = ({name, title, active, setActiveTab, dispatch}) => {
   });
 
   const dropArgs = (position) => ({
-    accept: 'tab',
+    accept: itemType,
     canDrop: item => item.name !== name,
     collect: monitor => ({
       isOver: monitor.canDrop() && monitor.isOver()

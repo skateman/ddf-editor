@@ -2,12 +2,12 @@ import React from "react";
 import { useDrag, useDrop } from 'react-dnd';
 import classSet from 'react-classset';
 
-const DraggableFormField = (Component, dispatch) => {
+const DraggableFormField = (Component, itemType, dispatch) => {
   return ({...props}) => {
     const { name } = props.input;
 
     const [{isDragging}, drag, preview] = useDrag({
-      item: { name, type: 'input' },
+      item: { name, type: itemType },
       collect: monitor => ({
         isDragging: monitor.isDragging()
       }),
@@ -22,7 +22,7 @@ const DraggableFormField = (Component, dispatch) => {
         // should happen with a minimal delay which can be achieved by using setTimeout. As the return value
         // of the begin function can not be a number, curly braces have been used to ignore the result of the
         // setTimeout function. Long story short: this set of "hacks" is necessary :)
-        setTimeout(() => dispatch({type: 'dragStart'}));
+        setTimeout(() => dispatch({type: 'dragStart', itemType}));
       },
       end: (_, monitor) => {
         // If the dragging operation ended with an invalid drop target, we just tell the main component that
@@ -47,7 +47,7 @@ const DraggableFormField = (Component, dispatch) => {
     // As it is possible to drag different kind of items and drop them into the same drop zone, this handler
     // only passes the name of the drop target and the before/after position to the dragging handler.
     const dropArgs = (position) => ({
-      accept: 'input',
+      accept: itemType,
       canDrop: item => item.name !== name,
       collect: monitor => ({
         isOver: monitor.canDrop() && monitor.isOver()
