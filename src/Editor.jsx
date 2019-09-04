@@ -5,6 +5,7 @@ import { Grid, Row, Col } from 'patternfly-react';
 import classSet from 'react-classset';
 
 import Toolbox, { toolboxFields } from './Toolbox';
+import Properties from './Properties';
 import DraggableTabs from './DraggableTabs';
 import DraggableInput from './DraggableInput';
 import DraggableSection from './DraggableSection';
@@ -52,7 +53,9 @@ export default ({...props}) => {
             showFormControls={false}
           />
         </Col>
-        <Col xs={5}></Col>
+        <Col xs={5}>
+          <Properties schema={schema} />
+        </Col>
       </Row>
     </Grid>
    )
