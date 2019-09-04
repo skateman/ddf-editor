@@ -39,7 +39,7 @@ export const toolboxFields = {
 
 const Toolbox = ({dispatch}) => {
   return (
-    <ul className="de-toolbox">
+    <ul className="toolbox">
       {
         Object.keys(toolboxFields).map(key => (
           <li key={key} className="toolbox-field">

@@ -1,195 +1,202 @@
-.de {
-  .input-wrapper, .section-wrapper {
-    display: flex;
-    align-items: stretch;
-    padding: 0px 10px 0px 10px;
-    position: relative;
-
-    @mixin dashed-border {
-      margin: 10px 0px 10px 0px;
-      border: 2px dashed rgba(0, 0, 0, 0.1);
-    }
-
-    &.drag {
-      opacity: 0.5;
-    }
-
-    & > .item {
-      @include dashed-border;
-      border-right-style: none;
-      padding: 10px 10px 10px 10px;
+.dialog-editor {
+  .dialog-toolbox {
+    ul.toolbox {
       width: 100%;
+      padding-left: 0;
+      list-style-type: none;
+      border: 2px dashed rgba(0, 0, 0, 0.1);
 
-      &.new-section {
+      & > li.toolbox-field {
+        width: 100%;
         text-align: center;
-        border-right-style: dashed;
-        cursor: pointer;
+        border: 2px dashed rgba(0, 0, 0, 0.1);
+
+        .toolbox-field-inner {
+          cursor: grab;
+
+          .icon {
+            font-size: xx-large;
+          }
+        }
+
+      }
+    }
+  }
+
+  .dialog-renderer {
+    .input-wrapper, .section-wrapper {
+      display: flex;
+      align-items: stretch;
+      padding: 0px 10px 0px 10px;
+      position: relative;
+
+      @mixin dashed-border {
+        margin: 10px 0px 10px 0px;
+        border: 2px dashed rgba(0, 0, 0, 0.1);
+      }
+
+      &.drag {
+        opacity: 0.5;
+      }
+
+      & > .item {
+        @include dashed-border;
+        border-right-style: none;
+        padding: 10px 10px 10px 10px;
+        width: 100%;
+
+        &.new-section {
+          text-align: center;
+          border-right-style: dashed;
+          cursor: pointer;
+        }
+      }
+
+      & > .handle {
+        margin: 10px 0px 10px 0px;
+        background-color: rgba(0, 0, 0, 0.1);
+        width: 1em;
+        cursor: grab;
+      }
+
+      & > .toolbox {
+        @include dashed-border;
+        width: 3em;
+        border-left: none;
+        font-size: large;
+
+        ul {
+          list-style-type: none;
+          padding-left: 0;
+          margin-bottom: 0;
+
+          li {
+            display: inline;
+            cursor: pointer;
+          }
+        }
+      }
+
+      & > .horizontal-overlay {
+        // To avoid double border glitches with the borders when dragging an object, there is an offset on the overlays
+        // for compensating the border thickness. This way the upper item's bottom border is being rendered at the same
+        // position as the lower item's top border. If an item is being moved between the drop overlays of two objects,
+        // the two borders switch each other seamlessly.
+        $border-thickness: 2px;
+        position: absolute;
+        top: -$border-thickness;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        z-index: -10;
+
+        & > div {
+          height: 50%;
+
+          &.over {
+            &.overlay-top {
+              border-top: $border-thickness solid rgba(0, 0, 0, 0.4);
+            }
+            &.overlay-bottom {
+              border-bottom: $border-thickness solid rgba(0, 0, 0, 0.4);
+            }
+          }
+        }
       }
     }
 
-    & > .handle {
-      margin: 10px 0px 10px 0px;
-      background-color: rgba(0, 0, 0, 0.1);
-      width: 1em;
-      cursor: grab;
+    &.drag-input .input-wrapper .horizontal-overlay,
+    &.drag-section .section-wrapper .horizontal-overlay {
+      z-index: auto;
     }
 
-    & > .toolbox {
-      @include dashed-border;
-      width: 3em;
-      border-left: none;
-      font-size: large;
+    .section-wrapper .empty {
+      height: 4em;
 
-      ul {
-        list-style-type: none;
+      &.over {
+        border-top: 2px solid rgba(0, 0, 0, 0.4);
+      }
+    }
+
+    .tab-header-wrapper {
+      .drag {
+        opacity: 0.5;
+      }
+
+      .handle {
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.1);
+        width: 0.5em;
+        cursor: grab;
+        display: none;
+
+        &.active {
+          display: inline-block;
+        }
+      }
+
+      &:hover {
+        .handle {
+          display: inline-block;
+        }
+      }
+
+      ul.toolbox {
+        list-style: none;
+        display: inline-block;
         padding-left: 0;
         margin-bottom: 0;
 
         li {
+          padding-left: 0.5em;
           display: inline;
           cursor: pointer;
         }
       }
-    }
 
-    & > .horizontal-overlay {
-      // To avoid double border glitches with the borders when dragging an object, there is an offset on the overlays
-      // for compensating the border thickness. This way the upper item's bottom border is being rendered at the same
-      // position as the lower item's top border. If an item is being moved between the drop overlays of two objects,
-      // the two borders switch each other seamlessly.
-      $border-thickness: 2px;
-      position: absolute;
-      top: -$border-thickness;
-      right: 0;
-      bottom: 0;
-      left: 0;
-      z-index: -10;
+      .vertical-overlay {
+        // In order to avoid having a dead spot in the drop zone between the tabs, it is necessary for the two overlays
+        // to cover each other at least by a single pixel. Of course this has to be compensated with the border width.
+        $border-thickness: 2px;
+        position: absolute;
+        top: 0;
+        right: #{-$border-thickness};
+        bottom: 0;
+        left: -1px;
+        z-index: -10;
 
-      & > div {
-        height: 50%;
+        & > div {
+          width: 50%;
+          height: 100%;
+          display: inline-block;
 
-        &.over {
-          &.overlay-top {
-            border-top: $border-thickness solid rgba(0, 0, 0, 0.4);
-          }
-          &.overlay-bottom {
-            border-bottom: $border-thickness solid rgba(0, 0, 0, 0.4);
-          }
-        }
-      }
-    }
-  }
+          &.over {
+            &.overlay-left {
+              border-left: $border-thickness solid rgba(0, 0, 0, 0.4);
+            }
 
-  &.drag-input .input-wrapper .horizontal-overlay,
-  &.drag-section .section-wrapper .horizontal-overlay {
-    z-index: auto;
-  }
-
-  .section-wrapper .empty {
-    height: 4em;
-
-    &.over {
-      border-top: 2px solid rgba(0, 0, 0, 0.4);
-    }
-  }
-
-  .tab-header-wrapper {
-    .drag {
-      opacity: 0.5;
-    }
-
-    .handle {
-      position: absolute;
-      top: 0;
-      left: 0;
-      bottom: 0;
-      background-color: rgba(0, 0, 0, 0.1);
-      width: 0.5em;
-      cursor: grab;
-      display: none;
-
-      &.active {
-        display: inline-block;
-      }
-    }
-
-    &:hover {
-      .handle {
-        display: inline-block;
-      }
-    }
-
-    ul.toolbox {
-      list-style: none;
-      display: inline-block;
-      padding-left: 0;
-      margin-bottom: 0;
-
-      li {
-        padding-left: 0.5em;
-        display: inline;
-        cursor: pointer;
-      }
-    }
-
-    .vertical-overlay {
-      // In order to avoid having a dead spot in the drop zone between the tabs, it is necessary for the two overlays
-      // to cover each other at least by a single pixel. Of course this has to be compensated with the border width.
-      $border-thickness: 2px;
-      position: absolute;
-      top: 0;
-      right: #{-$border-thickness};
-      bottom: 0;
-      left: -1px;
-      z-index: -10;
-
-      & > div {
-        width: 50%;
-        height: 100%;
-        display: inline-block;
-
-        &.over {
-          &.overlay-left {
-            border-left: $border-thickness solid rgba(0, 0, 0, 0.4);
-          }
-
-          &.overlay-right {
-            border-right: $border-thickness solid rgba(0, 0, 0, 0.4);
+            &.overlay-right {
+              border-right: $border-thickness solid rgba(0, 0, 0, 0.4);
+            }
           }
         }
       }
     }
-  }
 
-  &.drag-tab .tab-header-wrapper {
-    .vertical-overlay {
-      z-index: auto;
-    }
-  }
-
-  .spacer {
-    height: 1em;
-  }
-}
-
-ul.de-toolbox {
-  width: 100%;
-  padding-left: 0;
-  list-style-type: none;
-  border: 2px dashed rgba(0, 0, 0, 0.1);
-
-  & > li.toolbox-field {
-    width: 100%;
-    text-align: center;
-    border: 2px dashed rgba(0, 0, 0, 0.1);
-
-    .toolbox-field-inner {
-      cursor: grab;
-
-      .icon {
-        font-size: xx-large;
+    &.drag-tab .tab-header-wrapper {
+      .vertical-overlay {
+        z-index: auto;
       }
     }
 
+    .spacer {
+      height: 1em;
+    }
+  }
+
+  .dialog-properties {
   }
 }

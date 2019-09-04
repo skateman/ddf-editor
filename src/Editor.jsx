@@ -39,12 +39,12 @@ export default ({...props}) => {
   const dragClass = isDragging ? `drag-${isDragging}` : undefined;
 
   return (
-    <Grid fluid={true}>
+    <Grid fluid={true} className="dialog-editor">
       <Row>
-        <Col xs={1}>
+        <Col xs={1} className="dialog-toolbox">
           <Toolbox dispatch={dispatch}/>
         </Col>
-        <Col xs={7} className={classSet('de', dragClass)}>
+        <Col xs={7} className={classSet('dialog-renderer', dragClass)}>
           <FormRender
             formFieldsMapper={draggableFormFieldsMapper}
             layoutMapper={layoutMapper}
@@ -53,7 +53,7 @@ export default ({...props}) => {
             showFormControls={false}
           />
         </Col>
-        <Col xs={4}>
+        <Col xs={4} className="dialog-properties">
           <Properties schema={schema} />
         </Col>
       </Row>
