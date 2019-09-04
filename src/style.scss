@@ -25,14 +25,12 @@
       margin: 10px 0px 10px 0px;
       background-color: rgba(0, 0, 0, 0.1);
       width: 1em;
-      z-index: 10;
       cursor: grab;
     }
 
     & > .de-component-toolbox {
       @include dashed-border;
       width: 3em;
-      z-index: 10;
       border-left: none;
       font-size: large;
 
@@ -59,6 +57,7 @@
       right: 0;
       bottom: 0;
       left: 0;
+      z-index: -10;
 
       & > div {
         height: 50%;
@@ -75,10 +74,8 @@
     }
   }
 
-  &.drag .de-component-wrapper {
-    & > .de-component-handle, & > .de-component-toolbox {
-      z-index: auto;
-    }
+  &.drag .de-component-overlay {
+    z-index: auto;
   }
 
   .de-tab-header-wrapper {
@@ -93,11 +90,16 @@
       bottom: 0;
       background-color: rgba(0, 0, 0, 0.1);
       width: 0.5em;
-      z-index: 10;
       cursor: grab;
       display: none;
 
       &.active {
+        display: inline-block;
+      }
+    }
+
+    &:hover {
+      .de-tab-header-handle {
         display: inline-block;
       }
     }
@@ -112,12 +114,6 @@
         padding-left: 0.5em;
         display: inline;
         cursor: pointer;
-      }
-    }
-
-    &:hover {
-      .de-tab-header-handle {
-        display: inline-block;
       }
     }
 
@@ -138,8 +134,6 @@
         display: inline-block;
 
         &.over {
-          z-index: auto;
-
           &.overlay-left {
             border-left: $border-thickness solid rgba(0, 0, 0, 0.4);
           }
@@ -154,7 +148,7 @@
 
   &.drag .de-tab-header-wrapper {
     .de-tab-header-overlay {
-      z-index: 10;
+      z-index: auto;
     }
   }
 }
