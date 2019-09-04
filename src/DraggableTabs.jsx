@@ -38,6 +38,7 @@ export default (dispatch) => {
             </NavItem>
           </Nav>
           <TabContent animation>
+            <div class="spacer"></div>
             { renderTabContent(fields, formOptions) }
           </TabContent>
         </div>

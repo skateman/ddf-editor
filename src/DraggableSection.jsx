@@ -45,7 +45,7 @@ const DraggableSection = (Component, dispatch) => {
     const [{ isOver:isOverBottom }, dropBottom] = useDrop(dropArgs('after'));
 
     return (
-      <div className={classSet({'section-wrapper': true, 'drag': isDragging})} ref={preview}>
+      <div className={classSet({'section-wrapper': true, 'empty': props.fields.length === 0, 'drag': isDragging})} ref={preview}>
         <div className="handle" ref={drag}></div>
         <div className="item">
           <Component {...props}/>

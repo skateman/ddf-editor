@@ -85,6 +85,10 @@
     z-index: auto;
   }
 
+  .section-wrapper.empty > .item {
+    padding-bottom: 5em;
+  }
+
   .tab-header-wrapper {
     .drag {
       opacity: 0.5;
@@ -157,6 +161,10 @@
     .vertical-overlay {
       z-index: auto;
     }
+  }
+
+  .spacer {
+    height: 1em;
   }
 }
 
