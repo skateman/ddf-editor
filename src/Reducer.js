@@ -49,15 +49,20 @@ export default (state, { type, ...action }) => {
     case 'dragEnd':
       return { ...state, isDragging: false };
     case 'dropNew': {
-      const { target: { parent, index } } = traverse({target : action.target}, state.schema);
-      // As there is no deletion, the target index doesn't change
-      const positionAdjust = parsePosition(action.position);
+      const { target: { parent, field, index } } = traverse({target : action.target}, state.schema);
 
-      parent.fields.splice(index + positionAdjust, 0, {
+      const item = {
         component: action.kind,
         name: randomName(action.kind, state.fieldCounter, state.schema),
         label: action.title
-      });
+      };
+
+      // Dropping an item as a child, e.g. into an empty section
+      if (action.position === 'child') {
+        field.fields.push(item)
+      } else {
+        parent.fields.splice(index + parsePosition(action.position), 0, item);
+      }
 
       return { ...state, isDragging: false };
     }
@@ -75,21 +80,25 @@ export default (state, { type, ...action }) => {
         }
       } = traverse({ source: action.source, target: action.target }, state.schema);
 
-      // The initial value of the position adjustment comes from the before/after position
-      let positionAdjust = parsePosition(action.position);
-
       // Delete the source item from its original location
       sourceParent.fields.splice(sourceIndex, 1);
 
-      // If both the source and target are in the same array, the indexes might be changed upon deletion. This can
-      // be corrected by decrementing the positionAdjust by 1
-      if (sourceParent === targetParent && targetParent.fields[targetIndex] !== targetField) {
-        positionAdjust -= 1;
+      // Dropping an item as a child, e.g. into an empty section
+      if (action.position === 'child') {
+        targetField.fields.push(sourceField);
+      } else {
+        // The initial value of the position adjustment comes from the before/after position
+        let positionAdjust = parsePosition(action.position);
+
+        // If both the source and target are in the same array, the indexes might be changed upon deletion. This can
+        // be corrected by decrementing the positionAdjust by 1
+        if (sourceParent === targetParent && targetParent.fields[targetIndex] !== targetField) {
+          positionAdjust -= 1;
+        }
+
+        // Push the source item to its new adjusted position before or after the target
+        targetParent.fields.splice(targetIndex + positionAdjust, 0, sourceField);
       }
-
-
-      // Push the source item to its new adjusted position before or after the target
-      targetParent.fields.splice(targetIndex + positionAdjust, 0, sourceField);
 
       return { ...state, isDragging: false };
     }
