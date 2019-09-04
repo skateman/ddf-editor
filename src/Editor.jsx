@@ -7,6 +7,7 @@ import classSet from 'react-classset';
 import Toolbox, { toolboxFields } from './Toolbox';
 import DraggableTabs from './DraggableTabs';
 import DraggableFormField from './DraggableFormField';
+import DraggableSection from './DraggableSection';
 import Reducer from './Reducer';
 
 export default ({...props}) => {
@@ -27,6 +28,7 @@ export default ({...props}) => {
         }),
         {
           ...formFieldsMapper,
+          [componentTypes.SUB_FORM]: DraggableSection(formFieldsMapper[componentTypes.SUB_FORM], dispatch),
           [componentTypes.TABS]: DraggableTabs(dispatch)
         }
       ),

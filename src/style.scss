@@ -1,5 +1,5 @@
 .de {
-  .input-wrapper {
+  .input-wrapper, .section-wrapper {
     display: flex;
     align-items: stretch;
     padding: 0px 10px 0px 10px;
@@ -74,7 +74,8 @@
     }
   }
 
-  &.drag-input .horizontal-overlay {
+  &.drag-input .input-wrapper .horizontal-overlay,
+  &.drag-section .section-wrapper .horizontal-overlay {
     z-index: auto;
   }
 
