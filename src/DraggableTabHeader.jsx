@@ -51,15 +51,15 @@ const DraggableTabHeader = ({name, title, active, setActiveTab, dispatch}) => {
   }
 
   return (
-    <NavItem eventKey={ name } active={ active } onSelect={ handleSelect } className="de-tab-header-wrapper">
+    <NavItem eventKey={ name } active={ active } onSelect={ handleSelect } className="tab-header-wrapper">
       <span className={classSet({'drag': isDragging})} ref={preview}>
-        <div className={classSet({'de-tab-header-handle': true, 'active': active})} ref={drag}></div>
+        <div className={classSet({'handle': true, 'active': active})} ref={drag}></div>
         { title }
-        <ul className="de-tab-header-toolbox" ref={toolboxRef}>
+        <ul className="toolbox" ref={toolboxRef}>
           <li onClick={() => console.warn('Not implemented!')}><i className="fa fa-pencil"></i></li>
           <li onClick={() => dispatch({type: 'delete', source: name})}><i className="fa fa-times"></i></li>
         </ul>
-        <div className="de-vertical-overlay">
+        <div className="vertical-overlay">
           <div className={classSet({'overlay-left': true, 'over': isOverLeft})} ref={dropLeft}></div>
           <div className={classSet({'overlay-right': true, 'over': isOverRight})} ref={dropRight}></div>
         </div>

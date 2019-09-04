@@ -1,5 +1,5 @@
 .de {
-  .de-input-wrapper {
+  .input-wrapper {
     display: flex;
     align-items: stretch;
     padding: 0px 10px 0px 10px;
@@ -14,21 +14,21 @@
       opacity: 0.5;
     }
 
-    & > .de-input-item {
+    & > .item {
       @include dashed-border;
       border-right: none;
       padding: 10px 10px 10px 10px;
       width: 100%;
     }
 
-    & > .de-input-handle {
+    & > .handle {
       margin: 10px 0px 10px 0px;
       background-color: rgba(0, 0, 0, 0.1);
       width: 1em;
       cursor: grab;
     }
 
-    & > .de-input-toolbox {
+    & > .toolbox {
       @include dashed-border;
       width: 3em;
       border-left: none;
@@ -46,7 +46,7 @@
       }
     }
 
-    & > .de-horizontal-overlay {
+    & > .horizontal-overlay {
       // To avoid double border glitches with the borders when dragging an object, there is an offset on the overlays
       // for compensating the border thickness. This way the upper item's bottom border is being rendered at the same
       // position as the lower item's top border. If an item is being moved between the drop overlays of two objects,
@@ -74,16 +74,16 @@
     }
   }
 
-  &.drag-input .de-horizontal-overlay {
+  &.drag-input .horizontal-overlay {
     z-index: auto;
   }
 
-  .de-tab-header-wrapper {
+  .tab-header-wrapper {
     .drag {
       opacity: 0.5;
     }
 
-    .de-tab-header-handle {
+    .handle {
       position: absolute;
       top: 0;
       left: 0;
@@ -99,12 +99,12 @@
     }
 
     &:hover {
-      .de-tab-header-handle {
+      .handle {
         display: inline-block;
       }
     }
 
-    ul.de-tab-header-toolbox {
+    ul.toolbox {
       list-style: none;
       display: inline-block;
       padding-left: 0;
@@ -117,7 +117,7 @@
       }
     }
 
-    .de-vertical-overlay {
+    .vertical-overlay {
       // In order to avoid having a dead spot in the drop zone between the tabs, it is necessary for the two overlays
       // to cover each other at least by a single pixel. Of course this has to be compensated with the border width.
       $border-thickness: 2px;
@@ -146,8 +146,8 @@
     }
   }
 
-  &.drag-tab .de-tab-header-wrapper {
-    .de-vertical-overlay {
+  &.drag-tab .tab-header-wrapper {
+    .vertical-overlay {
       z-index: auto;
     }
   }
