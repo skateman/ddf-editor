@@ -16,9 +16,15 @@
 
     & > .item {
       @include dashed-border;
-      border-right: none;
+      border-right-style: none;
       padding: 10px 10px 10px 10px;
       width: 100%;
+
+      &.new-section {
+        text-align: center;
+        border-right-style: dashed;
+        cursor: pointer;
+      }
     }
 
     & > .handle {

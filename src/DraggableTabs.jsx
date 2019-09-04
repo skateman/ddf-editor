@@ -19,6 +19,11 @@ export default (dispatch) => {
       return (
         <TabPane key={ name } eventKey={ name } >
           { formOptions.renderForm(fields, formOptions) }
+          <div className="section-wrapper">
+            <div className="item new-section" onClick={() => dispatch({type: 'newSection', target: name})}>
+              <i className="fa fa-plus"></i> New section
+            </div>
+          </div>
         </TabPane>
       )
     });

@@ -93,6 +93,17 @@ export default (state, { type, ...action }) => {
 
       return { ...state, isDragging: false };
     }
+    case 'newSection': {
+      const { target: { field } } = traverse({ target: action.target }, state.schema);
+      field.fields.push({
+        component: 'sub-form',
+        name: randomName('sub-form', state.fieldCounter, state.schema),
+        title: `Section ${state.fieldCounter['sub-form']}`,
+        fields: []
+      });
+
+      return { ...state };
+    }
     case 'newTab': {
       const { target: { field } } = traverse({ target: action.target }, state.schema);
       field.fields.push({
