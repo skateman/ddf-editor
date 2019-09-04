@@ -44,7 +44,7 @@ export default ({...props}) => {
         <Col xs={1}>
           <Toolbox dispatch={dispatch}/>
         </Col>
-        <Col xs={6} className={classSet('de', dragClass)}>
+        <Col xs={7} className={classSet('de', dragClass)}>
           <FormRender
             formFieldsMapper={draggableFormFieldsMapper}
             layoutMapper={layoutMapper}
@@ -53,7 +53,7 @@ export default ({...props}) => {
             showFormControls={false}
           />
         </Col>
-        <Col xs={5}>
+        <Col xs={4}>
           <Properties schema={schema} />
         </Col>
       </Row>
