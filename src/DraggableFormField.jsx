@@ -74,7 +74,7 @@ const DraggableFormField = (Component, dispatch) => {
             <li onClick={() => dispatch({type: 'delete', source: name})}><i className="fa fa-times fa-fw"></i></li>
           </ul>
         </div>
-        <div className="de-component-overlay">
+        <div className="de-horizontal-overlay">
           <div className={classSet({'overlay-top': true, 'over': isOverTop})} ref={dropTop}></div>
           <div className={classSet({'overlay-bottom': true, 'over': isOverBottom})} ref={dropBottom}></div>
         </div>

@@ -46,7 +46,7 @@
       }
     }
 
-    & > .de-component-overlay {
+    & > .de-horizontal-overlay {
       // To avoid double border glitches with the borders when dragging an object, there is an offset on the overlays
       // for compensating the border thickness. This way the upper item's bottom border is being rendered at the same
       // position as the lower item's top border. If an item is being moved between the drop overlays of two objects,
@@ -74,7 +74,7 @@
     }
   }
 
-  &.drag .de-component-overlay {
+  &.drag .de-horizontal-overlay {
     z-index: auto;
   }
 
@@ -117,7 +117,7 @@
       }
     }
 
-    .de-tab-header-overlay {
+    .de-vertical-overlay {
       // In order to avoid having a dead spot in the drop zone between the tabs, it is necessary for the two overlays
       // to cover each other at least by a single pixel. Of course this has to be compensated with the border width.
       $border-thickness: 2px;
@@ -147,7 +147,7 @@
   }
 
   &.drag .de-tab-header-wrapper {
-    .de-tab-header-overlay {
+    .de-vertical-overlay {
       z-index: auto;
     }
   }
