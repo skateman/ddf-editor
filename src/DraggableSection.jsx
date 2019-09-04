@@ -32,8 +32,8 @@ const DraggableSection = (Component, dispatch) => {
       }
     });
 
-    const dropArgs = (position) => ({
-      accept: itemType,
+    const dropArgs = (position, accept) => ({
+      accept,
       canDrop: item => item.name !== name,
       collect: monitor => ({
         isOver: monitor.canDrop() && monitor.isOver()
@@ -41,14 +41,20 @@ const DraggableSection = (Component, dispatch) => {
       drop: () => ({name, position}),
     });
 
-    const [{ isOver:isOverTop }, dropTop] = useDrop(dropArgs('before'));
-    const [{ isOver:isOverBottom }, dropBottom] = useDrop(dropArgs('after'));
+    const [{ isOver:isOverTop }, dropTop] = useDrop(dropArgs('before', itemType));
+    const [{ isOver:isOverBottom }, dropBottom] = useDrop(dropArgs('after', itemType));
+    // When there are no items in the section, an empty item is automatically added to add some padding to
+    // the section and also to act as a drop zone for adding children into the section.
+    const [{ isOver:isOverEmpty }, dropEmpty] = useDrop(dropArgs('child', 'input'));
 
     return (
-      <div className={classSet({'section-wrapper': true, 'empty': props.fields.length === 0, 'drag': isDragging})} ref={preview}>
+      <div className={classSet({'section-wrapper': true, 'drag': isDragging})} ref={preview}>
         <div className="handle" ref={drag}></div>
         <div className="item">
           <Component {...props}/>
+          {props.fields.length === 0 &&
+            <div className={classSet({'empty': true, 'over': isOverEmpty})} ref={dropEmpty}></div>
+          }
         </div>
         <div className="toolbox">
           <ul>

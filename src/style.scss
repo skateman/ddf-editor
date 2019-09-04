@@ -85,8 +85,12 @@
     z-index: auto;
   }
 
-  .section-wrapper.empty > .item {
-    padding-bottom: 5em;
+  .section-wrapper .empty {
+    height: 4em;
+
+    &.over {
+      border-top: 2px solid rgba(0, 0, 0, 0.4);
+    }
   }
 
   .tab-header-wrapper {
