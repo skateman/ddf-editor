@@ -4,7 +4,7 @@ const traverse = ({ ...needles }, haystack, found = {}) => {
     haystack.fields.forEach((field, index) => {
       Object.keys(needles).forEach((needle) => {
         if (field.name === needles[needle]) {
-          found[needle] = { fields:haystack.fields, field, index };
+          found[needle] = { parent:haystack, field, index };
         }
       });
 
@@ -49,11 +49,11 @@ export default (state, { type, ...action }) => {
     case 'dragEnd':
       return { ...state, isDragging: false };
     case 'dropNew': {
-      const { target: { fields, index } } = traverse({target : action.target}, state.schema);
+      const { target: { parent, index } } = traverse({target : action.target}, state.schema);
       // As there is no deletion, the target index doesn't change
       const positionAdjust = parsePosition(action.position);
 
-      fields.splice(index + positionAdjust, 0, {
+      parent.fields.splice(index + positionAdjust, 0, {
         component: action.kind,
         name: randomName(action.kind, state.fieldCounter, state.schema),
         label: action.title
@@ -64,12 +64,12 @@ export default (state, { type, ...action }) => {
     case 'dropExisting': {
       const {
         source: {
-          fields: sourceFields,
+          parent: sourceParent,
           field: sourceField,
           index: sourceIndex
         },
         target: {
-          fields: targetFields,
+          parent: targetParent,
           field: targetField,
           index: targetIndex
         }
@@ -79,17 +79,17 @@ export default (state, { type, ...action }) => {
       let positionAdjust = parsePosition(action.position);
 
       // Delete the source item from its original location
-      sourceFields.splice(sourceIndex, 1);
+      sourceParent.fields.splice(sourceIndex, 1);
 
       // If both the source and target are in the same array, the indexes might be changed upon deletion. This can
       // be corrected by decrementing the positionAdjust by 1
-      if (sourceFields === targetFields && targetFields[targetIndex] !== targetField) {
+      if (sourceParent === targetParent && targetParent.fields[targetIndex] !== targetField) {
         positionAdjust -= 1;
       }
 
 
       // Push the source item to its new adjusted position before or after the target
-      targetFields.splice(targetIndex + positionAdjust, 0, sourceField);
+      targetParent.fields.splice(targetIndex + positionAdjust, 0, sourceField);
 
       return { ...state, isDragging: false };
     }
@@ -116,9 +116,9 @@ export default (state, { type, ...action }) => {
       return { ...state };
     }
     case 'delete': {
-      const { source: { fields, index } } = traverse({source : action.source}, state.schema);
+      const { source: { parent, index } } = traverse({source : action.source}, state.schema);
 
-      fields.splice(index, 1);
+      parent.fields.splice(index, 1);
 
       return { ...state }
     }
