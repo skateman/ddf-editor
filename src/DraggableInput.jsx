@@ -2,7 +2,9 @@ import React from "react";
 import { useDrag, useDrop } from 'react-dnd';
 import classSet from 'react-classset';
 
-const DraggableFormField = (Component, itemType, dispatch) => {
+const DraggableInput = (Component, dispatch) => {
+  const itemType = 'input';
+
   return ({...props}) => {
     const { name } = props.input;
 
@@ -83,4 +85,4 @@ const DraggableFormField = (Component, itemType, dispatch) => {
   }
 };
 
-export default DraggableFormField;
+export default DraggableInput;

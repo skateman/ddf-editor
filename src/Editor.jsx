@@ -6,7 +6,7 @@ import classSet from 'react-classset';
 
 import Toolbox, { toolboxFields } from './Toolbox';
 import DraggableTabs from './DraggableTabs';
-import DraggableFormField from './DraggableFormField';
+import DraggableInput from './DraggableInput';
 import DraggableSection from './DraggableSection';
 import Reducer from './Reducer';
 
@@ -24,7 +24,7 @@ export default ({...props}) => {
       Object.keys(toolboxFields).reduce(
         (obj, key) => ({
           ...obj,
-          [key]: DraggableFormField(formFieldsMapper[key], 'input', dispatch)
+          [key]: DraggableInput(formFieldsMapper[key], dispatch)
         }),
         {
           ...formFieldsMapper,
