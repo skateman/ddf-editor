@@ -3,10 +3,12 @@ import { useDrag } from 'react-dnd';
 import classSet from 'react-classset';
 
 const ToolboxField = ({dispatch, kind, title, icon}) => {
+  const itemType = 'input';
+
   const [, drag, preview] = useDrag({
     item: { type: 'input', kind },
     begin: () => {
-      setTimeout(() => dispatch({type: 'dragStart'}));
+      setTimeout(() => dispatch({type: 'dragStart', itemType}));
     },
     end: (_, monitor) => {
       if (!monitor.didDrop()) {
