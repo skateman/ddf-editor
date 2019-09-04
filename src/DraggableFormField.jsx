@@ -63,12 +63,12 @@ const DraggableFormField = (Component, dispatch) => {
     const [{ isOver:isOverBottom }, dropBottom] = useDrop(dropArgs('after'));
 
     return (
-      <div className={classSet({'de-component-wrapper': true, 'drag': isDragging})} ref={preview}>
-        <div className="de-component-handle" ref={drag}></div>
-        <div className="de-component-item">
+      <div className={classSet({'de-input-wrapper': true, 'drag': isDragging})} ref={preview}>
+        <div className="de-input-handle" ref={drag}></div>
+        <div className="de-input-item">
           <Component {...props}/>
         </div>
-        <div className="de-component-toolbox">
+        <div className="de-input-toolbox">
           <ul>
             <li onClick={() => console.warn('Not implemented!')}><i className="fa fa-pencil fa-fw"></i></li>
             <li onClick={() => dispatch({type: 'delete', source: name})}><i className="fa fa-times fa-fw"></i></li>

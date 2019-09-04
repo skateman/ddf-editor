@@ -1,5 +1,5 @@
 .de {
-  .de-component-wrapper {
+  .de-input-wrapper {
     display: flex;
     align-items: stretch;
     padding: 0px 10px 0px 10px;
@@ -14,21 +14,21 @@
       opacity: 0.5;
     }
 
-    & > .de-component-item {
+    & > .de-input-item {
       @include dashed-border;
       border-right: none;
       padding: 10px 10px 10px 10px;
       width: 100%;
     }
 
-    & > .de-component-handle {
+    & > .de-input-handle {
       margin: 10px 0px 10px 0px;
       background-color: rgba(0, 0, 0, 0.1);
       width: 1em;
       cursor: grab;
     }
 
-    & > .de-component-toolbox {
+    & > .de-input-toolbox {
       @include dashed-border;
       width: 3em;
       border-left: none;
