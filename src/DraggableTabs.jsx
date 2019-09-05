@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { TabContainer, Nav, NavItem, TabContent, TabPane } from 'patternfly-react';
+import { TabContainer, Nav, NavItem, TabContent } from 'patternfly-react';
 
 import DraggableTabHeader from './DraggableTabHeader';
+import DraggableTabContent from './DraggableTabContent';
 
 export default (dispatch) => {
   const DraggableTabs = ({ name:target, fields, formOptions }) => {
@@ -15,19 +16,6 @@ export default (dispatch) => {
       />
     ));
 
-    const renderTabContent = (items, formOptions) => items.map(({ name, fields }) => {
-      return (
-        <TabPane key={ name } eventKey={ name } >
-          { formOptions.renderForm(fields, formOptions) }
-          <div className="section-wrapper">
-            <div className="item new-section" onClick={() => dispatch({type: 'newSection', target: name})}>
-              <i className="fa fa-plus"></i> New section
-            </div>
-          </div>
-        </TabPane>
-      )
-    });
-
     return (
       <TabContainer id="dialog-renderer-tabs" activeKey={activeTab} onSelect={() => undefined}>
         <div>
@@ -39,7 +27,7 @@ export default (dispatch) => {
           </Nav>
           <TabContent animation>
             <div className="spacer"></div>
-            { renderTabContent(fields, formOptions) }
+            { fields.map(({ name, fields }) => <DraggableTabContent key={name} { ...{name, fields, formOptions, dispatch }} />) }
           </TabContent>
         </div>
       </TabContainer>

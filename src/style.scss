@@ -130,11 +130,11 @@
       z-index: auto;
     }
 
-    .section-wrapper .empty {
+    .empty {
       height: 4em;
 
       &.over {
-        border-top: 2px solid rgba(0, 0, 0, 0.4);
+        border-bottom: 2px solid rgba(0, 0, 0, 0.4);
       }
     }
 
