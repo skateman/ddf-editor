@@ -2,6 +2,7 @@ import React, { useRef } from 'react';
 import { NavItem } from 'patternfly-react';
 import { useDrag, useDrop } from 'react-dnd';
 import classSet from 'react-classset';
+import debounce from 'lodash.debounce';
 
 const DraggableTabHeader = ({name, title, active, setActiveTab, dispatch}) => {
   const itemType = 'tab';
@@ -42,6 +43,15 @@ const DraggableTabHeader = ({name, title, active, setActiveTab, dispatch}) => {
   const [{ isOver:isOverLeft }, dropLeft] = useDrop(dropArgs('before'));
   const [{ isOver:isOverRight }, dropRight] = useDrop(dropArgs('after'));
 
+  const switchTab = debounce(() => setActiveTab(name), 80);
+
+  const [, tabSwitch] = useDrop({
+    accept: ['input', 'section'],
+    canDrop: () => false,
+    hover: switchTab,
+    collect: monitor => !monitor.isOver() && switchTab.cancel() || undefined
+  });
+
   const toolboxRef = useRef(null);
   // Do not fire the tab change when clicking on the edit/delete icon
   const handleSelect = (_, e) => {
@@ -59,7 +69,7 @@ const DraggableTabHeader = ({name, title, active, setActiveTab, dispatch}) => {
           <li onClick={() => console.warn('Not implemented!')}><i className="fa fa-pencil"></i></li>
           <li onClick={() => dispatch({type: 'delete', source: name})}><i className="fa fa-times"></i></li>
         </ul>
-        <div className="vertical-overlay">
+        <div className="vertical-overlay" ref={tabSwitch}>
           <div className={classSet({'overlay-left': true, 'over': isOverLeft})} ref={dropLeft}></div>
           <div className={classSet({'overlay-right': true, 'over': isOverRight})} ref={dropRight}></div>
         </div>

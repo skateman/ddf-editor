@@ -206,8 +206,8 @@
       }
     }
 
-    &.drag-tab .tab-header-wrapper {
-      .vertical-overlay {
+    &.drag-tab, &.drag-input, &.drag-section {
+      .tab-header-wrapper .vertical-overlay {
         z-index: auto;
       }
     }

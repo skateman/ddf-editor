@@ -30,6 +30,7 @@
   "dependencies": {
     "@data-driven-forms/pf3-component-mapper": "^1.15.6",
     "@data-driven-forms/react-form-renderer": "^1.15.6",
+    "lodash.debounce": "^4.0.8",
     "patternfly-react": "^2.37.0",
     "react": "^16.9.0",
     "react-classset": "^0.0.2",
