@@ -29,7 +29,7 @@ export default (dispatch) => {
     });
 
     return (
-      <TabContainer id="basic-tabs-pf" activeKey={activeTab} onSelect={() => undefined}>
+      <TabContainer id="dialog-renderer-tabs" activeKey={activeTab} onSelect={() => undefined}>
         <div>
           <Nav bsClass="nav nav-tabs">
             { renderTabHeader(fields) }
@@ -38,7 +38,7 @@ export default (dispatch) => {
             </NavItem>
           </Nav>
           <TabContent animation>
-            <div class="spacer"></div>
+            <div className="spacer"></div>
             { renderTabContent(fields, formOptions) }
           </TabContent>
         </div>

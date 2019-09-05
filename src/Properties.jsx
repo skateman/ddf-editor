@@ -3,7 +3,7 @@ import { TabContainer, Nav, NavItem, TabContent, TabPane } from 'patternfly-reac
 
 const Properties = ({ schema }) => {
   return (
-    <TabContainer defaultActiveKey={1}>
+    <TabContainer id="dialog-properties-tabs" defaultActiveKey={1}>
       <div>
         <Nav bsClass="nav nav-tabs">
           <NavItem eventKey={0}>Properties</NavItem>
