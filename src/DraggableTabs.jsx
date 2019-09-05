@@ -8,6 +8,10 @@ export default (dispatch) => {
   const DraggableTabs = ({ name:target, fields, formOptions }) => {
     const [activeTab, setActiveTab] = useState(fields[0].name);
 
+    if (!fields.find(item => item.name === activeTab)) {
+      setActiveTab(fields[0].name);
+    }
+
     const renderTabHeader = (items) => items.map(({ name, title }) => (
       <DraggableTabHeader
         key={name}
