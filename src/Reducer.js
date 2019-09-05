@@ -119,7 +119,14 @@ export default (state, { type, ...action }) => {
         component: 'tab-item',
         name: randomName('tab-item', state.fieldCounter, state.schema),
         title: `Tab ${state.fieldCounter['tab-item']}`,
-        fields: []
+        fields: [
+          {
+            component: 'sub-form',
+            name: randomName('sub-form', state.fieldCounter, state.schema),
+            title: `Section ${state.fieldCounter['sub-form']}`,
+            fields: []
+          }
+        ]
       });
 
       return { ...state };
