@@ -6,7 +6,7 @@ import debounce from 'lodash.debounce';
 
 import DropZone, { FakeDropZone } from './DropZone';
 
-const DraggableTabHeader = ({name, title, active, setActiveTab, dispatch}) => {
+const DraggableTabHeader = ({name, title, active, single, setActiveTab, dispatch}) => {
   const itemType = 'tab';
 
   const [{isDragging}, drag, preview] = useDrag({
@@ -54,8 +54,12 @@ const DraggableTabHeader = ({name, title, active, setActiveTab, dispatch}) => {
         <div className={classSet({'handle': true, 'active': active})} ref={drag}></div>
         { title }
         <ul className="toolbox" ref={toolboxRef}>
-          <li onClick={() => console.warn('Not implemented!')}><i className="fa fa-pencil"></i></li>
-          <li onClick={() => dispatch({type: 'delete', source: name})}><i className="fa fa-times"></i></li>
+          <li onClick={() => console.warn('Not implemented!')}>
+            <i className="fa fa-pencil"></i>
+          </li>
+          <li onClick={() => single ? undefined : dispatch({type: 'delete', source: name})} className={classSet({'disabled': single})}>
+            <i className="fa fa-times"></i>
+          </li>
         </ul>
         <div className="vertical-overlay" ref={tabSwitch}>
           <div className={classSet({'overlay-left': true, 'over': isOverLeft})} ref={dropLeft}></div>

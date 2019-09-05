@@ -14,9 +14,10 @@ export default (dispatch) => {
 
     const renderTabHeader = (items) => items.map(({ name, title }) => (
       <DraggableTabHeader
-        key={name}
-        active={activeTab === name}
-        {...{name, title, setActiveTab, dispatch}}
+        key={ name }
+        active={ activeTab === name }
+        single={ items.length === 1 }
+        { ...{name, title, setActiveTab, dispatch} }
       />
     ));
 
