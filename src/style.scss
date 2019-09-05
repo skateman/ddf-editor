@@ -115,10 +115,10 @@
 
           &.over {
             &.overlay-top {
-              border-top: $border-thickness solid rgba(0, 0, 0, 0.4);
+              border-top: $border-thickness dashed rgba(0, 0, 0, 0.4);
             }
             &.overlay-bottom {
-              border-bottom: $border-thickness solid rgba(0, 0, 0, 0.4);
+              border-bottom: $border-thickness dashed rgba(0, 0, 0, 0.4);
             }
           }
         }
@@ -134,7 +134,7 @@
       height: 4em;
 
       &.over {
-        border-bottom: 2px solid rgba(0, 0, 0, 0.4);
+        border: 2px dashed rgba(0, 0, 0, 0.4);
       }
     }
 
@@ -195,11 +195,11 @@
 
           &.over {
             &.overlay-left {
-              border-left: $border-thickness solid rgba(0, 0, 0, 0.4);
+              border-left: $border-thickness dashed rgba(0, 0, 0, 0.4);
             }
 
             &.overlay-right {
-              border-right: $border-thickness solid rgba(0, 0, 0, 0.4);
+              border-right: $border-thickness dashed rgba(0, 0, 0, 0.4);
             }
           }
         }
