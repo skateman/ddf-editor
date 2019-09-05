@@ -1,5 +1,21 @@
 .dialog-editor {
+  $width: 1200px;
+  display: flex;
+  align-items: flex-start;
+
+  & > * {
+    box-sizing: border-box;
+    padding: 1em;
+    width: 100%;
+  }
+
   .dialog-toolbox {
+    @media (min-width: $width) {
+      width: calc(100% * (1 / 12));
+    }
+    position: sticky;
+    top: 0;
+
     ul.toolbox {
       width: 100%;
       padding-left: 0;
@@ -24,6 +40,10 @@
   }
 
   .dialog-renderer {
+    @media (min-width: $width) {
+      width: calc(100% * (7 / 12));
+    }
+
     .input-wrapper, .section-wrapper {
       display: flex;
       align-items: stretch;
@@ -198,5 +218,8 @@
   }
 
   .dialog-properties {
+    @media (min-width: $width) {
+      width: calc(100% * (4 / 12));
+    }
   }
 }

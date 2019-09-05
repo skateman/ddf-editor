@@ -1,7 +1,6 @@
 import React, { useReducer, useMemo } from "react";
 import FormRender, { layoutComponents, componentTypes } from '@data-driven-forms/react-form-renderer';
 import { formFieldsMapper, layoutMapper } from '@data-driven-forms/pf3-component-mapper';
-import { Grid, Row, Col } from 'patternfly-react';
 import classSet from 'react-classset';
 
 import Toolbox, { toolboxFields } from './Toolbox';
@@ -39,24 +38,22 @@ export default ({...props}) => {
   const dragClass = isDragging ? `drag-${isDragging}` : undefined;
 
   return (
-    <Grid fluid={true} className="dialog-editor">
-      <Row>
-        <Col xs={1} className="dialog-toolbox">
-          <Toolbox dispatch={dispatch}/>
-        </Col>
-        <Col xs={7} className={classSet('dialog-renderer', dragClass)}>
-          <FormRender
-            formFieldsMapper={draggableFormFieldsMapper}
-            layoutMapper={layoutMapper}
-            onSubmit={() => undefined}
-            schema={schema}
-            showFormControls={false}
-          />
-        </Col>
-        <Col xs={4} className="dialog-properties">
-          <Properties schema={schema} />
-        </Col>
-      </Row>
-    </Grid>
+    <div className="dialog-editor">
+      <div className="dialog-toolbox">
+        <Toolbox dispatch={dispatch}/>
+      </div>
+      <div className={classSet('dialog-renderer', dragClass)}>
+        <FormRender
+          formFieldsMapper={draggableFormFieldsMapper}
+          layoutMapper={layoutMapper}
+          onSubmit={() => undefined}
+          schema={schema}
+          showFormControls={false}
+        />
+      </div>
+      <div className="dialog-properties flex-col-lg-4">
+        <Properties schema={schema} />
+      </div>
+    </div>
    )
 };
