@@ -1,8 +1,10 @@
 import React, { useRef } from 'react';
 import { NavItem } from 'patternfly-react';
-import { useDrag, useDrop } from 'react-dnd';
+import { useDrag } from 'react-dnd';
 import classSet from 'react-classset';
 import debounce from 'lodash.debounce';
+
+import DropZone, { FakeDropZone } from './DropZone';
 
 const DraggableTabHeader = ({name, title, active, setActiveTab, dispatch}) => {
   const itemType = 'tab';
@@ -31,26 +33,12 @@ const DraggableTabHeader = ({name, title, active, setActiveTab, dispatch}) => {
     }
   });
 
-  const dropArgs = (position) => ({
-    accept: itemType,
-    canDrop: item => item.name !== name,
-    collect: monitor => ({
-      isOver: monitor.canDrop() && monitor.isOver()
-    }),
-    drop: () => ({name, position}),
-  });
+  const [{ isOver:isOverLeft }, dropLeft] = DropZone(itemType, name, 'before');
+  const [{ isOver:isOverRight }, dropRight] = DropZone(itemType, name, 'after');
 
-  const [{ isOver:isOverLeft }, dropLeft] = useDrop(dropArgs('before'));
-  const [{ isOver:isOverRight }, dropRight] = useDrop(dropArgs('after'));
-
+  // Create a fake drop zone that allows switching tabs when dragging an input or a section
   const switchTab = debounce(() => setActiveTab(name), 80);
-
-  const [, tabSwitch] = useDrop({
-    accept: ['input', 'section'],
-    canDrop: () => false,
-    hover: switchTab,
-    collect: monitor => !monitor.isOver() && switchTab.cancel() || undefined
-  });
+  const [, tabSwitch] = FakeDropZone(['input', 'section'], switchTab, switchTab.cancel);
 
   const toolboxRef = useRef(null);
   // Do not fire the tab change when clicking on the edit/delete icon

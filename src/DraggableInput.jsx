@@ -1,6 +1,8 @@
 import React from "react";
-import { useDrag, useDrop } from 'react-dnd';
+import { useDrag } from 'react-dnd';
 import classSet from 'react-classset';
+
+import DropZone from './DropZone';
 
 const DraggableInput = (Component, dispatch) => {
   const itemType = 'input';
@@ -46,23 +48,12 @@ const DraggableInput = (Component, dispatch) => {
       }
     });
 
-    // As it is possible to drag different kind of items and drop them into the same drop zone, this handler
-    // only passes the name of the drop target and the before/after position to the dragging handler.
-    const dropArgs = (position) => ({
-      accept: itemType,
-      canDrop: item => item.name !== name,
-      collect: monitor => ({
-        isOver: monitor.canDrop() && monitor.isOver()
-      }),
-      drop: () => ({name, position}),
-    });
-
     // To avoid using coordinate arithmetics, the drop overlay has been vertically split up between two drop
     // handlers. The upper handler is responsible for prepending, while the lower one is analogously invokes
     // appending. Both overlays have a little border to indicate the future location of the dragged item. It
     // is being handled by a CSS class which is being set based on the isOverTop and isOverBottom variables.
-    const [{ isOver:isOverTop }, dropTop] = useDrop(dropArgs('before'));
-    const [{ isOver:isOverBottom }, dropBottom] = useDrop(dropArgs('after'));
+    const [{ isOver:isOverTop }, dropTop] = DropZone(itemType, name, 'before');
+    const [{ isOver:isOverBottom }, dropBottom] = DropZone(itemType, name, 'after');
 
     return (
       <div className={classSet({'input-wrapper': true, 'drag': isDragging})} ref={preview}>
