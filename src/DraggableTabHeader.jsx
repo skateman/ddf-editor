@@ -1,36 +1,13 @@
 import React, { useRef } from 'react';
 import { NavItem } from 'patternfly-react';
-import { useDrag } from 'react-dnd';
 import classSet from 'react-classset';
 import debounce from 'lodash.debounce';
 
 import { itemTypes } from './constants';
-import DropZone, { FakeDropZone } from './DropZone';
+import { DropZone, FakeDropZone, DraggableItem } from './DragAndDrop';
 
 const DraggableTabHeader = ({name, title, active, single, setActiveTab, dispatch}) => {
-  const [{isDragging}, drag, preview] = useDrag({
-    item: { name, type: itemTypes.TAB_ITEM },
-    collect: monitor => ({
-      isDragging: monitor.isDragging()
-    }),
-    begin: () => {
-      setTimeout(() => dispatch({type: 'dragStart', itemType: itemTypes.TAB_ITEM}));
-    },
-    end: (_, monitor) => {
-      if (!monitor.didDrop()) {
-        return dispatch({type: 'dragEnd'});
-      }
-
-      const { name:target, position } = monitor.getDropResult();
-
-      dispatch({
-        type: 'dropExisting',
-        source: name,
-        target,
-        position
-      });
-    }
-  });
+  const [{isDragging}, drag, preview] = DraggableItem(name, itemTypes.TAB_ITEM, dispatch);
 
   const [{ isOver:isOverLeft }, dropLeft] = DropZone(itemTypes.TAB_ITEM, name, 'before');
   const [{ isOver:isOverRight }, dropRight] = DropZone(itemTypes.TAB_ITEM, name, 'after');

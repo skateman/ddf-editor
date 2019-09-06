@@ -3,7 +3,7 @@ import { TabPane } from 'patternfly-react';
 import classSet from 'react-classset';
 
 import { itemTypes } from './constants';
-import DropZone from './DropZone';
+import { DropZone } from './DragAndDrop';
 
 const DraggableTabContent = ({ name, fields, formOptions, dispatch }) => {
   const [{ isOver:isOverEmpty }, dropEmpty] = DropZone(itemTypes.SECTION, name, 'child');

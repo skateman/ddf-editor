@@ -1,37 +1,14 @@
 import React from "react";
-import { useDrag } from 'react-dnd';
 import classSet from 'react-classset';
 
 import { itemTypes } from './constants';
-import DropZone from './DropZone';
+import { DropZone, DraggableItem } from './DragAndDrop';
 
 const DraggableSection = (Component, dispatch) => {
-  return ({...props}) => {
+  const fn = ({...props}) => {
     const { name } = props;
 
-    const [{isDragging}, drag, preview] = useDrag({
-      item: { name, type: itemTypes.SECTION },
-      collect: monitor => ({
-        isDragging: monitor.isDragging()
-      }),
-      begin: () => {
-        setTimeout(() => dispatch({type: 'dragStart', itemType: itemTypes.SECTION}));
-      },
-      end: (_, monitor) => {
-        if (!monitor.didDrop()) {
-          return dispatch({type: 'dragEnd'});
-        }
-
-        const { name:target, position } = monitor.getDropResult();
-
-        dispatch({
-          type: 'dropExisting',
-          source: name,
-          target,
-          position
-        });
-      }
-    });
+    const [{isDragging}, drag, preview] = DraggableItem(name, itemTypes.SECTION, dispatch);
 
     const [{ isOver:isOverTop }, dropTop] = DropZone(itemTypes.SECTION, name, 'before')
     const [{ isOver:isOverBottom }, dropBottom] = DropZone(itemTypes.SECTION, name, 'after');
@@ -60,7 +37,9 @@ const DraggableSection = (Component, dispatch) => {
         </div>
       </div>
     )
-  }
+  };
+
+  return fn;
 };
 
 export default DraggableSection;
