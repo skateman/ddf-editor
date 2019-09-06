@@ -4,7 +4,8 @@ import { formFieldsMapper, layoutMapper } from '@data-driven-forms/pf3-component
 import { Switch } from 'patternfly-react';
 import classSet from 'react-classset';
 
-import Toolbox, { toolboxFields } from './Toolbox';
+import { toolboxFields } from './constants';
+import Toolbox from './Toolbox';
 import Properties from './Properties';
 import DraggableTabs from './DraggableTabs';
 import DraggableInput from './DraggableInput';
