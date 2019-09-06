@@ -14,7 +14,7 @@ const DraggableSection = (Component, dispatch) => {
     const [{ isOver:isOverBottom }, dropBottom] = DropZone(itemTypes.SECTION, name, 'after');
     // When there are no items in the section, an empty item is automatically added to add some padding to
     // the section and also to act as a drop zone for adding children into the section.
-    const [{ isOver:isOverEmpty }, dropEmpty] = DropZone('input', name, 'child');
+    const [{ isOver:isOverEmpty }, dropEmpty] = DropZone(itemTypes.INPUT, name, 'child');
 
     return (
       <div className={classSet({'section-wrapper': true, 'drag': isDragging})} ref={preview}>
