@@ -7,7 +7,7 @@ import { itemTypes } from './constants';
 import { DropZone, FakeDropZone, DraggableItem } from './DragAndDrop';
 
 const DraggableTabHeader = ({name, title, active, single, setActiveTab, dispatch}) => {
-  const [{isDragging}, drag, preview] = DraggableItem(name, itemTypes.TAB_ITEM, dispatch, 'dropExisting');
+  const [{isDragging}, drag, preview] = DraggableItem({ name, type: itemTypes.TAB_ITEM }, dispatch, 'dropExisting');
 
   const [{ isOver:isOverLeft }, dropLeft] = DropZone(itemTypes.TAB_ITEM, name, 'before');
   const [{ isOver:isOverRight }, dropRight] = DropZone(itemTypes.TAB_ITEM, name, 'after');
