@@ -15,7 +15,7 @@ export const toolboxFields = {
     title: 'Checkbox',
     icon: 'fa fa-check-square-o',
   },
-  [componentTypes.DROPDOWN]: {
+  [componentTypes.SELECT]: {
     title: 'Dropdown',
     icon: 'fa fa-caret-square-o-down',
   },
