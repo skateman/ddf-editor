@@ -8,7 +8,7 @@ const DraggableSection = (Component, dispatch) => {
   const fn = ({...props}) => {
     const { name } = props;
 
-    const [{isDragging}, drag, preview] = DraggableItem(name, itemTypes.SECTION, dispatch);
+    const [{isDragging}, drag, preview] = DraggableItem(name, itemTypes.SECTION, dispatch, 'dropExisting');
 
     const [{ isOver:isOverTop }, dropTop] = DropZone(itemTypes.SECTION, name, 'before')
     const [{ isOver:isOverBottom }, dropBottom] = DropZone(itemTypes.SECTION, name, 'after');

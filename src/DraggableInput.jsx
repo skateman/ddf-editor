@@ -7,7 +7,7 @@ import { DropZone, DraggableItem } from './DragAndDrop';
 const DraggableInput = (Component, dispatch) => {
   const fn = ({...props}) => {
     const { name } = props.input;
-    const [{isDragging}, drag, preview] = DraggableItem(name, itemTypes.INPUT, dispatch);
+    const [{isDragging}, drag, preview] = DraggableItem(name, itemTypes.INPUT, dispatch, 'dropExisting');
 
     // To avoid using coordinate arithmetics, the drop overlay has been vertically split up between two drop
     // handlers. The upper handler is responsible for prepending, while the lower one is analogously invokes

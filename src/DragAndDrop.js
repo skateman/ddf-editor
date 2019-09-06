@@ -1,6 +1,6 @@
 import { useDrag, useDrop } from 'react-dnd';
 
-export const DraggableItem = (name, type, dispatch) => useDrag({
+export const DraggableItem = (name, type, dispatch, event) => useDrag({
   item: { type, name },
   collect: monitor => ({
     isDragging: monitor.isDragging()
@@ -33,7 +33,7 @@ export const DraggableItem = (name, type, dispatch) => useDrag({
     const { name:target, position } = monitor.getDropResult();
 
     dispatch({
-      type: 'dropExisting',
+      type: event,
       source: name,
       target,
       position
