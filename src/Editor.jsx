@@ -33,8 +33,6 @@ export default ({...props}) => {
     [draggableFields, formFieldsMapper, dispatch]
   );
 
-  const dragClass = isDragging ? `drag-${isDragging}` : undefined;
-
   return (
     <div className="dialog-editor">
       <div className="dialog-toolbox">
@@ -43,7 +41,7 @@ export default ({...props}) => {
         </div>
         <Toolbox dispatch={dispatch}/>
       </div>
-      <div className={classSet('dialog-renderer', dragClass)}>
+      <div className={classSet('dialog-renderer', isDragging ? `drag-${isDragging}` : undefined)}>
         <FormRender
           formFieldsMapper={preview ? formFieldsMapper : draggableFormFieldsMapper}
           layoutMapper={layoutMapper}
