@@ -219,7 +219,7 @@
       }
     }
 
-    &.drag-tab, &.drag-input, &.drag-section {
+    &.drag-tab-item, &.drag-input, &.drag-section {
       .tab-header-wrapper .vertical-overlay {
         z-index: auto;
       }

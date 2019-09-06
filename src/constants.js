@@ -56,3 +56,9 @@ export const draggableFields = Object.keys(toolboxFields).reduce(
   }),
   nonToolboxFields
 );
+
+export const itemTypes = {
+  INPUT: 'input',
+  SECTION: 'section',
+  TAB_ITEM: 'tab-item'
+};

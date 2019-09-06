@@ -2,21 +2,20 @@ import React from "react";
 import { useDrag } from 'react-dnd';
 import classSet from 'react-classset';
 
+import { itemTypes } from './constants';
 import DropZone from './DropZone';
 
 const DraggableSection = (Component, dispatch) => {
-  const itemType = 'section';
-
   return ({...props}) => {
     const { name } = props;
 
     const [{isDragging}, drag, preview] = useDrag({
-      item: { name, type: itemType },
+      item: { name, type: itemTypes.SECTION },
       collect: monitor => ({
         isDragging: monitor.isDragging()
       }),
       begin: () => {
-        setTimeout(() => dispatch({type: 'dragStart', itemType}));
+        setTimeout(() => dispatch({type: 'dragStart', itemType: itemTypes.SECTION}));
       },
       end: (_, monitor) => {
         if (!monitor.didDrop()) {
@@ -34,8 +33,8 @@ const DraggableSection = (Component, dispatch) => {
       }
     });
 
-    const [{ isOver:isOverTop }, dropTop] = DropZone(itemType, name, 'before')
-    const [{ isOver:isOverBottom }, dropBottom] = DropZone(itemType, name, 'after');
+    const [{ isOver:isOverTop }, dropTop] = DropZone(itemTypes.SECTION, name, 'before')
+    const [{ isOver:isOverBottom }, dropBottom] = DropZone(itemTypes.SECTION, name, 'after');
     // When there are no items in the section, an empty item is automatically added to add some padding to
     // the section and also to act as a drop zone for adding children into the section.
     const [{ isOver:isOverEmpty }, dropEmpty] = DropZone('input', name, 'child');

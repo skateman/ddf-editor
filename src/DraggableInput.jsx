@@ -2,16 +2,15 @@ import React from "react";
 import { useDrag } from 'react-dnd';
 import classSet from 'react-classset';
 
+import { itemTypes } from './constants';
 import DropZone from './DropZone';
 
 const DraggableInput = (Component, dispatch) => {
-  const itemType = 'input';
-
   return ({...props}) => {
     const { name } = props.input;
 
     const [{isDragging}, drag, preview] = useDrag({
-      item: { name, type: itemType },
+      item: { name, type: itemTypes.INPUT },
       collect: monitor => ({
         isDragging: monitor.isDragging()
       }),
@@ -26,7 +25,7 @@ const DraggableInput = (Component, dispatch) => {
         // should happen with a minimal delay which can be achieved by using setTimeout. As the return value
         // of the begin function can not be a number, curly braces have been used to ignore the result of the
         // setTimeout function. Long story short: this set of "hacks" is necessary :)
-        setTimeout(() => dispatch({type: 'dragStart', itemType}));
+        setTimeout(() => dispatch({type: 'dragStart', itemType: itemTypes.INPUT}));
       },
       end: (_, monitor) => {
         // If the dragging operation ended with an invalid drop target, we just tell the main component that
@@ -52,8 +51,8 @@ const DraggableInput = (Component, dispatch) => {
     // handlers. The upper handler is responsible for prepending, while the lower one is analogously invokes
     // appending. Both overlays have a little border to indicate the future location of the dragged item. It
     // is being handled by a CSS class which is being set based on the isOverTop and isOverBottom variables.
-    const [{ isOver:isOverTop }, dropTop] = DropZone(itemType, name, 'before');
-    const [{ isOver:isOverBottom }, dropBottom] = DropZone(itemType, name, 'after');
+    const [{ isOver:isOverTop }, dropTop] = DropZone(itemTypes.INPUT, name, 'before');
+    const [{ isOver:isOverBottom }, dropBottom] = DropZone(itemTypes.INPUT, name, 'after');
 
     return (
       <div className={classSet({'input-wrapper': true, 'drag': isDragging})} ref={preview}>
