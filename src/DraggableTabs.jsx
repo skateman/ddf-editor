@@ -6,10 +6,17 @@ import DraggableTabContent from './DraggableTabContent';
 
 export default (dispatch) => {
   const DraggableTabs = ({ name:target, fields, formOptions }) => {
-    const [activeTab, setActiveTab] = useState(fields[0].name);
+    // Try to retrieve the name of the very first tab
+    const firstTab = (() => {
+      const [tab] = fields;
+      const { name:tabName } = tab || {};
+      return tabName;
+    })();
 
-    if (!fields.find(item => item.name === activeTab)) {
-      setActiveTab(fields[0].name);
+    const [activeTab, setActiveTab] = useState(firstTab);
+
+    if (!fields.find(item => item.name === activeTab) && firstTab) {
+      setActiveTab(firstTab);
     }
 
     const renderTabHeader = (items) => items.map(({ name, title }) => (
