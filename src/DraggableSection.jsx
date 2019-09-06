@@ -10,11 +10,11 @@ const DraggableSection = (Component, dispatch) => {
 
     const [{isDragging}, drag, preview] = DraggableItem({ name, type: itemTypes.SECTION }, dispatch, 'dropExisting');
 
-    const [{ isOver:isOverTop }, dropTop] = DropZone(itemTypes.SECTION, name, 'before')
-    const [{ isOver:isOverBottom }, dropBottom] = DropZone(itemTypes.SECTION, name, 'after');
+    const [{ isOver:isOverTop }, dropTop] = DropZone({ name, type: itemTypes.SECTION }, 'before')
+    const [{ isOver:isOverBottom }, dropBottom] = DropZone({ name, type: itemTypes.SECTION }, 'after');
     // When there are no items in the section, an empty item is automatically added to add some padding to
     // the section and also to act as a drop zone for adding children into the section.
-    const [{ isOver:isOverEmpty }, dropEmpty] = DropZone(itemTypes.INPUT, name, 'child');
+    const [{ isOver:isOverEmpty }, dropEmpty] = DropZone({ name, type: itemTypes.INPUT }, 'child');
 
     return (
       <div className={classSet({'section-wrapper': true, 'drag': isDragging})} ref={preview}>

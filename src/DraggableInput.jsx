@@ -13,8 +13,8 @@ const DraggableInput = (Component, dispatch) => {
     // handlers. The upper handler is responsible for prepending, while the lower one is analogously invokes
     // appending. Both overlays have a little border to indicate the future location of the dragged item. It
     // is being handled by a CSS class which is being set based on the isOverTop and isOverBottom variables.
-    const [{ isOver:isOverTop }, dropTop] = DropZone(itemTypes.INPUT, name, 'before');
-    const [{ isOver:isOverBottom }, dropBottom] = DropZone(itemTypes.INPUT, name, 'after');
+    const [{ isOver:isOverTop }, dropTop] = DropZone({ name, type: itemTypes.INPUT }, 'before');
+    const [{ isOver:isOverBottom }, dropBottom] = DropZone({ name, type: itemTypes.INPUT }, 'after');
 
     return (
       <div className={classSet({'input-wrapper': true, 'drag': isDragging})} ref={preview}>

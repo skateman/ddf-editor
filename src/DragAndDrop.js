@@ -44,8 +44,8 @@ export const DraggableItem = ({ name, type }, dispatch, event) => useDrag({
 // This is a drop zone that doesn't allow any item to be dropped into it, but it calls
 // the onDragEnter/onDragLeave functions if there is some movement with accepted items
 // in the area of the drop zone.
-export const FakeDropZone = (accept, onDragEnter, onDragLeave) => useDrop({
-  accept,
+export const FakeDropZone = (type, onDragEnter, onDragLeave) => useDrop({
+  accept: type,
   canDrop: () => false,
   hover: onDragEnter,
   collect: monitor => !monitor.isOver() && onDragLeave() || undefined
@@ -53,9 +53,9 @@ export const FakeDropZone = (accept, onDragEnter, onDragLeave) => useDrop({
 
 // As it is possible to drag different kind of items and drop them into the same drop zone, this handler
 // only passes the name of the drop target and the before/after position to the dragging handler.
-export const DropZone = (accept, name, position) => {
+export const DropZone = ({ name, type }, position) => {
   return useDrop({
-    accept,
+    accept: type,
     canDrop: item => item.name !== name,
     drop: () => ({ name, position }),
     collect: monitor => ({

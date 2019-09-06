@@ -6,7 +6,7 @@ import { itemTypes } from './constants';
 import { DropZone } from './DragAndDrop';
 
 const DraggableTabContent = ({ name, fields, formOptions, dispatch }) => {
-  const [{ isOver:isOverEmpty }, dropEmpty] = DropZone(itemTypes.SECTION, name, 'child');
+  const [{ isOver:isOverEmpty }, dropEmpty] = DropZone({ name, type: itemTypes.SECTION }, 'child');
 
   return (
     <TabPane key={ name } eventKey={ name } >
