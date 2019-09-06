@@ -7,7 +7,7 @@ const createSchema = () => ({
       name: 'tabs',
       fields: [
         {
-          component: componentTypes.TAB,
+          component: componentTypes.TAB_ITEM,
           name: 'tab-item-1',
           title: 'Tab 1',
           fields: [
@@ -44,7 +44,7 @@ const createSchema = () => ({
           ]
         },
         {
-          component: componentTypes.TAB,
+          component: componentTypes.TAB_ITEM,
           name: 'tab-item-2',
           title: 'Tab 2',
           fields: []
