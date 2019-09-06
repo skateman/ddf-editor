@@ -1,15 +1,12 @@
 import React, { useState, useReducer, useMemo } from "react";
-import FormRender, { layoutComponents, componentTypes } from '@data-driven-forms/react-form-renderer';
+import FormRender from '@data-driven-forms/react-form-renderer';
 import { formFieldsMapper, layoutMapper } from '@data-driven-forms/pf3-component-mapper';
 import { Switch } from 'patternfly-react';
 import classSet from 'react-classset';
 
-import { toolboxFields } from './constants';
+import { draggableFields } from './constants';
 import Toolbox from './Toolbox';
 import Properties from './Properties';
-import DraggableTabs from './DraggableTabs';
-import DraggableInput from './DraggableInput';
-import DraggableSection from './DraggableSection';
 import Reducer from './Reducer';
 
 export default ({...props}) => {
@@ -24,18 +21,16 @@ export default ({...props}) => {
   // Memoize the decorated component mapping for a better performance
   const draggableFormFieldsMapper = useMemo(
     () =>
-      Object.keys(toolboxFields).reduce(
+      Object.keys(draggableFields).reduce(
         (obj, key) => ({
           ...obj,
-          [key]: DraggableInput(formFieldsMapper[key], dispatch)
+          [key]: draggableFields[key](dispatch)
         }),
         {
-          ...formFieldsMapper,
-          [componentTypes.SUB_FORM]: DraggableSection(formFieldsMapper[componentTypes.SUB_FORM], dispatch),
-          [componentTypes.TABS]: DraggableTabs(dispatch)
+          ...formFieldsMapper
         }
       ),
-    [formFieldsMapper, dispatch]
+    [draggableFields, formFieldsMapper, dispatch]
   );
 
   const dragClass = isDragging ? `drag-${isDragging}` : undefined;
