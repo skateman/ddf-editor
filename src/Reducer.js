@@ -1,3 +1,5 @@
+import { componentTypes } from '@data-driven-forms/react-form-renderer';
+
 // This function does a deep traversal of the haystack for the needles.
 const traverse = ({ ...needles }, haystack, found = {}) => {
   if (typeof haystack === 'object' && Array.isArray(haystack.fields)) {
@@ -26,21 +28,22 @@ const parsePosition = (position) => {
    }
 };
 
-const randomName = (kind, fieldCounter, haystack) => {
-  // Initialize the fieldCounter for the given component if not available
+const genIdentifier = (kind, { ...fieldCounter }, haystack) => {
+  // Initialize the fieldCounter for the given component kind if not available
   if (!fieldCounter[kind]) {
     fieldCounter[kind] = 0;
   }
 
-  let name, found;
-  // Generate a name with an incremented number until there is no name collision
+  let id, found;
+  // Generate a new ID by incrementing until there is no name collision
   do {
-    name = `${kind}-${++fieldCounter[kind]}`;
-    ({ found } = traverse({ found: name }, haystack));
+    id = ++fieldCounter[kind];
+    ({ found } = traverse({ found: `${kind}-${id}` }, haystack));
+    // console.log(fieldCounter, `${kind}-${id}`, found);
   } while(found);
 
-  return name;
-};
+  return [id, fieldCounter];
+}
 
 export default (state, { type, ...action }) => {
   switch (type) {
@@ -51,10 +54,12 @@ export default (state, { type, ...action }) => {
     case 'dropNew': {
       const { target: { parent, field, index } } = traverse({target : action.target}, state.schema);
 
+      const [id, fieldCounter] = genIdentifier(action.kind, state.fieldCounter, state.schema);
+
       const item = {
         component: action.kind,
-        name: randomName(action.kind, state.fieldCounter, state.schema),
-        label: action.title
+        name: `${action.kind}-${id}`,
+        label: `${action.title}-${id}`
       };
 
       // Dropping an item as a child, e.g. into an empty section
@@ -64,7 +69,7 @@ export default (state, { type, ...action }) => {
         parent.fields.splice(index + parsePosition(action.position), 0, item);
       }
 
-      return { ...state, isDragging: false };
+      return {...state, fieldCounter, isDragging: false};
     }
     case 'dropExisting': {
       const {
@@ -104,32 +109,40 @@ export default (state, { type, ...action }) => {
     }
     case 'newSection': {
       const { target: { field } } = traverse({ target: action.target }, state.schema);
+
+      const [id, fieldCounter] = genIdentifier(componentTypes.SUB_FORM, state.fieldCounter, state.schema);
+
       field.fields.push({
-        component: 'sub-form',
-        name: randomName('sub-form', state.fieldCounter, state.schema),
-        title: `Section ${state.fieldCounter['sub-form']}`,
+        component: componentTypes.SUB_FORM,
+        name: `${componentTypes.SUB_FORM}-${id}`,
+        title: `Section ${id}`,
         fields: []
       });
 
-      return { ...state };
+      return { ...state, fieldCounter };
     }
     case 'newTab': {
       const { target: { field } } = traverse({ target: action.target }, state.schema);
+
+      // Foe a better experience, a new tab always contains an new empty section
+      const [tId, fc] = genIdentifier(componentTypes.TAB_ITEM, state.fieldCounter, state.schema);
+      const [sId, fieldCounter] = genIdentifier(componentTypes.SUB_FORM, fc, state.schema);
+
       field.fields.push({
-        component: 'tab-item',
-        name: randomName('tab-item', state.fieldCounter, state.schema),
-        title: `Tab ${state.fieldCounter['tab-item']}`,
+        component: componentTypes.TAB_ITEM,
+        name: `${componentTypes.TAB_ITEM}-${tId}`,
+        title: `Tab ${tId}`,
         fields: [
           {
-            component: 'sub-form',
-            name: randomName('sub-form', state.fieldCounter, state.schema),
-            title: `Section ${state.fieldCounter['sub-form']}`,
+            component: componentTypes.SUB_FORM,
+            name: `${componentTypes.SUB_FORM}-${sId}`,
+            title: `Section ${sId}`,
             fields: []
           }
         ]
       });
 
-      return { ...state };
+      return { ...state, fieldCounter };
     }
     case 'delete': {
       const { source: { parent, index } } = traverse({source : action.source}, state.schema);
