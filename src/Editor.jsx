@@ -45,7 +45,7 @@ export default ({...props}) => {
       <DndProvider backend={touch ? TouchBackend : HTML5Backend}>
         <div className="dialog-toolbox">
           <div className="preview-switch">
-            <Switch onText="Preview" offText="Editor" value={preview} inverse={true} onChange={() => setPreview(!preview)}/>
+            <Switch onText="View" offText="Edit" value={preview} inverse={true} onChange={() => setPreview(!preview)}/>
           </div>
           <Toolbox dispatch={dispatch}/>
         </div>
