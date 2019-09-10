@@ -1,45 +1,65 @@
 import { componentTypes } from '@data-driven-forms/react-form-renderer';
 
-// This function does a deep traversal of the haystack for the needles.
-const traverse = ({ ...needles }, haystack, found = {}) => {
-  if (typeof haystack === 'object' && Array.isArray(haystack.fields)) {
-    haystack.fields.forEach((field, index) => {
-      Object.keys(needles).forEach((needle) => {
-        if (field.name === needles[needle]) {
-          found[needle] = { parent:haystack, field, index };
-        }
-      });
-
-      traverse(needles, field, found);
-    });
+// This function can recursively traverse the schema to find an item with the passed name
+// and apply the passed function on its parent. The return value is always a shallow copy
+// of the incoming data. As this happens on each level of the recursion, the final result
+// is a deep copy of the object including the changes applied by the passed function. The
+// function is able to work with any object on any depth, except the very first one.
+const traverse = (data, name, fn) => {
+  if (Array.isArray(data.fields)) {
+    // Try to find the child object with the passed name among fields
+    const idx = data.fields.findIndex(field => field.name === name);
+    if (idx === -1) { // If the object is not found, proceed recursively on all children
+      return { ...data, fields: data.fields.map(field => traverse(field, name, fn)) };
+    }
+    // Apply the passed function on the children
+    return { ...data, fields: fn(data.fields, idx) };
   }
 
-  return found;
+  return { ...data };
 };
 
-const parsePosition = (position) => {
-   switch (position) {
-     case 'before':
-       return 0;
-     case 'after':
-       return 1;
-     default:
-       throw new Error();
-   }
+// Schema manipulation functions for inserting into an array in an immutable manner
+const insert = {
+  before: (array, item, index) => [
+    ...array.slice(0, index),
+    item,
+    ...array.slice(index)
+  ],
+  after: (array, item, index) => [
+    ...array.slice(0, index + 1),
+    item,
+    ...array.slice(index + 1)
+  ],
+  child: (array, item, index) => [
+    ...array.slice(0, index),
+    {
+      ...array[index],
+      fields: [...array[index].fields, item]
+    },
+    ...array.slice(index + 1)
+  ]
 };
 
+const remove = (array, index) => [...array.slice(0, index), ...array.slice(index + 1)];
+
+// Function to generate a locally-unique identifier for a given item kind
 const genIdentifier = (kind, { ...fieldCounter }, haystack) => {
   // Initialize the fieldCounter for the given component kind if not available
   if (!fieldCounter[kind]) {
     fieldCounter[kind] = 0;
   }
 
-  let id, found;
+  let id, found = false;
   // Generate a new ID by incrementing until there is no name collision
   do {
     id = ++fieldCounter[kind];
-    ({ found } = traverse({ found: `${kind}-${id}` }, haystack));
-    // console.log(fieldCounter, `${kind}-${id}`, found);
+    found = false;
+
+    traverse(haystack, `${kind}-${id}`, (fields) => {
+      found = true
+      return [...fields];
+    });
   } while(found);
 
   return [id, fieldCounter];
@@ -52,83 +72,55 @@ export default (state, { type, ...action }) => {
     case 'dragEnd':
       return { ...state, isDragging: false };
     case 'dropNew': {
-      const { target: { parent, field, index } } = traverse({target : action.target}, state.schema);
-
       const [id, fieldCounter] = genIdentifier(action.kind, state.fieldCounter, state.schema);
 
       const item = {
         component: action.kind,
         name: `${action.kind}-${id}`,
-        label: `${action.title}-${id}`
+        label: `${action.title} ${id}`
       };
 
-      // Dropping an item as a child, e.g. into an empty section
-      if (action.position === 'child') {
-        field.fields.push(item)
-      } else {
-        parent.fields.splice(index + parsePosition(action.position), 0, item);
-      }
+      const schema = traverse(state.schema, action.target, (fields, idx) => insert[action.position](fields, item, idx));
 
-      return {...state, fieldCounter, isDragging: false};
+      return {...state, schema, fieldCounter, isDragging: false};
     }
     case 'dropExisting': {
-      const {
-        source: {
-          parent: sourceParent,
-          field: sourceField,
-          index: sourceIndex
-        },
-        target: {
-          parent: targetParent,
-          field: targetField,
-          index: targetIndex
-        }
-      } = traverse({ source: action.source, target: action.target }, state.schema);
+      let item;
 
-      // Delete the source item from its original location
-      sourceParent.fields.splice(sourceIndex, 1);
+      const _schema = traverse(state.schema, action.source, (fields, idx) => {
+        item = fields[idx];
+        return remove(fields, idx);
+      });
 
-      // Dropping an item as a child, e.g. into an empty section
-      if (action.position === 'child') {
-        targetField.fields.push(sourceField);
-      } else {
-        // The initial value of the position adjustment comes from the before/after position
-        let positionAdjust = parsePosition(action.position);
 
-        // If both the source and target are in the same array, the indexes might be changed upon deletion. This can
-        // be corrected by decrementing the positionAdjust by 1
-        if (sourceParent === targetParent && targetParent.fields[targetIndex] !== targetField) {
-          positionAdjust -= 1;
-        }
+      const schema = traverse(_schema, action.target, (fields, idx) => {
+        return insert[action.position](fields, item, idx);
+      });
 
-        // Push the source item to its new adjusted position before or after the target
-        targetParent.fields.splice(targetIndex + positionAdjust, 0, sourceField);
-      }
-
-      return { ...state, isDragging: false };
+      return { ...state, schema, isDragging: false };
     }
     case 'newSection': {
-      const { target: { field } } = traverse({ target: action.target }, state.schema);
-
       const [id, fieldCounter] = genIdentifier(componentTypes.SUB_FORM, state.fieldCounter, state.schema);
 
-      field.fields.push({
+      const item = {
         component: componentTypes.SUB_FORM,
         name: `${componentTypes.SUB_FORM}-${id}`,
         title: `Section ${id}`,
         fields: []
+      };
+
+      const schema = traverse(state.schema, action.target, (fields, idx) => {
+        return insert['child'](fields, item, idx);
       });
 
-      return { ...state, fieldCounter };
+      return { ...state, schema, fieldCounter };
     }
     case 'newTab': {
-      const { target: { field } } = traverse({ target: action.target }, state.schema);
-
       // Foe a better experience, a new tab always contains an new empty section
       const [tId, fc] = genIdentifier(componentTypes.TAB_ITEM, state.fieldCounter, state.schema);
       const [sId, fieldCounter] = genIdentifier(componentTypes.SUB_FORM, fc, state.schema);
 
-      field.fields.push({
+      const item = {
         component: componentTypes.TAB_ITEM,
         name: `${componentTypes.TAB_ITEM}-${tId}`,
         title: `Tab ${tId}`,
@@ -140,16 +132,17 @@ export default (state, { type, ...action }) => {
             fields: []
           }
         ]
-      });
+      };
 
-      return { ...state, fieldCounter };
+      const schema = traverse(state.schema, action.target, (fields, idx) => insert['child'](fields, item, idx));
+
+      return { ...state, schema, fieldCounter };
     }
     case 'delete': {
-      const { source: { parent, index } } = traverse({source : action.source}, state.schema);
+      // const schema = traverse(state.schema, action.source, (fields, idx) => [...fields.slice(0, idx), ...fields.slice(idx + 1)]);
+      const schema = traverse(state.schema, action.source, remove);
 
-      parent.fields.splice(index, 1);
-
-      return { ...state }
+      return { ...state, schema }
     }
     default:
       throw new Error();
