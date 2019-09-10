@@ -9,8 +9,8 @@ import { DropZone, FakeDropZone, DraggableItem } from './DragAndDrop';
 const DraggableTabHeader = ({name, title, active, single, setActiveTab, dispatch}) => {
   const [{isDragging}, drag, preview] = DraggableItem({ name, type: itemTypes.TAB_ITEM }, dispatch, 'dropExisting');
 
-  const [{ isOver:isOverLeft }, dropLeft] = DropZone({ name, type: itemTypes.TAB_ITEM }, name, 'before');
-  const [{ isOver:isOverRight }, dropRight] = DropZone({ name, type: itemTypes.TAB_ITEM }, name, 'after');
+  const [{ isOver:isOverLeft }, dropLeft] = DropZone({ name, type: itemTypes.TAB_ITEM }, 'before');
+  const [{ isOver:isOverRight }, dropRight] = DropZone({ name, type: itemTypes.TAB_ITEM }, 'after');
 
   // Create a fake drop zone that allows switching tabs when dragging an input or a section
   const switchTab = debounce(() => setActiveTab(name), 80);
