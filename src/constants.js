@@ -61,3 +61,18 @@ export const itemTypes = {
   SECTION: 'section',
   TAB_ITEM: 'tab-item'
 };
+
+export const dialogSchema = {
+  fields: [
+    {
+      name: 'name',
+      label: 'Name',
+      component: componentTypes.TEXT_FIELD,
+    },
+    {
+      name: 'description',
+      label: 'Description',
+      component: componentTypes.TEXTAREA_FIELD,
+    }
+  ]
+};

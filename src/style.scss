@@ -256,8 +256,13 @@
     @media (min-width: $width) {
       width: calc(100% * (4 / 12));
     }
+
     @media (max-width: #{$width - 1px}) {
       display: none;
+    }
+
+    .form {
+      margin: 1em;
     }
   }
 }
