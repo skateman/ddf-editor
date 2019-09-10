@@ -27,12 +27,13 @@
       width: 100%;
       padding-left: 0;
       list-style-type: none;
-      border: 2px dashed rgba(0, 0, 0, 0.1);
+      border: 4px dashed rgba(0, 0, 0, 0.1);
+      border-bottom: none;
 
       & > li.toolbox-field {
         width: 100%;
         text-align: center;
-        border: 2px dashed rgba(0, 0, 0, 0.1);
+        border-bottom: 4px dashed rgba(0, 0, 0, 0.1);
 
         .toolbox-field-inner {
           cursor: grab;
