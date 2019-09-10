@@ -47,7 +47,14 @@ const createSchema = () => ({
           component: componentTypes.TAB_ITEM,
           name: 'tab-item-2',
           title: 'Tab 2',
-          fields: []
+          fields: [
+            {
+              component: componentTypes.SUB_FORM,
+              name: 'sub-form-2',
+              title: 'Extras',
+              fields: []
+            }
+          ]
         }
       ]
     }
