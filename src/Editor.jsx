@@ -50,7 +50,7 @@ export default ({...props}) => {
           showFormControls={false}
         />
       </div>
-      <div className="dialog-properties flex-col-lg-4">
+      <div className="dialog-properties">
         <Properties schema={schema} />
       </div>
     </div>

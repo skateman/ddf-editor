@@ -3,6 +3,10 @@
   display: flex;
   align-items: flex-start;
 
+  @media(max-width: #{$width - 1px}) {
+    flex-direction: column;
+  }
+
   & > * {
     box-sizing: border-box;
     padding: 1em;
@@ -14,6 +18,11 @@
       width: calc(100% * (1 / 12));
     }
 
+    @media (max-width: #{$width - 1px}) {
+      z-index: 20;
+      background-color: white;
+    }
+
     position: sticky;
     top: 0;
 
@@ -21,6 +30,10 @@
       text-align: center;
       margin-top: 0.5em;
       margin-bottom: 1em;
+
+      @media (max-width: #{$width - 1px}) {
+        display: none;
+      }
     }
 
     ul.toolbox {
@@ -29,11 +42,19 @@
       list-style-type: none;
       border: 4px dashed rgba(0, 0, 0, 0.1);
       border-bottom: none;
+      border-right: none;
 
       & > li.toolbox-field {
         width: 100%;
         text-align: center;
-        border-bottom: 4px dashed rgba(0, 0, 0, 0.1);
+        border: 4px dashed rgba(0, 0, 0, 0.1);
+        border-left: none;
+        border-top: none;
+
+        @media(max-width: #{$width - 1px}) {
+          display: inline-block;
+          width: calc(100% / 8);
+        }
 
         .toolbox-field-inner {
           cursor: grab;
@@ -234,6 +255,9 @@
   .dialog-properties {
     @media (min-width: $width) {
       width: calc(100% * (4 / 12));
+    }
+    @media (max-width: #{$width - 1px}) {
+      display: none;
     }
   }
 }
