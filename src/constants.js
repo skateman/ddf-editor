@@ -1,4 +1,3 @@
-// import partial from 'lodash.partial';
 import { componentTypes } from '@data-driven-forms/react-form-renderer';
 import { formFieldsMapper } from '@data-driven-forms/pf3-component-mapper';
 
