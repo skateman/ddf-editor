@@ -17,7 +17,7 @@ import Reducer from './Reducer';
 export default ({...props}) => {
   const { schema:initialSchema } = props;
   const [preview, setPreview] = useState(false);
-  const [{schema, isDragging}, dispatch] = useReducer(Reducer, {
+  const [{ schema, isDragging, edit }, dispatch] = useReducer(Reducer, {
     isDragging: false,
     fieldCounter: {},
     schema: initialSchema,
@@ -60,7 +60,7 @@ export default ({...props}) => {
         </div>
       </DndProvider>
       <div className="dialog-sidebar">
-        <Sidebar schema={schema} />
+        <Sidebar schema={schema} edit={edit} />
       </div>
     </div>
    )

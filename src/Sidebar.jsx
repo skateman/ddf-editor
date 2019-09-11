@@ -3,9 +3,10 @@ import { TabContainer, Nav, NavItem, TabContent, TabPane } from 'patternfly-reac
 import { formFieldsMapper, layoutMapper } from '@data-driven-forms/pf3-component-mapper';
 import FormRender from '@data-driven-forms/react-form-renderer';
 
+import Properties from './Properties';
 import { dialogDetailsSchema } from './constants';
 
-const Sidebar = ({ schema }) => {
+const Sidebar = ({ schema, edit }) => {
   return (
     <TabContainer id="dialog-properties-tabs" defaultActiveKey={0}>
       <div>
@@ -30,7 +31,7 @@ const Sidebar = ({ schema }) => {
             <pre>{ JSON.stringify(schema, null, '  ') }</pre>
           </TabPane>
           <TabPane eventKey={2}>
-            <div className="form"></div>
+            <div className="form"><Properties edit={edit} /></div>
           </TabPane>
         </TabContent>
       </div>

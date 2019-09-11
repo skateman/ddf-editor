@@ -67,6 +67,8 @@ const genIdentifier = (kind, { ...fieldCounter }, haystack) => {
 
 export default (state, { type, ...action }) => {
   switch (type) {
+    case 'editItem':
+      return { ...state, edit: {name: action.target, kind: action.kind }};
     case 'dragStart':
       return { ...state, isDragging: action.itemType };
     case 'dragEnd':
