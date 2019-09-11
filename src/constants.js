@@ -10,7 +10,7 @@ const partial = (fn, ...apply) => (...args) => fn(...apply, ...args);
 // These two fields are not part of the toolbox, but still usable for drag&drop
 const nonToolboxFields = {
   [componentTypes.SUB_FORM]: partial(DraggableSection, formFieldsMapper[componentTypes.SUB_FORM]),
-  [componentTypes.TABS]: DraggableTabs
+  [componentTypes.TABS]: partial(DraggableTabs, formFieldsMapper[componentTypes.TABS])
 };
 
 export const toolboxFields = {

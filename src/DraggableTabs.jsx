@@ -4,7 +4,7 @@ import { TabContainer, Nav, NavItem, TabContent } from 'patternfly-react';
 import DraggableTabHeader from './DraggableTabHeader';
 import DraggableTabContent from './DraggableTabContent';
 
-export default (dispatch) => {
+export default (_, dispatch) => {
   const DraggableTabs = ({ name:target, fields, formOptions }) => {
     // Try to retrieve the name of the very first tab
     const firstTab = (() => {
