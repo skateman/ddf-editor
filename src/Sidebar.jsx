@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { TabContainer, Nav, NavItem, TabContent, TabPane } from 'patternfly-react';
 import { formFieldsMapper, layoutMapper } from '@data-driven-forms/pf3-component-mapper';
 import FormRender from '@data-driven-forms/react-form-renderer';
@@ -6,17 +6,21 @@ import FormRender from '@data-driven-forms/react-form-renderer';
 import Properties from './Properties';
 import { dialogDetailsSchema } from './constants';
 
-const Sidebar = ({ schema, edit }) => {
+const Sidebar = ({ schema, edit, dispatch }) => {
+  const [activeTab, setActiveTab] = useState('dialog');
+
+  useEffect(() => setActiveTab(edit ? 'properties' : 'dialog'), [edit]);
+
   return (
-    <TabContainer id="dialog-properties-tabs" defaultActiveKey={0}>
+    <TabContainer id="dialog-properties-tabs" activeKey={activeTab} onSelect={tab => setActiveTab(tab)}>
       <div>
         <Nav bsClass="nav nav-tabs">
-          <NavItem eventKey={0}>Dialog</NavItem>
-          <NavItem eventKey={1}>Schema</NavItem>
-          <NavItem eventKey={2}>Properties</NavItem>
+          <NavItem eventKey="dialog">Dialog</NavItem>
+          <NavItem eventKey="schema">Schema</NavItem>
+          <NavItem eventKey="properties" disabled={!edit}>Properties</NavItem>
         </Nav>
         <TabContent animation>
-          <TabPane eventKey={0}>
+          <TabPane eventKey="dialog">
             <div className="form">
               <FormRender
                 formFieldsMapper={formFieldsMapper}
@@ -27,11 +31,11 @@ const Sidebar = ({ schema, edit }) => {
               />
             </div>
           </TabPane>
-          <TabPane eventKey={1}>
+          <TabPane eventKey="schema">
             <pre>{ JSON.stringify(schema, null, '  ') }</pre>
           </TabPane>
-          <TabPane eventKey={2}>
-            <div className="form"><Properties edit={edit} /></div>
+          <TabPane eventKey="properties">
+            <div className="form"><Properties edit={edit} dispatch={dispatch} /></div>
           </TabPane>
         </TabContent>
       </div>

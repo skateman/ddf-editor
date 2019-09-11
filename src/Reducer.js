@@ -67,12 +67,14 @@ const genIdentifier = (kind, { ...fieldCounter }, haystack) => {
 
 export default (state, { type, ...action }) => {
   switch (type) {
-    case 'editItem': {
+    case 'editStart': {
       let item; // Find the item by its name in the schema
       traverse(state.schema, action.target, (fields, idx) => { item = fields[idx] });
 
       return { ...state, edit: { target: action.target, item }};
     }
+    case 'editEnd':
+      return { ...state, edit: undefined }
     case 'dragStart':
       return { ...state, isDragging: action.itemType };
     case 'dragEnd':

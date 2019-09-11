@@ -60,7 +60,7 @@ export default ({...props}) => {
         </div>
       </DndProvider>
       <div className="dialog-sidebar">
-        <Sidebar schema={schema} edit={edit} />
+        <Sidebar schema={schema} edit={edit} dispatch={dispatch} />
       </div>
     </div>
    )

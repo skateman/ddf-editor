@@ -30,7 +30,7 @@ const DraggableTabHeader = ({name, title, active, single, setActiveTab, dispatch
         <div className={classSet({'handle': true, 'active': active})} ref={drag}></div>
         { title }
         <ul className="toolbox" ref={toolboxRef}>
-          <li onClick={() => dispatch({ type: 'editItem', target: name })}>
+          <li onClick={() => dispatch({ type: 'editStart', target: name })}>
             <i className="fa fa-pencil"></i>
           </li>
           <li onClick={() => single ? undefined : dispatch({type: 'delete', source: name})} className={classSet({'disabled': single})}>
