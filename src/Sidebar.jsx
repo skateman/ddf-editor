@@ -5,7 +5,7 @@ import FormRender from '@data-driven-forms/react-form-renderer';
 
 import { dialogDetailsSchema } from './constants';
 
-const Properties = ({ schema }) => {
+const Sidebar = ({ schema }) => {
   return (
     <TabContainer id="dialog-properties-tabs" defaultActiveKey={0}>
       <div>
@@ -38,4 +38,4 @@ const Properties = ({ schema }) => {
   )
 };
 
-export default Properties;
+export default Sidebar;

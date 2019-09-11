@@ -11,7 +11,7 @@ import './style.scss';
 
 import { draggableFields } from './constants';
 import Toolbox from './Toolbox';
-import Properties from './Properties';
+import Sidebar from './Sidebar';
 import Reducer from './Reducer';
 
 export default ({...props}) => {
@@ -59,8 +59,8 @@ export default ({...props}) => {
           />
         </div>
       </DndProvider>
-      <div className="dialog-properties">
-        <Properties schema={schema} />
+      <div className="dialog-sidebar">
+        <Sidebar schema={schema} />
       </div>
     </div>
    )
