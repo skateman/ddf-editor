@@ -50,7 +50,7 @@ const createSchema = () => ({
           fields: [
             {
               component: componentTypes.SUB_FORM,
-              name: 'sub-form-2',
+              name: 'sub-form-3',
               title: 'Extras',
               fields: []
             }
