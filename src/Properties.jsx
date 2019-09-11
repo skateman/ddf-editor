@@ -3,7 +3,7 @@ import { TabContainer, Nav, NavItem, TabContent, TabPane } from 'patternfly-reac
 import { formFieldsMapper, layoutMapper } from '@data-driven-forms/pf3-component-mapper';
 import FormRender from '@data-driven-forms/react-form-renderer';
 
-import { dialogSchema } from './constants';
+import { dialogDetailsSchema } from './constants';
 
 const Properties = ({ schema }) => {
   return (
@@ -21,7 +21,7 @@ const Properties = ({ schema }) => {
                 formFieldsMapper={formFieldsMapper}
                 layoutMapper={layoutMapper}
                 onSubmit={() => undefined}
-                schema={dialogSchema}
+                schema={dialogDetailsSchema}
                 showFormControls={false}
               />
             </div>

@@ -62,7 +62,7 @@ export const itemTypes = {
   TAB_ITEM: 'tab-item'
 };
 
-export const dialogSchema = {
+export const dialogDetailsSchema = {
   fields: [
     {
       name: 'name',
@@ -73,6 +73,7 @@ export const dialogSchema = {
       name: 'description',
       label: 'Description',
       component: componentTypes.TEXTAREA_FIELD,
+      rows: 6
     }
   ]
 };
