@@ -24,7 +24,7 @@ const DraggableInput = (Component, dispatch) => {
         </div>
         <div className="toolbox">
           <ul>
-            <li onClick={() => console.warn('Not implemented!')}><i className="fa fa-pencil fa-fw"></i></li>
+            <li onClick={() => dispatch({ type: 'editItem', target: name })}><i className="fa fa-pencil fa-fw"></i></li>
             <li onClick={() => dispatch({type: 'delete', source: name})}><i className="fa fa-times fa-fw"></i></li>
           </ul>
         </div>
