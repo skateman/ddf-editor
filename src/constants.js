@@ -7,53 +7,77 @@ import DraggableTabs from './DraggableTabs';
 
 const partial = (fn, ...apply) => (...args) => fn(...apply, ...args);
 
-// These two fields are not part of the toolbox, but still usable for drag&drop
-const nonToolboxFields = {
-  [componentTypes.SUB_FORM]: partial(DraggableSection, formFieldsMapper[componentTypes.SUB_FORM]),
-  [componentTypes.TABS]: partial(DraggableTabs, formFieldsMapper[componentTypes.TABS])
-};
-
-export const toolboxFields = {
+export const dialogItemKinds = {
   [componentTypes.TEXT_FIELD]: {
-    title: 'Text Box',
-    icon: 'fa fa-font',
+    component: DraggableInput,
+    toolbox: {
+      title: 'Text Box',
+      icon: 'fa fa-font',
+    },
   },
   [componentTypes.TEXTAREA_FIELD]: {
-    title: 'Text Area',
-    icon: 'fa fa-file-text-o',
+    component: DraggableInput,
+    toolbox: {
+      title: 'Text Area',
+      icon: 'fa fa-file-text-o',
+    },
   },
   [componentTypes.CHECKBOX]: {
-    title: 'Checkbox',
-    icon: 'fa fa-check-square-o',
+    component: DraggableInput,
+    toolbox: {
+      title: 'Checkbox',
+      icon: 'fa fa-check-square-o',
+    },
   },
   [componentTypes.SELECT]: {
-    title: 'Dropdown',
-    icon: 'fa fa-caret-square-o-down',
+    component: DraggableInput,
+    toolbox: {
+      title: 'Dropdown',
+      icon: 'fa fa-caret-square-o-down',
+    },
   },
   [componentTypes.RADIO]: {
-    title: 'Radio Button',
-    icon: 'fa fa-circle-o',
+    component: DraggableInput,
+    toolbox: {
+      title: 'Radio Button',
+      icon: 'fa fa-circle-o',
+    },
   },
   [componentTypes.DATE_PICKER]: {
-    title: 'Datepicker',
-    icon: 'fa fa-calendar',
+    component: DraggableInput,
+    toolbox: {
+      title: 'Datepicker',
+      icon: 'fa fa-calendar',
+    },
   },
   [componentTypes.TIME_PICKER]: {
-    title: 'Timepicker',
-    icon: 'fa fa-clock-o',
+    component: DraggableInput,
+    toolbox: {
+      title: 'Timepicker',
+      icon: 'fa fa-clock-o',
+    },
   },
   [componentTypes.TAG_CONTROL]: {
-    title: 'Tag Control',
-    icon: 'fa fa-tags',
+    component: DraggableInput,
+    toolbox: {
+      title: 'Tag Control',
+      icon: 'fa fa-tags',
+    },
+  },
+  [componentTypes.TABS]: {
+    component: DraggableTabs,
+  },
+  [componentTypes.SUB_FORM]: {
+    component: DraggableSection,
   },
 };
 
-export const draggableFields = Object.keys(toolboxFields).reduce(
+export const draggableFields = Object.keys(dialogItemKinds).reduce(
   (obj, key) => ({
     ...obj,
-    [key]: partial(DraggableInput, formFieldsMapper[key])
+    [key]: partial(dialogItemKinds[key].component, formFieldsMapper[key])
   }),
-  nonToolboxFields
+  {}
 );
 
 export const itemTypes = {
