@@ -64,21 +64,61 @@ export const dialogItemKinds = {
       icon: 'fa fa-tags',
     },
   },
+  [componentTypes.SUB_FORM]: {
+    component: DraggableSection,
+    editSchema: {
+      fields: [
+        {
+          name: 'name',
+          label: 'Name',
+          component: componentTypes.TEXT_FIELD
+        },
+        {
+          name: 'title',
+          label: 'Title',
+          component: componentTypes.TEXT_FIELD
+        },
+        {
+          name: 'description',
+          label: 'Description',
+          component: componentTypes.TEXTAREA_FIELD
+        }
+      ]
+    }
+  },
+  // The TABS component is mapped to be draggable, but it is unique and not editable. On the other hand
+  // the TAB_ITEM component is not mapped but it is editable, therefore it has an editSchema.
   [componentTypes.TABS]: {
     component: DraggableTabs,
   },
-  [componentTypes.SUB_FORM]: {
-    component: DraggableSection,
+  [componentTypes.TAB_ITEM]: {
+    editSchema: {
+      fields: [
+        {
+          name: 'name',
+          label: 'Name',
+          component: componentTypes.TEXT_FIELD
+        },
+        {
+          name: 'title',
+          label: 'Title',
+          component: componentTypes.TEXT_FIELD
+        }
+      ]
+    }
   },
+
 };
 
-export const draggableFields = Object.keys(dialogItemKinds).reduce(
-  (obj, key) => ({
-    ...obj,
-    [key]: partial(dialogItemKinds[key].component, formFieldsMapper[key])
-  }),
-  {}
-);
+export const draggableFields = Object.keys(dialogItemKinds)
+  .filter(key => dialogItemKinds[key].component)
+  .reduce(
+    (obj, key) => ({
+      ...obj,
+      [key]: partial(dialogItemKinds[key].component, formFieldsMapper[key])
+    }),
+    {}
+  );
 
 export const itemTypes = {
   INPUT: 'input',

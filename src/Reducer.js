@@ -147,10 +147,10 @@ export default (state, { type, ...action }) => {
       return { ...state, schema, fieldCounter };
     }
     case 'delete': {
-      // const schema = traverse(state.schema, action.source, (fields, idx) => [...fields.slice(0, idx), ...fields.slice(idx + 1)]);
       const schema = traverse(state.schema, action.source, remove);
-
-      return { ...state, schema }
+      // If the deleted item is currently being edited, it should be removed from the state
+      const edit = state.edit && action.source !== state.edit.target ? state.edit : undefined;
+      return { ...state, schema, edit };
     }
     default:
       throw new Error();

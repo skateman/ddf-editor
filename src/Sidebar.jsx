@@ -34,9 +34,11 @@ const Sidebar = ({ schema, edit, dispatch }) => {
           <TabPane eventKey="schema">
             <pre>{ JSON.stringify(schema, null, '  ') }</pre>
           </TabPane>
-          <TabPane eventKey="properties">
-            <div className="form"><Properties edit={edit} dispatch={dispatch} /></div>
-          </TabPane>
+          { edit &&
+            <TabPane eventKey="properties">
+              <div className="form"><Properties edit={edit} dispatch={dispatch} /></div>
+            </TabPane>
+          }
         </TabContent>
       </div>
     </TabContainer>
