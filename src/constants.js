@@ -7,6 +7,19 @@ import DraggableTabs from './DraggableTabs';
 
 const partial = (fn, ...apply) => (...args) => fn(...apply, ...args);
 
+const commonFields = [
+  {
+    name: 'name',
+    label: 'Name',
+    component: componentTypes.TEXT_FIELD
+  },
+  {
+    name: 'label',
+    label: 'Label',
+    component: componentTypes.TEXT_FIELD
+  }
+];
+
 export const dialogItemKinds = {
   [componentTypes.TEXT_FIELD]: {
     component: DraggableInput,
@@ -14,6 +27,9 @@ export const dialogItemKinds = {
       title: 'Text Box',
       icon: 'fa fa-font',
     },
+    editSchema: {
+      fields: [...commonFields]
+    }
   },
   [componentTypes.TEXTAREA_FIELD]: {
     component: DraggableInput,
@@ -21,6 +37,9 @@ export const dialogItemKinds = {
       title: 'Text Area',
       icon: 'fa fa-file-text-o',
     },
+    editSchema: {
+      fields: [...commonFields]
+    }
   },
   [componentTypes.CHECKBOX]: {
     component: DraggableInput,
@@ -28,6 +47,9 @@ export const dialogItemKinds = {
       title: 'Checkbox',
       icon: 'fa fa-check-square-o',
     },
+    editSchema: {
+      fields: [...commonFields]
+    }
   },
   [componentTypes.SELECT]: {
     component: DraggableInput,
@@ -35,6 +57,9 @@ export const dialogItemKinds = {
       title: 'Dropdown',
       icon: 'fa fa-caret-square-o-down',
     },
+    editSchema: {
+      fields: [...commonFields]
+    }
   },
   [componentTypes.RADIO]: {
     component: DraggableInput,
@@ -42,6 +67,9 @@ export const dialogItemKinds = {
       title: 'Radio Button',
       icon: 'fa fa-circle-o',
     },
+    editSchema: {
+      fields: [...commonFields]
+    }
   },
   [componentTypes.DATE_PICKER]: {
     component: DraggableInput,
@@ -49,6 +77,9 @@ export const dialogItemKinds = {
       title: 'Datepicker',
       icon: 'fa fa-calendar',
     },
+    editSchema: {
+      fields: [...commonFields]
+    }
   },
   [componentTypes.TIME_PICKER]: {
     component: DraggableInput,
@@ -56,6 +87,9 @@ export const dialogItemKinds = {
       title: 'Timepicker',
       icon: 'fa fa-clock-o',
     },
+    editSchema: {
+      fields: [...commonFields]
+    }
   },
   [componentTypes.TAG_CONTROL]: {
     component: DraggableInput,
@@ -63,6 +97,9 @@ export const dialogItemKinds = {
       title: 'Tag Control',
       icon: 'fa fa-tags',
     },
+    editSchema: {
+      fields: [...commonFields]
+    }
   },
   [componentTypes.SUB_FORM]: {
     component: DraggableSection,
