@@ -17,6 +17,26 @@ const commonFields = [
     name: 'label',
     label: 'Label',
     component: componentTypes.TEXT_FIELD
+  },
+  {
+    name: 'description',
+    label: 'Description',
+    component: componentTypes.TEXT_FIELD
+  },
+  {
+    name: 'helperText',
+    label: 'Help',
+    component: componentTypes.TEXT_FIELD
+  },
+  {
+    name: 'isRequired',
+    label: 'Required',
+    component: componentTypes.CHECKBOX
+  },
+  {
+    name: 'isReadOnly',
+    label: 'Read only',
+    component: componentTypes.CHECKBOX
   }
 ];
 
