@@ -42,6 +42,7 @@ const insert = {
 };
 
 const remove = (array, index) => [...array.slice(0, index), ...array.slice(index + 1)];
+const replace = (array, item, index) => [...array.slice(0, index), item, ...array.slice(index + 1)];
 
 // Function to generate a locally-unique identifier for a given item kind
 const genIdentifier = (kind, { ...fieldCounter }, haystack) => {
@@ -72,6 +73,20 @@ export default (state, { type, ...action }) => {
       traverse(state.schema, action.target, (fields, idx) => { item = fields[idx] });
 
       return { ...state, edit: { target: action.target, item }};
+    }
+    case 'editSave': {
+      if (action.values.name) {
+        let duplicate;
+        traverse(state.schema, action.values.name, (fields, idx) => { duplicate = fields[idx] });
+        if (duplicate) {
+          const edit = { ...state.edit, error: 'The entered name already exists in the schema, duplications are not allowed.' };
+          return { ...state, edit };
+        }
+      }
+
+      const schema = traverse(state.schema, action.target, (fields, idx) => replace(fields, { ...fields[idx], ...action.values }, idx));
+
+      return { ...state, schema, edit: undefined };
     }
     case 'editEnd':
       return { ...state, edit: undefined }
