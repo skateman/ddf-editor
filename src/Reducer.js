@@ -19,6 +19,15 @@ const traverse = (data, name, fn) => {
   return { ...data };
 };
 
+// Helper function to find an item by using traverse
+const find = (data, name) => {
+  let item = undefined;
+  traverse(data, name, (fields, idx) => {
+    item = fields[idx];
+  });
+  return item;
+}
+
 // Schema manipulation functions for inserting into an array in an immutable manner
 const insert = {
   before: (array, item, index) => [
@@ -69,15 +78,12 @@ const genIdentifier = (kind, { ...fieldCounter }, haystack) => {
 export default (state, { type, ...action }) => {
   switch (type) {
     case 'editStart': {
-      let item; // Find the item by its name in the schema
-      traverse(state.schema, action.target, (fields, idx) => { item = fields[idx] });
-
+      const item = find(state.schema, action.target);
       return { ...state, edit: { target: action.target, item }};
     }
     case 'editSave': {
       if (action.values.name) {
-        let duplicate;
-        traverse(state.schema, action.values.name, (fields, idx) => { duplicate = fields[idx] });
+        const duplicate = find(state.schema, action.values.name);
         if (duplicate) {
           const edit = { ...state.edit, error: 'The entered name already exists in the schema, duplications are not allowed.' };
           return { ...state, edit };
