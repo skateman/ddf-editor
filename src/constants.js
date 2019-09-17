@@ -4,6 +4,7 @@ import { formFieldsMapper } from '@data-driven-forms/pf3-component-mapper';
 import DraggableInput from './DraggableInput';
 import DraggableSection from './DraggableSection';
 import DraggableTabs from './DraggableTabs';
+import DraggableTimePicker from './DraggableTimePicker';
 
 const partial = (fn, ...apply) => (...args) => fn(...apply, ...args);
 
@@ -102,7 +103,7 @@ export const dialogItemKinds = {
     }
   },
   [componentTypes.TIME_PICKER]: {
-    component: DraggableInput,
+    component: DraggableTimePicker,
     toolbox: {
       title: 'Timepicker',
       icon: 'fa fa-clock-o',
