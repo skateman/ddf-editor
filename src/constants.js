@@ -29,6 +29,11 @@ const commonFields = [
     component: componentTypes.TEXT_FIELD
   },
   {
+    name: 'initialValue',
+    label: 'Default value',
+    component: componentTypes.TEXT_FIELD
+  },
+  {
     name: 'isRequired',
     label: 'Required',
     component: componentTypes.CHECKBOX
