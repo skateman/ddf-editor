@@ -43,7 +43,7 @@ const commonFields = [
 
 export const dialogItemKinds = {
   [componentTypes.TEXT_FIELD]: {
-    component: DraggableInput,
+    decorator: DraggableInput,
     toolbox: {
       title: 'Text Box',
       icon: 'fa fa-font',
@@ -53,7 +53,7 @@ export const dialogItemKinds = {
     }
   },
   [componentTypes.TEXTAREA_FIELD]: {
-    component: DraggableInput,
+    decorator: DraggableInput,
     toolbox: {
       title: 'Text Area',
       icon: 'fa fa-file-text-o',
@@ -63,7 +63,7 @@ export const dialogItemKinds = {
     }
   },
   [componentTypes.CHECKBOX]: {
-    component: DraggableInput,
+    decorator: DraggableInput,
     toolbox: {
       title: 'Checkbox',
       icon: 'fa fa-check-square-o',
@@ -73,7 +73,7 @@ export const dialogItemKinds = {
     }
   },
   [componentTypes.SELECT]: {
-    component: DraggableInput,
+    decorator: DraggableInput,
     toolbox: {
       title: 'Dropdown',
       icon: 'fa fa-caret-square-o-down',
@@ -83,7 +83,7 @@ export const dialogItemKinds = {
     }
   },
   [componentTypes.RADIO]: {
-    component: DraggableInput,
+    decorator: DraggableInput,
     toolbox: {
       title: 'Radio Button',
       icon: 'fa fa-circle-o',
@@ -93,7 +93,7 @@ export const dialogItemKinds = {
     }
   },
   [componentTypes.DATE_PICKER]: {
-    component: DraggableInput,
+    decorator: DraggableInput,
     toolbox: {
       title: 'Datepicker',
       icon: 'fa fa-calendar',
@@ -103,7 +103,7 @@ export const dialogItemKinds = {
     }
   },
   [componentTypes.TIME_PICKER]: {
-    component: DraggableTimePicker,
+    decorator: DraggableTimePicker,
     toolbox: {
       title: 'Timepicker',
       icon: 'fa fa-clock-o',
@@ -113,7 +113,7 @@ export const dialogItemKinds = {
     }
   },
   [componentTypes.TAG_CONTROL]: {
-    component: DraggableInput,
+    decorator: DraggableInput,
     toolbox: {
       title: 'Tag Control',
       icon: 'fa fa-tags',
@@ -123,7 +123,7 @@ export const dialogItemKinds = {
     }
   },
   [componentTypes.SUB_FORM]: {
-    component: DraggableSection,
+    decorator: DraggableSection,
     editSchema: {
       fields: [
         {
@@ -147,7 +147,7 @@ export const dialogItemKinds = {
   // The TABS component is mapped to be draggable, but it is unique and not editable. On the other hand
   // the TAB_ITEM component is not mapped but it is editable, therefore it has an editSchema.
   [componentTypes.TABS]: {
-    component: DraggableTabs,
+    decorator: DraggableTabs,
   },
   [componentTypes.TAB_ITEM]: {
     editSchema: {
@@ -165,15 +165,14 @@ export const dialogItemKinds = {
       ]
     }
   },
-
 };
 
 export const draggableFields = Object.keys(dialogItemKinds)
-  .filter(key => dialogItemKinds[key].component)
+  .filter(key => dialogItemKinds[key].decorator)
   .reduce(
     (obj, key) => ({
       ...obj,
-      [key]: partial(dialogItemKinds[key].component, formFieldsMapper[key])
+      [key]: partial(dialogItemKinds[key].decorator, formFieldsMapper[key])
     }),
     {}
   );
