@@ -41,27 +41,27 @@ export default ({...props}) => {
   const touch = 'ontouchstart' in document.documentElement;
 
   return (
-    <div className="dialog-editor">
-      <DndProvider backend={touch ? TouchBackend : HTML5Backend}>
-        <div className="dialog-toolbox">
-          <div className="preview-switch">
-            <Switch onText="View" offText="Edit" value={preview} inverse={true} onChange={() => setPreview(!preview)}/>
+    <DndProvider backend={touch ? TouchBackend : HTML5Backend}>
+      <div className="dialog-editor">
+          <div className="dialog-toolbox">
+            <div className="preview-switch">
+              <Switch onText="View" offText="Edit" value={preview} inverse={true} onChange={() => setPreview(!preview)}/>
+            </div>
+            <Toolbox dispatch={dispatch}/>
           </div>
-          <Toolbox dispatch={dispatch}/>
+          <div className={classSet('dialog-renderer', isDragging ? `drag-${isDragging}` : undefined)}>
+            <FormRender
+              formFieldsMapper={preview ? formFieldsMapper : draggableFormFieldsMapper}
+              layoutMapper={layoutMapper}
+              onSubmit={() => undefined}
+              schema={schema}
+              showFormControls={false}
+            />
+          </div>
+        <div className={classSet('dialog-sidebar', isDragging ? `drag-${isDragging}` : undefined)}>
+          <Sidebar schema={schema} edit={edit} dispatch={dispatch} />
         </div>
-        <div className={classSet('dialog-renderer', isDragging ? `drag-${isDragging}` : undefined)}>
-          <FormRender
-            formFieldsMapper={preview ? formFieldsMapper : draggableFormFieldsMapper}
-            layoutMapper={layoutMapper}
-            onSubmit={() => undefined}
-            schema={schema}
-            showFormControls={false}
-          />
-        </div>
-      </DndProvider>
-      <div className="dialog-sidebar">
-        <Sidebar schema={schema} edit={edit} dispatch={dispatch} />
       </div>
-    </div>
+    </DndProvider>
    )
 };

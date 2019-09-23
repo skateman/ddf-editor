@@ -3,6 +3,7 @@ import { formFieldsMapper, layoutMapper } from '@data-driven-forms/pf3-component
 import FormRender from '@data-driven-forms/react-form-renderer';
 
 import { dialogItemKinds } from './constants';
+import EditablePairs, { EDITABLE_PAIRS } from './EditablePairs';
 
 const changedValues = (old, neu) => Object.keys(neu).reduce((obj, key) => {
   if (old[key] !== neu[key]) {
@@ -13,11 +14,13 @@ const changedValues = (old, neu) => Object.keys(neu).reduce((obj, key) => {
 }, {});
 
 const Properties = ({ edit, dispatch }) => {
+  const customFormFields = { ... formFieldsMapper, [EDITABLE_PAIRS]: EditablePairs(edit.item.options, dispatch) };
+
   return (
     <>
       <p>{ edit.error }</p>
       <FormRender
-        formFieldsMapper={formFieldsMapper}
+        formFieldsMapper={customFormFields}
         layoutMapper={layoutMapper}
         onSubmit={values => dispatch({ type: 'editSave', target: edit.item.name, values: changedValues(edit.item, values) })}
         onCancel={() => dispatch({ type: 'editEnd' })}

@@ -38,6 +38,21 @@ const createSchema = () => ({
                   component: componentTypes.CHECKBOX,
                   name: 'remember',
                   label: 'Remember me',
+                },
+                {
+                  component: componentTypes.SELECT,
+                  name: "select-field-1",
+                  label: "Dropdown 1",
+                  options: [
+                    {
+                      value: 'foo',
+                      label: 'foo'
+                    },
+                    {
+                      value: 'bar',
+                      label: 'bar'
+                    }
+                  ]
                 }
               ]
             }

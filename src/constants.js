@@ -4,6 +4,7 @@ import { formFieldsMapper } from '@data-driven-forms/pf3-component-mapper';
 import DraggableInput from './DraggableInput';
 import DraggableSection from './DraggableSection';
 import DraggableTabs from './DraggableTabs';
+import { EDITABLE_PAIRS } from './EditablePairs';
 
 const partial = (fn, ...apply) => (...args) => fn(...apply, ...args);
 
@@ -83,7 +84,14 @@ export const dialogItemKinds = {
       icon: 'fa fa-caret-square-o-down',
     },
     editSchema: {
-      fields: [...commonFields]
+      fields: [
+        ...commonFields,
+        {
+          name: 'options',
+          label: 'Options',
+          component: EDITABLE_PAIRS
+        }
+      ]
     }
   },
   [componentTypes.RADIO]: {
@@ -192,7 +200,8 @@ export const draggableFields = Object.keys(dialogItemKinds)
 export const itemTypes = {
   INPUT: 'input',
   SECTION: 'section',
-  TAB_ITEM: 'tab-item'
+  TAB_ITEM: 'tab-item',
+  OPTION: 'option'
 };
 
 export const dialogDetailsSchema = {
