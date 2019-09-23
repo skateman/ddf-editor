@@ -101,7 +101,14 @@ export const dialogItemKinds = {
       icon: 'fa fa-circle-o',
     },
     editSchema: {
-      fields: [...commonFields]
+      fields: [
+        ...commonFields,
+        {
+          name: 'options',
+          label: 'Options',
+          component: EDITABLE_PAIRS
+        }
+      ]
     }
   },
   [componentTypes.DATE_PICKER]: {

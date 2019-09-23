@@ -8,7 +8,7 @@ const EditablePairs = (fields, dispatch) => {
       <div className="options">
         <label>{ label }</label>
         {
-          fields.map(
+          fields && fields.map(
             (_, index) => <EditablePair key={index} {...{name, index, dispatch, formOptions}}/>
           )
         }

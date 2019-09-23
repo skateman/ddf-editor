@@ -88,7 +88,7 @@ export default (state, { type, ...action }) => {
       return { ...state, edit: { ...state.edit, item: { ...state.edit.item, options } } }
     }
     case 'editOptionAdd': {
-      const options = [...state.edit.item.options, {}];
+      const options = [...state.edit.item.options || [], {}];
       return { ...state, edit: { ...state.edit, item: { ...state.edit.item, options } } }
     }
     case 'editOptionDrop': {
