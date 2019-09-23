@@ -54,7 +54,20 @@ export const dialogItemKinds = {
       icon: 'fa fa-font',
     },
     editSchema: {
-      fields: [...commonFields]
+      fields: [
+        ...commonFields,
+        {
+          name: 'type',
+          label: 'Input type',
+          component: componentTypes.SELECT,
+          initialValue: 'text',
+          options: [
+            { label: 'Text', value: 'text' },
+            { label: 'Number', value: 'number' },
+            { label: 'Password', value: 'password' },
+          ]
+        }
+      ]
     }
   },
   [componentTypes.TEXTAREA_FIELD]: {
