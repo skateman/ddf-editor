@@ -20,6 +20,7 @@ const createSchema = () => ({
                   name: 'username',
                   label: 'Username',
                   component: componentTypes.TEXT_FIELD,
+                  type: 'text',
                 },
                 {
                   name: 'password',

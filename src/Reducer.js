@@ -1,5 +1,7 @@
 import { componentTypes } from '@data-driven-forms/react-form-renderer';
 
+import { dialogItemKinds } from './constants';
+
 // This function can recursively traverse the schema to find an item with the passed name
 // and apply the passed function on its parent. The return value is always a shallow copy
 // of the incoming data. As this happens on each level of the recursion, the final result
@@ -127,7 +129,8 @@ export default (state, { type, ...action }) => {
       const item = {
         component: action.kind,
         name: `${action.kind}-${id}`,
-        label: `${action.title} ${id}`
+        label: `${action.title} ${id}`,
+        ...dialogItemKinds[action.kind].defaultSchema
       };
 
       const schema = traverse(state.schema, action.target, (fields, idx) => insert[action.position](fields, item, idx));

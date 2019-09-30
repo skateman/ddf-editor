@@ -53,6 +53,9 @@ export const dialogItemKinds = {
       title: 'Text Box',
       icon: 'fa fa-font',
     },
+    defaultSchema: {
+      type: 'text'
+    },
     editSchema: {
       fields: [
         ...commonFields,
@@ -60,7 +63,6 @@ export const dialogItemKinds = {
           name: 'type',
           label: 'Input type',
           component: componentTypes.SELECT,
-          initialValue: 'text',
           options: [
             { label: 'Text', value: 'text' },
             { label: 'Number', value: 'number' },
