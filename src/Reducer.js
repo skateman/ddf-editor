@@ -103,6 +103,9 @@ export default (state, { type, ...action }) => {
 
       return { ...state, edit: { ...state.edit, item: { ...state.edit.item, options } }, isDragging: false };
     }
+    case 'editOptionStore': {
+      return { ...state, edit: { ...state.edit, item: { ...state.edit.item, options: action.values } } }
+    }
     case 'editSave': {
       if (action.values.name) {
         const duplicate = find(state.schema, action.values.name);
