@@ -13,8 +13,17 @@ const changedValues = (old, neu) => Object.keys(neu).reduce((obj, key) => {
   return obj;
 }, {});
 
+
 const Properties = ({ edit, dispatch }) => {
   const customFormFields = { ... formFieldsMapper, [EDITABLE_PAIRS]: EditablePairs(edit.item.options, dispatch) };
+
+  const onSubmit = values => {
+    dispatch({
+      type: 'editSave',
+      target: edit.item.name,
+      values: changedValues(edit.item, values)
+    });
+  };
 
   return (
     <>
@@ -22,7 +31,7 @@ const Properties = ({ edit, dispatch }) => {
       <FormRender
         formFieldsMapper={customFormFields}
         layoutMapper={layoutMapper}
-        onSubmit={values => dispatch({ type: 'editSave', target: edit.item.name, values: changedValues(edit.item, values) })}
+        onSubmit={onSubmit}
         onCancel={() => dispatch({ type: 'editEnd' })}
         schema={dialogItemKinds[edit.item.component].editSchema}
         initialValues={edit.item}
