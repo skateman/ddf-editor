@@ -98,6 +98,13 @@ export const dialogItemKinds = {
       title: 'Dropdown',
       icon: 'fa fa-caret-square-o-down',
     },
+    defaultSchema: {
+      options: [
+        { label: 'One', value: 1 },
+        { label: 'Two', value: 2 },
+        { label: 'Three', value: 3 }
+      ]
+    },
     editSchema: {
       fields: [
         ...commonFields,
@@ -114,6 +121,13 @@ export const dialogItemKinds = {
     toolbox: {
       title: 'Radio Button',
       icon: 'fa fa-circle-o',
+    },
+    defaultSchema: {
+      options: [
+        { label: 'One', value: 1 },
+        { label: 'Two', value: 2 },
+        { label: 'Three', value: 3 }
+      ]
     },
     editSchema: {
       fields: [
