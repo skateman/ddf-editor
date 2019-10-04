@@ -23,6 +23,7 @@ const createSchema = () => ({
                   label: 'Username',
                   visible: true,
                   component: componentTypes.TEXT_FIELD,
+                  submitAs: 'string',
                   type: 'text',
                 },
                 {
@@ -30,6 +31,7 @@ const createSchema = () => ({
                   label: 'Password',
                   visible: false,
                   component: componentTypes.TEXT_FIELD,
+                  submitAs: 'string',
                   type: 'password',
                 },
               ]
@@ -51,6 +53,7 @@ const createSchema = () => ({
                   name: "select-field-1",
                   label: "Dropdown 1",
                   visible: true,
+                  submitAs: 'string',
                   options: [
                     {
                       value: 'foo',

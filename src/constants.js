@@ -52,6 +52,16 @@ const commonFields = [
   }
 ];
 
+const submitAs = {
+  name: 'submitAs',
+  label: 'Submit as',
+  component: componentTypes.SELECT,
+  options: [
+    { label: 'String', value: 'string' },
+    { label: 'Integer', value: 'integer' }
+  ]
+};
+
 export const dialogItemKinds = {
   [componentTypes.TEXT_FIELD]: {
     decorator: DraggableInput,
@@ -60,11 +70,13 @@ export const dialogItemKinds = {
       icon: 'fa fa-font',
     },
     defaultSchema: {
-      type: 'text'
+      type: 'text',
+      submitAs: 'string'
     },
     editSchema: {
       fields: [
         ...commonFields,
+        submitAs,
         {
           name: 'type',
           label: 'Input type',
@@ -84,8 +96,14 @@ export const dialogItemKinds = {
       title: 'Text Area',
       icon: 'fa fa-file-text-o',
     },
+    defaultSchema: {
+      submitAs: 'string'
+    },
     editSchema: {
-      fields: [...commonFields]
+      fields: [
+        ...commonFields,
+        submitAs
+      ]
     }
   },
   [componentTypes.CHECKBOX]: {
@@ -105,6 +123,7 @@ export const dialogItemKinds = {
       icon: 'fa fa-caret-square-o-down',
     },
     defaultSchema: {
+      submitAs: 'string',
       options: [
         { label: 'One', value: 1 },
         { label: 'Two', value: 2 },
@@ -114,6 +133,7 @@ export const dialogItemKinds = {
     editSchema: {
       fields: [
         ...commonFields,
+        submitAs,
         {
           name: 'options',
           label: 'Options',
@@ -129,6 +149,7 @@ export const dialogItemKinds = {
       icon: 'fa fa-circle-o',
     },
     defaultSchema: {
+      submitAs: 'string',
       options: [
         { label: 'One', value: 1 },
         { label: 'Two', value: 2 },
@@ -138,6 +159,7 @@ export const dialogItemKinds = {
     editSchema: {
       fields: [
         ...commonFields,
+        submitAs,
         {
           name: 'options',
           label: 'Options',
