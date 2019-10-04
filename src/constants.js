@@ -152,6 +152,9 @@ export const dialogItemKinds = {
       title: 'Datepicker',
       icon: 'fa fa-calendar',
     },
+    defaultSchema: {
+      variant: 'date'
+    },
     editSchema: {
       fields: [
         ...commonFields,
@@ -159,7 +162,6 @@ export const dialogItemKinds = {
           name: 'variant',
           component: componentTypes.SELECT,
           label: 'Variant',
-          initialValue: 'date',
           options: [
             {
               label: 'Date',
