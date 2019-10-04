@@ -5,7 +5,7 @@ import { itemTypes } from './constants';
 import { DropZone, DraggableItem } from './DragAndDrop';
 
 const DraggableInput = (Component, dispatch) => {
-  const fn = ({...props}) => {
+  const fn = ({ visible, ...props }) => {
     const { name } = props.input;
     const [{isDragging}, drag, preview] = DraggableItem({ name, type: itemTypes.INPUT }, dispatch, 'dropExisting');
 
@@ -17,7 +17,7 @@ const DraggableInput = (Component, dispatch) => {
     const [{ isOver:isOverBottom }, dropBottom] = DropZone({ name, type: itemTypes.INPUT }, 'after');
 
     return (
-      <div className={classSet({'input-wrapper': true, 'drag': isDragging})} ref={preview}>
+      <div className={classSet({'input-wrapper': true, 'drag': isDragging, 'not-visible': !visible})} ref={preview}>
         <div className="handle" ref={drag}></div>
         <div className="item">
           <Component {...props}/>

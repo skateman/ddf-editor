@@ -132,6 +132,7 @@ export default (state, { type, ...action }) => {
         component: action.kind,
         name: `${action.kind}-${id}`,
         label: `${action.title} ${id}`,
+        visible: true,
         ...dialogItemKinds[action.kind].defaultSchema
       };
 
@@ -161,6 +162,7 @@ export default (state, { type, ...action }) => {
         component: componentTypes.SUB_FORM,
         name: `${componentTypes.SUB_FORM}-${id}`,
         title: `Section ${id}`,
+        visible: true,
         fields: []
       };
 
@@ -179,6 +181,7 @@ export default (state, { type, ...action }) => {
         component: componentTypes.TAB_ITEM,
         name: `${componentTypes.TAB_ITEM}-${tId}`,
         title: `Tab ${tId}`,
+        visible: true,
         fields: [
           {
             component: componentTypes.SUB_FORM,

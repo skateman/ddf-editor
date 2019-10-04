@@ -5,6 +5,7 @@ const createSchema = () => ({
     {
       component: componentTypes.TABS,
       name: 'tabs',
+      visible: true,
       fields: [
         {
           component: componentTypes.TAB_ITEM,
@@ -15,16 +16,19 @@ const createSchema = () => ({
               component: componentTypes.SUB_FORM,
               name: 'sub-form-1',
               title: 'Basic info',
+              visible: true,
               fields: [
                 {
                   name: 'username',
                   label: 'Username',
+                  visible: true,
                   component: componentTypes.TEXT_FIELD,
                   type: 'text',
                 },
                 {
                   name: 'password',
                   label: 'Password',
+                  visible: false,
                   component: componentTypes.TEXT_FIELD,
                   type: 'password',
                 },
@@ -34,16 +38,19 @@ const createSchema = () => ({
               component: componentTypes.SUB_FORM,
               name: 'sub-form-2',
               title: 'Options',
+              visible: true,
               fields: [
                 {
                   component: componentTypes.CHECKBOX,
                   name: 'remember',
                   label: 'Remember me',
+                  visible: true,
                 },
                 {
                   component: componentTypes.SELECT,
                   name: "select-field-1",
                   label: "Dropdown 1",
+                  visible: true,
                   options: [
                     {
                       value: 'foo',
@@ -63,11 +70,13 @@ const createSchema = () => ({
           component: componentTypes.TAB_ITEM,
           name: 'tab-item-2',
           title: 'Tab 2',
+          visible: true,
           fields: [
             {
               component: componentTypes.SUB_FORM,
               name: 'sub-form-3',
               title: 'Extras',
+              visible: true,
               fields: []
             }
           ]

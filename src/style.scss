@@ -79,6 +79,13 @@
     padding: 0px 10px 0px 10px;
     position: relative;
 
+    &.not-visible {
+      .item, .toolbox {
+        opacity: 0.5;
+        background-color: rgba(0, 0, 0, 0.05);
+      }
+    }
+
     &.drag {
       opacity: 0.5;
     }

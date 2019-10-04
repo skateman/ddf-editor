@@ -2,6 +2,7 @@ import { componentTypes } from '@data-driven-forms/react-form-renderer';
 import { formFieldsMapper } from '@data-driven-forms/pf3-component-mapper';
 
 import DraggableInput from './DraggableInput';
+import PreviewWrapper from './PreviewWrapper';
 import DraggableSection from './DraggableSection';
 import DraggableTabs from './DraggableTabs';
 import { EDITABLE_PAIRS } from './EditablePairs';
@@ -33,6 +34,11 @@ const commonFields = [
     name: 'initialValue',
     label: 'Default value',
     component: componentTypes.TEXT_FIELD
+  },
+  {
+    name: 'visible',
+    label: 'Visible',
+    component: componentTypes.CHECKBOX
   },
   {
     name: 'isRequired',
@@ -222,6 +228,15 @@ export const dialogItemKinds = {
     }
   },
 };
+
+export const previewFields = Object.keys(formFieldsMapper)
+  .reduce(
+    (obj, key) => ({
+      ...obj,
+      [key]: PreviewWrapper(formFieldsMapper[key])
+    }),
+    {}
+  );
 
 export const draggableFields = Object.keys(dialogItemKinds)
   .filter(key => dialogItemKinds[key].decorator)
