@@ -31,11 +31,6 @@ const commonFields = [
     component: componentTypes.TEXT_FIELD
   },
   {
-    name: 'initialValue',
-    label: 'Default value',
-    component: componentTypes.TEXT_FIELD
-  },
-  {
     name: 'visible',
     label: 'Visible',
     component: componentTypes.CHECKBOX
@@ -62,6 +57,12 @@ const submitAs = {
   ]
 };
 
+const defaultString = {
+  name: 'initialValue',
+  label: 'Default value',
+  component: componentTypes.TEXT_FIELD
+};
+
 export const dialogItemKinds = {
   [componentTypes.TEXT_FIELD]: {
     decorator: DraggableInput,
@@ -76,6 +77,7 @@ export const dialogItemKinds = {
     editSchema: {
       fields: [
         ...commonFields,
+        defaultString,
         submitAs,
         {
           name: 'type',
@@ -102,6 +104,7 @@ export const dialogItemKinds = {
     editSchema: {
       fields: [
         ...commonFields,
+        defaultString,
         submitAs
       ]
     }
@@ -113,7 +116,14 @@ export const dialogItemKinds = {
       icon: 'fa fa-check-square-o',
     },
     editSchema: {
-      fields: [...commonFields]
+      fields: [
+        ...commonFields,
+        {
+          name: 'initialValue',
+          label: 'Checked',
+          component: componentTypes.CHECKBOX
+        }
+      ]
     }
   },
   [componentTypes.SELECT]: {
