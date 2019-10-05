@@ -1,10 +1,9 @@
 import React from "react";
 import classSet from 'react-classset';
 
-import { itemTypes } from './constants';
-import { DropZone, DraggableItem } from './DragAndDrop';
+import { DropZone, DraggableItem, itemTypes } from './backend';
 
-const DraggableSection = (Component, dispatch) => {
+const Section = (Component, dispatch) => {
   const fn = ({...props}) => {
     const { name } = props;
 
@@ -42,4 +41,4 @@ const DraggableSection = (Component, dispatch) => {
   return fn;
 };
 
-export default DraggableSection;
+export default Section;

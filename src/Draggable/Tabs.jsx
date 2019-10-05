@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { TabContainer, Nav, NavItem, TabContent } from 'patternfly-react';
+import { TabContainer, Nav, NavItem } from 'patternfly-react';
+import { TabContent as PfTabContent } from 'patternfly-react';
 
-import DraggableTabHeader from './DraggableTabHeader';
-import DraggableTabContent from './DraggableTabContent';
+import TabHeader from './TabHeader';
+import TabContent from './TabContent';
 
 export default (_, dispatch) => {
   const DraggableTabs = ({ name:target, fields, formOptions }) => {
@@ -20,7 +21,7 @@ export default (_, dispatch) => {
     }
 
     const renderTabHeader = (items) => items.map(({ name, title }) => (
-      <DraggableTabHeader
+      <TabHeader
         key={ name }
         active={ activeTab === name }
         single={ items.length === 1 }
@@ -37,10 +38,10 @@ export default (_, dispatch) => {
               <i className="fa fa-plus"></i> New Tab
             </NavItem>
           </Nav>
-          <TabContent animation>
+          <PfTabContent animation>
             <div className="spacer"></div>
-            { fields.map(({ name, fields }) => <DraggableTabContent key={name} { ...{name, fields, formOptions, dispatch }} />) }
-          </TabContent>
+            { fields.map(({ name, fields }) => <TabContent key={name} { ...{name, fields, formOptions, dispatch }} />) }
+          </PfTabContent>
         </div>
       </TabContainer>
     )

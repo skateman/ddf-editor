@@ -1,10 +1,9 @@
 import React from "react";
 import classSet from 'react-classset';
 
-import { itemTypes } from './constants';
-import { DropZone, DraggableItem } from './DragAndDrop';
+import { DropZone, DraggableItem, itemTypes } from './backend';
 
-const DraggableInput = (Component, dispatch) => {
+const Input = (Component, dispatch) => {
   const fn = ({ visible, ...props }) => {
     const { name } = props.input;
     const [{isDragging}, drag, preview] = DraggableItem({ name, type: itemTypes.INPUT }, dispatch, 'dropExisting');
@@ -39,4 +38,4 @@ const DraggableInput = (Component, dispatch) => {
   return fn;
 };
 
-export default DraggableInput;
+export default Input;

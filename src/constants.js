@@ -1,10 +1,10 @@
 import { componentTypes } from '@data-driven-forms/react-form-renderer';
 import { formFieldsMapper } from '@data-driven-forms/pf3-component-mapper';
 
-import DraggableInput from './DraggableInput';
+import DraggableInput from './Draggable/Input';
 import PreviewWrapper from './PreviewWrapper';
-import DraggableSection from './DraggableSection';
-import DraggableTabs from './DraggableTabs';
+import DraggableSection from './Draggable/Section';
+import DraggableTabs from './Draggable/Tabs';
 import { EDITABLE_PAIRS } from './EditablePairs';
 
 const partial = (fn, ...apply) => (...args) => fn(...apply, ...args);
