@@ -1,6 +1,6 @@
 import React from "react";
 import ToolboxField from "./ToolboxField";
-import { dialogItemKinds } from './constants';
+import { dialogItemKinds } from '../constants';
 
 const Toolbox = ({dispatch}) => {
   return (
