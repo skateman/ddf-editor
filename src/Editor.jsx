@@ -9,7 +9,8 @@ import classSet from 'react-classset';
 
 import './style.scss';
 
-import { draggableFields, previewFields } from './constants';
+import { draggableFields } from './constants';
+import { playerFields } from './Player/constants';
 import Toolbox from './Toolbox';
 import Sidebar from './Sidebar';
 import Reducer from './Reducer';
@@ -51,7 +52,7 @@ export default ({...props}) => {
           </div>
           <div className={classSet('dialog-renderer', isDragging ? `drag-${isDragging}` : undefined)}>
             <FormRender
-              formFieldsMapper={preview ? previewFields : draggableFormFieldsMapper}
+              formFieldsMapper={preview ? playerFields : draggableFormFieldsMapper}
               layoutMapper={layoutMapper}
               onSubmit={() => undefined}
               schema={schema}

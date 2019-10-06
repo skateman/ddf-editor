@@ -2,7 +2,6 @@ import { componentTypes } from '@data-driven-forms/react-form-renderer';
 import { formFieldsMapper } from '@data-driven-forms/pf3-component-mapper';
 
 import DraggableInput from './Draggable/Input';
-import PreviewWrapper from './PreviewWrapper';
 import DraggableSection from './Draggable/Section';
 import DraggableTabs from './Draggable/Tabs';
 import { EDITABLE_PAIRS } from './Sidebar/EditablePairs';
@@ -262,15 +261,6 @@ export const dialogItemKinds = {
     }
   },
 };
-
-export const previewFields = Object.keys(formFieldsMapper)
-  .reduce(
-    (obj, key) => ({
-      ...obj,
-      [key]: PreviewWrapper(formFieldsMapper[key])
-    }),
-    {}
-  );
 
 export const draggableFields = Object.keys(dialogItemKinds)
   .filter(key => dialogItemKinds[key].decorator)

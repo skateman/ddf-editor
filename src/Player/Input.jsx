@@ -1,6 +1,6 @@
 import React from "react";
 
-const PreviewWrapper = (Component) => {
+const Input = (Component) => {
   const fn = ({ visible, ...props }) => {
     if (visible === false) {
       return (
@@ -16,4 +16,4 @@ const PreviewWrapper = (Component) => {
   return fn;
 };
 
-export default PreviewWrapper;
+export default Input;
