@@ -1,12 +1,9 @@
 import { componentTypes } from '@data-driven-forms/react-form-renderer';
-import { formFieldsMapper } from '@data-driven-forms/pf3-component-mapper';
 
 import DraggableInput from './Draggable/Input';
 import DraggableSection from './Draggable/Section';
 import DraggableTabs from './Draggable/Tabs';
 import { EDITABLE_PAIRS } from './Sidebar/EditablePairs';
-
-const partial = (fn, ...apply) => (...args) => fn(...apply, ...args);
 
 const commonFields = [
   {
@@ -261,16 +258,6 @@ export const dialogItemKinds = {
     }
   },
 };
-
-export const draggableFields = Object.keys(dialogItemKinds)
-  .filter(key => dialogItemKinds[key].decorator)
-  .reduce(
-    (obj, key) => ({
-      ...obj,
-      [key]: partial(dialogItemKinds[key].decorator, formFieldsMapper[key])
-    }),
-    {}
-  );
 
 export const itemTypes = {
   INPUT: 'input',

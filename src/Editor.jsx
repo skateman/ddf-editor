@@ -9,7 +9,7 @@ import classSet from 'react-classset';
 
 import './style.scss';
 
-import { draggableFields } from './constants';
+import { draggableFields } from './Draggable/constants';
 import { playerFields } from './Player/constants';
 import Toolbox from './Toolbox';
 import Sidebar from './Sidebar';
