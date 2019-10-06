@@ -2,7 +2,7 @@ import React from "react";
 import classSet from 'react-classset';
 import { componentTypes } from '@data-driven-forms/react-form-renderer';
 
-import { DropZone, DraggableItem, itemTypes } from './Draggable/backend';
+import { DropZone, DraggableItem, itemTypes } from '../Draggable/backend';
 
 const EditablePair = ({ name:prefix, index, dispatch, formOptions }) => {
   const name = `${prefix}[${index}]`;

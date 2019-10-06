@@ -5,7 +5,7 @@ import DraggableInput from './Draggable/Input';
 import PreviewWrapper from './PreviewWrapper';
 import DraggableSection from './Draggable/Section';
 import DraggableTabs from './Draggable/Tabs';
-import { EDITABLE_PAIRS } from './EditablePairs';
+import { EDITABLE_PAIRS } from './Sidebar/EditablePairs';
 
 const partial = (fn, ...apply) => (...args) => fn(...apply, ...args);
 

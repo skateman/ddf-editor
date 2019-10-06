@@ -2,7 +2,7 @@ import React from "react";
 import { formFieldsMapper, layoutMapper } from '@data-driven-forms/pf3-component-mapper';
 import FormRender from '@data-driven-forms/react-form-renderer';
 
-import { dialogItemKinds } from './constants';
+import { dialogItemKinds } from '../constants';
 import EditablePairs, { EDITABLE_PAIRS } from './EditablePairs';
 
 const changedValues = (old, neu) => Object.keys(neu).reduce((obj, key) => {
