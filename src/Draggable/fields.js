@@ -3,7 +3,7 @@ import { dialogItemKinds } from '../constants';
 
 const partial = (fn, ...apply) => (...args) => fn(...apply, ...args);
 
-export const draggableFields = Object.keys(dialogItemKinds)
+const fields = Object.keys(dialogItemKinds)
   .filter(key => dialogItemKinds[key].decorator)
   .reduce(
     (obj, key) => ({
@@ -12,3 +12,5 @@ export const draggableFields = Object.keys(dialogItemKinds)
     }),
     {}
   );
+
+export default fields;

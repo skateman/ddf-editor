@@ -9,8 +9,8 @@ import classSet from 'react-classset';
 
 import './style.scss';
 
-import { draggableFields } from './Draggable/constants';
-import { playerFields } from './Player/constants';
+import draggableFields from './Draggable/fields';
+import playerFields from './Player/fields';
 import Toolbox from './Toolbox';
 import Sidebar from './Sidebar';
 import Reducer from './Reducer';

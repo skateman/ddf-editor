@@ -1,7 +1,7 @@
 import { formFieldsMapper } from '@data-driven-forms/pf3-component-mapper';
 import PlayerInput from './Input';
 
-export const playerFields = Object.keys(formFieldsMapper)
+const fields = Object.keys(formFieldsMapper)
   .reduce(
     (obj, key) => ({
       ...obj,
@@ -9,3 +9,5 @@ export const playerFields = Object.keys(formFieldsMapper)
     }),
     {}
   );
+
+export default fields;
