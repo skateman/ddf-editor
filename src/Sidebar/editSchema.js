@@ -99,6 +99,7 @@ export const editSchema = {
     {
       name: 'options',
       label: 'Options',
+      help: 'Label / Value',
       component: EDITABLE_PAIRS
     }
   ],

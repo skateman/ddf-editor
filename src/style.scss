@@ -278,6 +278,8 @@
 
       .options {
         .option-wrapper {
+          padding-left: 0px;
+
           & > .item {
             display: flex;
 
@@ -291,6 +293,10 @@
             & > .item-left, & > .item-right {
               width: 100%;
 
+              .form-group {
+                margin-bottom: 0px;
+              }
+
               &.item-left {
                 margin-right: 10px;
               }
@@ -303,6 +309,9 @@
 
           .toolbox {
             width: 2em;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
           }
         }
       }

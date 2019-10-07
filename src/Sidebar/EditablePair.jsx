@@ -10,13 +10,11 @@ const EditablePair = ({ name:prefix, index, dispatch, formOptions }) => {
 
   const labelField = {
     component: componentTypes.TEXT_FIELD,
-    label: 'Label',
     name: `${name}[label]`
   };
 
   const valueField = {
     component: componentTypes.TEXT_FIELD,
-    label: 'Value',
     name: `${name}[value]`
   };
 

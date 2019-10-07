@@ -3,10 +3,10 @@ import React from "react";
 import EditablePair from './EditablePair';
 
 const EditablePairs = (fields, dispatch) => {
-  const fn = ({ name, label, formOptions }) => {
+  const fn = ({ name, label, help, formOptions }) => {
     return (
       <div className="options">
-        <label>{ label }</label>
+        <label>{ label } - {help}</label>
         {
           fields && fields.map(
             (_, index) => <EditablePair key={index} {...{name, index, dispatch, formOptions}}/>
