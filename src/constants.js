@@ -65,5 +65,4 @@ export const itemTypes = {
   INPUT: 'input',
   SECTION: 'section',
   TAB_ITEM: 'tab-item',
-  OPTION: 'option'
 };

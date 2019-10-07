@@ -2,7 +2,8 @@ import React from "react";
 import classSet from 'react-classset';
 import { componentTypes } from '@data-driven-forms/react-form-renderer';
 
-import { DropZone, DraggableItem, itemTypes } from '../Draggable/backend';
+import { DropZone, DraggableItem } from '../Draggable/backend';
+
 
 const EditablePair = ({ name:prefix, index, dispatch, formOptions }) => {
   const name = `${prefix}[${index}]`;
@@ -19,9 +20,11 @@ const EditablePair = ({ name:prefix, index, dispatch, formOptions }) => {
     name: `${name}[value]`
   };
 
-  const [{isDragging}, drag, preview] = DraggableItem({ name, type: itemTypes.OPTION }, dispatch, 'editOptionDrop');
-  const [{ isOver:isOverTop }, dropTop] = DropZone({ name, type: itemTypes.OPTION }, 'before');
-  const [{ isOver:isOverBottom }, dropBottom] = DropZone({ name, type: itemTypes.OPTION }, 'after');
+  const OPTION = 'option';
+
+  const [{isDragging}, drag, preview] = DraggableItem({ name, type: OPTION }, dispatch, 'editOptionDrop');
+  const [{ isOver:isOverTop }, dropTop] = DropZone({ name, type: OPTION }, 'before');
+  const [{ isOver:isOverBottom }, dropBottom] = DropZone({ name, type: OPTION }, 'after');
 
   return (
     <div className={classSet({'option-wrapper': true, 'drag': isDragging})} ref={preview}>
