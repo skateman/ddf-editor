@@ -4,7 +4,7 @@ import { formFieldsMapper, layoutMapper } from '@data-driven-forms/pf3-component
 import FormRender from '@data-driven-forms/react-form-renderer';
 
 import Properties from './Properties';
-import { dialogDetailsSchema } from '../constants';
+import { dialogDetailsSchema } from './editSchema';
 
 const Sidebar = ({ schema, edit, dispatch }) => {
   const [activeTab, setActiveTab] = useState('dialog');

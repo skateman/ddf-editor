@@ -2,7 +2,7 @@ import React from "react";
 import { formFieldsMapper, layoutMapper } from '@data-driven-forms/pf3-component-mapper';
 import FormRender from '@data-driven-forms/react-form-renderer';
 
-import { dialogItemKinds } from '../constants';
+import { editSchema } from './editSchema';
 import EditablePairs, { EDITABLE_PAIRS } from './EditablePairs';
 
 const changedValues = (old, neu) => Object.keys(neu).reduce((obj, key) => {
@@ -44,7 +44,7 @@ const Properties = ({ edit, dispatch }) => {
         layoutMapper={layoutMapper}
         onSubmit={onSubmit}
         onCancel={() => dispatch({ type: 'editEnd' })}
-        schema={dialogItemKinds[edit.item.component].editSchema}
+        schema={{ fields: editSchema[edit.item.component] }}
         initialValues={edit.item}
         buttonsLabels={{ submitLabel: 'Save', cancelLabel: 'Close' }}
         onStateUpdate={onStateUpdate}
