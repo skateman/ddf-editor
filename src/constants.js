@@ -7,10 +7,6 @@ import DraggableTabs from './Draggable/Tabs';
 export const dialogItemKinds = {
   [componentTypes.TEXT_FIELD]: {
     decorator: DraggableInput,
-    toolbox: {
-      title: 'Text Box',
-      icon: 'fa fa-font',
-    },
     defaultSchema: {
       type: 'text',
       submitAs: 'string'
@@ -18,27 +14,15 @@ export const dialogItemKinds = {
   },
   [componentTypes.TEXTAREA_FIELD]: {
     decorator: DraggableInput,
-    toolbox: {
-      title: 'Text Area',
-      icon: 'fa fa-file-text-o',
-    },
     defaultSchema: {
       submitAs: 'string'
     }
   },
   [componentTypes.CHECKBOX]: {
     decorator: DraggableInput,
-    toolbox: {
-      title: 'Checkbox',
-      icon: 'fa fa-check-square-o',
-    }
   },
   [componentTypes.SELECT]: {
     decorator: DraggableInput,
-    toolbox: {
-      title: 'Dropdown',
-      icon: 'fa fa-caret-square-o-down',
-    },
     defaultSchema: {
       submitAs: 'string',
       options: [
@@ -50,10 +34,6 @@ export const dialogItemKinds = {
   },
   [componentTypes.RADIO]: {
     decorator: DraggableInput,
-    toolbox: {
-      title: 'Radio Button',
-      icon: 'fa fa-circle-o',
-    },
     defaultSchema: {
       submitAs: 'string',
       options: [
@@ -65,20 +45,12 @@ export const dialogItemKinds = {
   },
   [componentTypes.DATE_PICKER]: {
     decorator: DraggableInput,
-    toolbox: {
-      title: 'Datepicker',
-      icon: 'fa fa-calendar',
-    },
     defaultSchema: {
       variant: 'date'
     }
   },
   [componentTypes.TAG_CONTROL]: {
     decorator: DraggableInput,
-    toolbox: {
-      title: 'Tag Control',
-      icon: 'fa fa-tags',
-    }
   },
   [componentTypes.SUB_FORM]: {
     decorator: DraggableSection
