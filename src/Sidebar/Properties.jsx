@@ -13,9 +13,11 @@ const changedValues = (old, neu) => Object.keys(neu).reduce((obj, key) => {
   return obj;
 }, {});
 
-
 const Properties = ({ edit, dispatch }) => {
-  const customFormFields = { ... formFieldsMapper, [EDITABLE_PAIRS]: EditablePairs(edit.item.options, dispatch) };
+  const customFormFields = {
+    ...formFieldsMapper,
+    [EDITABLE_PAIRS]: EditablePairs(edit.item.options, dispatch)
+  };
 
   const onSubmit = values => {
     dispatch({
