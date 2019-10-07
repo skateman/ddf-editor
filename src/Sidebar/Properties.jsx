@@ -1,5 +1,6 @@
 import React from "react";
 import { formFieldsMapper, layoutMapper } from '@data-driven-forms/pf3-component-mapper';
+import { validatorTypes } from '@data-driven-forms/react-form-renderer';
 import FormRender from '@data-driven-forms/react-form-renderer';
 
 import { editSchema } from './editSchema';
@@ -19,11 +20,13 @@ const Properties = ({ edit, dispatch }) => {
     [EDITABLE_PAIRS]: EditablePairs(edit.item.options, dispatch)
   };
 
-  const onSubmit = values => {
+  const onSubmit = ({ validate: [{ pattern }] = [{}], ...values }) => {
+    const validate = pattern ? [{ type: validatorTypes.PATTERN_VALIDATOR, pattern }] : [];
+
     dispatch({
       type: 'editSave',
       target: edit.item.name,
-      values: changedValues(edit.item, values)
+      values: changedValues(edit.item, { validate, ...values })
     });
   };
 
@@ -47,7 +50,7 @@ const Properties = ({ edit, dispatch }) => {
         onSubmit={onSubmit}
         onCancel={() => dispatch({ type: 'editEnd' })}
         schema={{ fields: editSchema[edit.item.component] }}
-        initialValues={edit.item}
+        initialValues={ edit.item }
         buttonsLabels={{ submitLabel: 'Save', cancelLabel: 'Close' }}
         onStateUpdate={onStateUpdate}
       />

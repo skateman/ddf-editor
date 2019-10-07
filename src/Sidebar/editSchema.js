@@ -56,9 +56,16 @@ const defaultString = {
   component: componentTypes.TEXT_FIELD
 };
 
+const validator = {
+  name: 'validate[0].pattern',
+  label: 'Validator',
+  component: componentTypes.TEXT_FIELD
+};
+
 export const editSchema = {
   [componentTypes.TEXT_FIELD]: [
     ...commonFields,
+    validator,
     defaultString,
     submitAs,
     {
@@ -74,6 +81,7 @@ export const editSchema = {
   ],
   [componentTypes.TEXTAREA_FIELD]: [
     ...commonFields,
+    validator,
     defaultString,
     submitAs
   ],
