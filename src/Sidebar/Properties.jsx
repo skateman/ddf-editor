@@ -21,7 +21,7 @@ const Properties = ({ edit, dispatch }) => {
   };
 
   const onSubmit = ({ validate: [{ pattern }] = [{}], ...values }) => {
-    const validate = pattern ? [{ type: validatorTypes.PATTERN_VALIDATOR, pattern }] : [];
+    const validate = pattern ? [{ type: validatorTypes.PATTERN_VALIDATOR, pattern }] : undefined;
 
     dispatch({
       type: 'editSave',
