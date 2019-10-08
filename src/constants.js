@@ -46,6 +46,9 @@ export const dialogItemKinds = {
   [componentTypes.DATE_PICKER]: {
     decorator: DraggableInput,
     defaultSchema: {
+      disabledDays: [{
+        before: 'today'
+      }],
       variant: 'date'
     }
   },

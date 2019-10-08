@@ -115,6 +115,11 @@ export const editSchema = {
   [componentTypes.DATE_PICKER]: [
     ...commonFields,
     {
+      name: 'disabledDays[0][before]',
+      label: 'Disable past dates',
+      component: componentTypes.CHECKBOX
+    },
+    {
       name: 'variant',
       component: componentTypes.SELECT,
       label: 'Variant',

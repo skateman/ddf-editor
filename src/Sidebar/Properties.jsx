@@ -20,13 +20,14 @@ const Properties = ({ edit, dispatch }) => {
     [EDITABLE_PAIRS]: EditablePairs(edit.item.options, dispatch)
   };
 
-  const onSubmit = ({ validate: [{ pattern }] = [{}], ...values }) => {
+  const onSubmit = ({ validate: [{ pattern }] = [{}], disabledDays: [{ before : disablePast }] = [{}], ...values }) => {
     const validate = pattern ? [{ type: validatorTypes.PATTERN_VALIDATOR, pattern }] : undefined;
+    const disabledDays = disablePast ? [{ before: 'today' }] : undefined;
 
     dispatch({
       type: 'editSave',
       target: edit.item.name,
-      values: changedValues(edit.item, { validate, ...values })
+      values: changedValues(edit.item, { validate, disabledDays, ...values })
     });
   };
 
