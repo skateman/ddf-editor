@@ -31,17 +31,6 @@ const Properties = ({ edit, dispatch }) => {
     });
   };
 
-  const onStateUpdate = state => {
-    const modified = Object.keys(state.modified).some(key => state.modified[key] && key.startsWith('options['));
-
-    if (modified) {
-      dispatch({
-        type: 'editOptionStore',
-        values: state.values.options
-      });
-    }
-  };
-
   return (
     <>
       <p>{ edit.error }</p>
@@ -53,7 +42,6 @@ const Properties = ({ edit, dispatch }) => {
         schema={{ fields: editSchema[edit.item.component] }}
         initialValues={ edit.item }
         buttonsLabels={{ submitLabel: 'Save', cancelLabel: 'Close' }}
-        onStateUpdate={onStateUpdate}
       />
     </>
   )
