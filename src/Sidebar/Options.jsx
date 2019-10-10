@@ -46,7 +46,7 @@ const Options = ({ name : prefix, label, formOptions }) => {
   return (
     <div className="options">
       <h3>{ label }</h3>
-      { formOptions.renderForm([{ component: componentTypes.TEXT_FIELD, label: 'Default value', name: 'initialValue' }]) }
+      { formOptions.renderForm([{ component: componentTypes.TEXT_FIELD, name: 'initialValue', type: 'hidden' }]) }
       <div className="option">
         <div className="option-value"><label>Value</label></div>
         <div className="option-label"><label>Label</label></div>
