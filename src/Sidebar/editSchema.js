@@ -1,4 +1,4 @@
-import { componentTypes } from '@data-driven-forms/react-form-renderer';
+import { componentTypes, dataTypes } from '@data-driven-forms/react-form-renderer';
 
 import { OPTIONS } from './Options';
 
@@ -40,13 +40,13 @@ const commonFields = [
   }
 ];
 
-const submitAs = {
-  name: 'submitAs',
+const dataType = {
+  name: 'dataType',
   label: 'Submit as',
   component: componentTypes.SELECT,
   options: [
-    { label: 'String', value: 'string' },
-    { label: 'Integer', value: 'integer' }
+    { label: 'String', value: dataTypes.STRING },
+    { label: 'Number', value: dataTypes.NUMBER }
   ]
 };
 
@@ -67,7 +67,7 @@ export const editSchema = {
     ...commonFields,
     validator,
     defaultString,
-    submitAs,
+    dataType,
     {
       name: 'type',
       label: 'Input type',
@@ -83,7 +83,7 @@ export const editSchema = {
     ...commonFields,
     validator,
     defaultString,
-    submitAs
+    dataType
   ],
   [componentTypes.CHECKBOX]: [
     ...commonFields,
@@ -95,7 +95,7 @@ export const editSchema = {
   ],
   [componentTypes.SELECT]: [
     ...commonFields,
-    submitAs,
+    dataType,
     {
       name: 'options',
       label: 'Options',
@@ -104,7 +104,7 @@ export const editSchema = {
   ],
   [componentTypes.RADIO]: [
     ...commonFields,
-    submitAs,
+    dataType,
     {
       name: 'options',
       label: 'Options',

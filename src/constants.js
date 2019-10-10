@@ -1,4 +1,4 @@
-import { componentTypes } from '@data-driven-forms/react-form-renderer';
+import { componentTypes, dataTypes } from '@data-driven-forms/react-form-renderer';
 
 import DraggableInput from './Draggable/Input';
 import DraggableSection from './Draggable/Section';
@@ -9,13 +9,13 @@ export const dialogItemKinds = {
     decorator: DraggableInput,
     defaultSchema: {
       type: 'text',
-      submitAs: 'string'
+      dataType: dataTypes.STRING
     }
   },
   [componentTypes.TEXTAREA_FIELD]: {
     decorator: DraggableInput,
     defaultSchema: {
-      submitAs: 'string'
+      dataType: dataTypes.STRING
     }
   },
   [componentTypes.CHECKBOX]: {
@@ -24,7 +24,7 @@ export const dialogItemKinds = {
   [componentTypes.SELECT]: {
     decorator: DraggableInput,
     defaultSchema: {
-      submitAs: 'string',
+      dataType: dataTypes.STRING,
       initialValue: null,
       options: [
         { label: 'One', value: 1 },
@@ -36,7 +36,7 @@ export const dialogItemKinds = {
   [componentTypes.RADIO]: {
     decorator: DraggableInput,
     defaultSchema: {
-      submitAs: 'string',
+      dataType: dataTypes.STRING,
       initialValue: null,
       options: [
         { label: 'One', value: 1 },

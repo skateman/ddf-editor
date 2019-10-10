@@ -1,4 +1,4 @@
-import { componentTypes } from '@data-driven-forms/react-form-renderer';
+import { componentTypes, dataTypes } from '@data-driven-forms/react-form-renderer';
 
 const createSchema = () => ({
   fields: [
@@ -23,7 +23,7 @@ const createSchema = () => ({
                   label: 'Username',
                   visible: true,
                   component: componentTypes.TEXT_FIELD,
-                  submitAs: 'string',
+                  dataType: dataTypes.STRING,
                   type: 'text',
                 },
                 {
@@ -31,7 +31,7 @@ const createSchema = () => ({
                   label: 'Password',
                   visible: false,
                   component: componentTypes.TEXT_FIELD,
-                  submitAs: 'string',
+                  dataType: dataTypes.STRING,
                   type: 'password',
                 },
               ]
@@ -53,7 +53,7 @@ const createSchema = () => ({
                   name: "select-field-1",
                   label: "Dropdown 1",
                   visible: true,
-                  submitAs: 'string',
+                  dataType: dataTypes.STRING,
                   initialValue: 'foo',
                   options: [
                     {
