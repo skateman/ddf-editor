@@ -54,6 +54,7 @@ const createSchema = () => ({
                   label: "Dropdown 1",
                   visible: true,
                   submitAs: 'string',
+                  initialValue: 'foo',
                   options: [
                     {
                       value: 'foo',

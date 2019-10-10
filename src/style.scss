@@ -73,7 +73,7 @@
     }
   }
 
-  .input-wrapper, .section-wrapper, .option-wrapper {
+  .input-wrapper, .section-wrapper {
     display: flex;
     align-items: stretch;
     padding: 0px 10px 0px 10px;
@@ -277,41 +277,31 @@
       margin: 1em;
 
       .options {
-        .option-wrapper {
-          padding-left: 0px;
+        .option {
+          display: flex;
 
-          & > .item {
-            display: flex;
+          &.option-new {
+            text-align: center;
+            cursor: pointer;
+            display: block;
+            @include dashed-border;
+            padding-top: 10px;
+            padding-bottom: 10px;
+          }
 
-            &.new-option {
-              display: block;
-              text-align: center;
-              border-right-style: dashed;
-              cursor: pointer;
-            }
+          .option-value, .option-label {
+            width: calc(100% * (4 / 12));
+            margin-right: 20px;
+          }
 
-            & > .item-left, & > .item-right {
-              width: 100%;
-
-              .form-group {
-                margin-bottom: 0px;
-              }
-
-              &.item-left {
-                margin-right: 10px;
-              }
-
-              &.item-right {
-                margin-left: 10px;
-              }
-            }
+          .option-default {
+            width: calc(100% * (1 / 12));
+            text-align: center;
           }
 
           .toolbox {
-            width: 2em;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
+            text-align: right;
+            width: calc(100% * (2 / 12));
           }
         }
       }

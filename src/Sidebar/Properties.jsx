@@ -4,7 +4,7 @@ import { validatorTypes } from '@data-driven-forms/react-form-renderer';
 import FormRender from '@data-driven-forms/react-form-renderer';
 
 import { editSchema } from './editSchema';
-import EditablePairs, { EDITABLE_PAIRS } from './EditablePairs';
+import Options, { OPTIONS } from './Options';
 
 const changedValues = (old, neu) => Object.keys(neu).reduce((obj, key) => {
   if (old[key] !== neu[key]) {
@@ -17,17 +17,18 @@ const changedValues = (old, neu) => Object.keys(neu).reduce((obj, key) => {
 const Properties = ({ edit, dispatch }) => {
   const customFormFields = {
     ...formFieldsMapper,
-    [EDITABLE_PAIRS]: EditablePairs(edit.item.options, dispatch)
+    [OPTIONS]: Options
   };
 
-  const onSubmit = ({ validate: [{ pattern }] = [{}], disabledDays: [{ before : disablePast }] = [{}], ...values }) => {
+  const onSubmit = ({ validate: [{ pattern }] = [{}], disabledDays: [{ before : disablePast }] = [{}], options : _options, ...values }) => {
     const validate = pattern ? [{ type: validatorTypes.PATTERN_VALIDATOR, pattern }] : undefined;
     const disabledDays = disablePast ? [{ before: 'today' }] : undefined;
+    const options = _options ? _options.filter(Boolean) : undefined;
 
     dispatch({
       type: 'editSave',
       target: edit.item.name,
-      values: changedValues(edit.item, { validate, disabledDays, ...values })
+      values: changedValues(edit.item, { validate, disabledDays, options, ...values })
     });
   };
 
@@ -42,6 +43,7 @@ const Properties = ({ edit, dispatch }) => {
         schema={{ fields: editSchema[edit.item.component] }}
         initialValues={ edit.item }
         buttonsLabels={{ submitLabel: 'Save', cancelLabel: 'Close' }}
+        clearOnUnmount={true}
       />
     </>
   )

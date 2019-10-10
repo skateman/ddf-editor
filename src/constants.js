@@ -25,6 +25,7 @@ export const dialogItemKinds = {
     decorator: DraggableInput,
     defaultSchema: {
       submitAs: 'string',
+      initialValue: null,
       options: [
         { label: 'One', value: 1 },
         { label: 'Two', value: 2 },
@@ -36,6 +37,7 @@ export const dialogItemKinds = {
     decorator: DraggableInput,
     defaultSchema: {
       submitAs: 'string',
+      initialValue: null,
       options: [
         { label: 'One', value: 1 },
         { label: 'Two', value: 2 },

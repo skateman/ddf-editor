@@ -1,6 +1,6 @@
 import { componentTypes } from '@data-driven-forms/react-form-renderer';
 
-import { EDITABLE_PAIRS } from './EditablePairs';
+import { OPTIONS } from './Options';
 
 const commonFields = [
   {
@@ -99,8 +99,7 @@ export const editSchema = {
     {
       name: 'options',
       label: 'Options',
-      help: 'Label / Value',
-      component: EDITABLE_PAIRS
+      component: OPTIONS
     }
   ],
   [componentTypes.RADIO]: [
@@ -109,7 +108,7 @@ export const editSchema = {
     {
       name: 'options',
       label: 'Options',
-      component: EDITABLE_PAIRS
+      component: OPTIONS
     }
   ],
   [componentTypes.DATE_PICKER]: [

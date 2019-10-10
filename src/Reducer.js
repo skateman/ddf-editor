@@ -85,27 +85,6 @@ export default (state, { type, ...action }) => {
       const item = find(state.schema, action.target);
       return { ...state, edit: { target: action.target, item }};
     }
-    case 'editOptionDelete': {
-      const options = remove(state.edit.item.options, action.index);
-      return { ...state, edit: { ...state.edit, item: { ...state.edit.item, options } } }
-    }
-    case 'editOptionAdd': {
-      const options = [...state.edit.item.options || [], {}];
-      return { ...state, edit: { ...state.edit, item: { ...state.edit.item, options } } }
-    }
-    case 'editOptionDrop': {
-      const sourceIndex = parseIndex(action.source);
-      const targetIndex = parseIndex(action.target);
-
-      const __options = state.edit.item.options;
-      const _options = remove(__options, sourceIndex);
-      const options = insert[action.position](_options, __options[sourceIndex], _options.indexOf(__options[targetIndex]))
-
-      return { ...state, edit: { ...state.edit, item: { ...state.edit.item, options } }, isDragging: false };
-    }
-    case 'editOptionStore': {
-      return { ...state, edit: { ...state.edit, item: { ...state.edit.item, options: action.values } } }
-    }
     case 'editSave': {
       if (action.values.name) {
         const duplicate = find(state.schema, action.values.name);
