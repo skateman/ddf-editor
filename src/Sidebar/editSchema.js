@@ -132,6 +132,11 @@ export const editSchema = {
           value: 'date-time'
         }
       ]
+    },
+    {
+      name: 'initialValue',
+      label: 'Default value',
+      component: componentTypes.DATE_PICKER
     }
   ],
   [componentTypes.TAG_CONTROL]: [

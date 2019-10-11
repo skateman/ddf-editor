@@ -1,10 +1,11 @@
 import React from "react";
 import { formFieldsMapper, layoutMapper } from '@data-driven-forms/pf3-component-mapper';
-import { validatorTypes } from '@data-driven-forms/react-form-renderer';
+import { componentTypes, validatorTypes } from '@data-driven-forms/react-form-renderer';
 import FormRender from '@data-driven-forms/react-form-renderer';
 
 import { editSchema } from './editSchema';
 import Options, { OPTIONS } from './Options';
+import DatePicker from './DatePicker';
 
 const changedValues = (old, neu) => Object.keys(neu).reduce((obj, key) => {
   if (old[key] !== neu[key]) {
@@ -15,9 +16,11 @@ const changedValues = (old, neu) => Object.keys(neu).reduce((obj, key) => {
 }, {});
 
 const Properties = ({ edit, dispatch }) => {
+
   const customFormFields = {
     ...formFieldsMapper,
-    [OPTIONS]: Options
+    [OPTIONS]: Options,
+    [componentTypes.DATE_PICKER]: DatePicker(formFieldsMapper[componentTypes.DATE_PICKER])
   };
 
   const onSubmit = ({ validate: [{ pattern }] = [{}], disabledDays: [{ before : disablePast }] = [{}], options : _options, ...values }) => {
