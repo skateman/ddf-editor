@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { formFieldsMapper, layoutMapper } from '@data-driven-forms/pf3-component-mapper';
 import { componentTypes, validatorTypes } from '@data-driven-forms/react-form-renderer';
 import FormRender from '@data-driven-forms/react-form-renderer';
@@ -16,11 +16,23 @@ const changedValues = (old, neu) => Object.keys(neu).reduce((obj, key) => {
 }, {});
 
 const Properties = ({ edit, dispatch }) => {
+  const [state, setState] = useState({ variant: edit.item.variant, disabledDays: edit.item.disabledDays });
+
+  // This callback is used for updating the default value selection when editing a datepicker. If the `Variant` dropdown
+  // or the `Disable past dates` checkbox gets modified, we have to pass down this information to the default value field
+  // rendered as a DatePicker component. As the onStateUpdate gets called on any change in the form, the state update is
+  // narrowed down by testing against the `active` field.
+  const onStateUpdate = ({ active, values: { variant, disabledDays: [{ before : disablePast }] = [{}] } }) => {
+    const disabledDays = disablePast ? [{ before: 'today' }] : undefined;
+    if (['variant', 'disabledDays[0][before]'].includes(active)) {
+      setState({ disabledDays, variant });
+    }
+  };
 
   const customFormFields = {
     ...formFieldsMapper,
     [OPTIONS]: Options,
-    [componentTypes.DATE_PICKER]: DatePicker(formFieldsMapper[componentTypes.DATE_PICKER])
+    [componentTypes.DATE_PICKER]: DatePicker(formFieldsMapper[componentTypes.DATE_PICKER], state.variant, state.disabledDays)
   };
 
   const onSubmit = ({ validate: [{ pattern }] = [{}], disabledDays: [{ before : disablePast }] = [{}], options : _options, ...values }) => {
@@ -47,6 +59,7 @@ const Properties = ({ edit, dispatch }) => {
         initialValues={ edit.item }
         buttonsLabels={{ submitLabel: 'Save', cancelLabel: 'Close' }}
         clearOnUnmount={true}
+        onStateUpdate={onStateUpdate}
       />
     </>
   )
