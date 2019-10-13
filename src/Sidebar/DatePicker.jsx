@@ -1,6 +1,6 @@
 import React from "react";
 
-const DefaultDatePicker = (Component, variant, disabledDays) => {
+const DatePicker = (Component, variant, disabledDays) => {
   const fn = ({ formOptions, ...props }) => {
     return <Component variant={variant} disabledDays={disabledDays} formOptions={formOptions} { ...props }/>
   };
@@ -8,4 +8,4 @@ const DefaultDatePicker = (Component, variant, disabledDays) => {
   return fn;
 };
 
-export default DefaultDatePicker;
+export default DatePicker;
