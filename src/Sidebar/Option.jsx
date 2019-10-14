@@ -24,15 +24,15 @@ const Option = ({ prefix, index, checked, checkChange, formOptions, moveOption, 
         <input type="checkbox" checked={checked} onChange={checkChange} />
       </div>
       <div className="toolbox">
-        <ButtonGroup bsSize="small">
-          <Button onClick={() => moveOption(index, -1)} disabled={!moveAllowed(index, -1)}>
-            <i className="fa fa-chevron-up"></i>
+        <ButtonGroup>
+          <Button onClick={() => moveOption(index, -1)} disabled={!moveAllowed(index, -1)} bsStyle="link">
+            <i className="fa fa-lg fa-chevron-up"></i>
           </Button>
-          <Button onClick={() => moveOption(index, +1)} disabled={!moveAllowed(index, +1)}>
-            <i className="fa fa-chevron-down"></i>
+          <Button onClick={() => moveOption(index, +1)} disabled={!moveAllowed(index, +1)} bsStyle="link">
+            <i className="fa fa-lg fa-chevron-down"></i>
           </Button>
-          <Button onClick={() => deleteOption(index)}>
-            <i className="fa fa-times"></i>
+          <Button onClick={() => deleteOption(index)} bsStyle="link">
+            <i className="fa fa-lg fa-trash"></i>
           </Button>
         </ButtonGroup>
       </div>
