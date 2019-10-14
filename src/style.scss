@@ -302,6 +302,10 @@
           .toolbox {
             text-align: center;
             width: calc(100% * (3 / 12));
+
+            .btn-group {
+              display: flex;
+            }
           }
         }
       }
