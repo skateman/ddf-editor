@@ -58,7 +58,7 @@
 
         @media(max-width: #{$width - 1px}) {
           display: inline-block;
-          width: calc(100% / 8);
+          width: calc(100% / 7);
         }
 
         .toolbox-field-inner {
