@@ -1,82 +1,66 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { componentTypes } from '@data-driven-forms/react-form-renderer';
 
 import Option from './Option';
+const Options = (state, setState) => {
+  const { options, initialValue } = state;
 
-const Options = ({ name : prefix, label, formOptions }) => {
-  const [options, setOptions] = useState([]);
-  const [initial, setInitial] = useState();
+  const fn = ({ name : prefix, label, formOptions }) => {
+    const newOption = () => {
+      const options = [...formOptions.getState().values.options, { label: '', value: '' }];
+      formOptions.change('options', options);
+      setState({ ...state, options });
+    };
 
-  const synchronize = () => {
-    const values = formOptions.getState().values;
+    const deleteOption = source => {
+      const _options = formOptions.getState().values.options;
+      const options = [ ..._options.slice(0, source), ..._options.slice(source + 1)];
+      formOptions.change('options', options);
+      setState({ ...state, options });
+    };
 
-    setOptions(values[prefix]);
-    setInitial(values.initialValue);
-  };
+    const checkDefault = value => {
+      const options = formOptions.getState().values.options;
 
-  const indexes = options.map((option, index) => option ? index.toString() : undefined).filter(Boolean).map(Number);
+      formOptions.change('initialValue', value);
+      setState({ ...state, options, initialValue: value });
+    };
 
-  const newOption = () => {
-    const length = formOptions.getState().values.options.length;
-    formOptions.change(`${prefix}[${length}]`, {});
-    synchronize();
-  };
+    return (
+      <div className="options">
+        <h3>{ label }</h3>
+        { formOptions.renderForm([{ component: componentTypes.TEXT_FIELD, name: 'initialValue', type: 'hidden' }]) }
+        <div className="option">
+          <div className="option-value"><label>Value</label></div>
+          <div className="option-label"><label>Label</label></div>
+          <div className="option-default" style={{'textAlign': 'left'}}><label>Default</label></div>
+        </div>
+        {
+          options.map((option, index) => {
+            const checked = options[index].value === initialValue;
 
-  const deleteOption = source => {
-    formOptions.change(`${prefix}[${source}]`, undefined);
-    synchronize();
-  };
-
-  const moveOption = (source, direction) => {
-    const target = indexes.indexOf(source) + direction;
-    formOptions.change(`${prefix}[${target}]`, options[source]);
-    formOptions.change(`${prefix}[${source}]`, options[target]);
-    synchronize();
-  };
-
-  const checkDefault = value => {
-    formOptions.change('initialValue', value);
-    synchronize();
-  };
-
-  const moveAllowed = (source, direction) => indexes[source + direction] !== undefined;
-
-  useEffect(synchronize);
-
-  return (
-    <div className="options">
-      <h3>{ label }</h3>
-      { formOptions.renderForm([{ component: componentTypes.TEXT_FIELD, name: 'initialValue', type: 'hidden' }]) }
-      <div className="option">
-        <div className="option-value"><label>Value</label></div>
-        <div className="option-label"><label>Label</label></div>
-        <div className="option-default" style={{'textAlign': 'left'}}><label>Default</label></div>
+            return (
+              <Option
+                key={index}
+                index={index}
+                prefix={prefix}
+                formOptions={formOptions}
+                deleteOption={deleteOption}
+                checked={checked}
+                checkChange={() => checkDefault(checked ? null : options[index].value)}
+              />
+            )
+          })
+        }
+        <div className="option option-new" onClick={newOption}>
+          <i className="fa fa-plus"></i> New option
+        </div>
       </div>
-      {
-        indexes.map((index) => {
-          const checked = options[index].value === initial;
+    )
+  };
 
-          return (
-            <Option
-              key={index}
-              index={index}
-              prefix={prefix}
-              formOptions={formOptions}
-              moveOption={moveOption}
-              moveAllowed={moveAllowed}
-              deleteOption={deleteOption}
-              checked={checked}
-              checkChange={() => checkDefault(checked ? null : options[index].value)}
-            />
-          )
-        })
-      }
-      <div className="option option-new" onClick={newOption}>
-        <i className="fa fa-plus"></i> New option
-      </div>
-    </div>
-  )
-}
+  return fn;
+};
 
 export const OPTIONS = 'editable-pairs';
 export default Options;

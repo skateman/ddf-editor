@@ -1,9 +1,8 @@
 import React from "react";
 import classSet from 'react-classset';
-import { ButtonGroup, Button } from 'patternfly-react';
 import { componentTypes } from '@data-driven-forms/react-form-renderer';
 
-const Option = ({ prefix, index, checked, checkChange, formOptions, moveOption, moveAllowed, deleteOption }) => {
+const Option = ({ prefix, index, checked, checkChange, formOptions, deleteOption }) => {
   const name = `${prefix}[${index}]`;
 
   const fieldPair = ['label', 'value'].map(field =>
@@ -11,7 +10,8 @@ const Option = ({ prefix, index, checked, checkChange, formOptions, moveOption, 
       {
         formOptions.renderForm([{
           component: componentTypes.TEXT_FIELD,
-          name: `${name}[${field}]`
+          name: `${name}[${field}]`,
+          clearOnUnmount: false,
         }])
       }
     </div>
@@ -24,17 +24,7 @@ const Option = ({ prefix, index, checked, checkChange, formOptions, moveOption, 
         <input type="checkbox" checked={checked} onChange={checkChange} />
       </div>
       <div className="toolbox">
-        <ButtonGroup>
-          <Button onClick={() => moveOption(index, -1)} disabled={!moveAllowed(index, -1)} bsStyle="link">
-            <i className="fa fa-lg fa-chevron-up"></i>
-          </Button>
-          <Button onClick={() => moveOption(index, +1)} disabled={!moveAllowed(index, +1)} bsStyle="link">
-            <i className="fa fa-lg fa-chevron-down"></i>
-          </Button>
-          <Button onClick={() => deleteOption(index)} bsStyle="link">
-            <i className="fa fa-lg fa-trash"></i>
-          </Button>
-        </ButtonGroup>
+        <i className="fa fa-lg fa-trash" onClick={() => deleteOption(index)}></i>
       </div>
     </div>
   )

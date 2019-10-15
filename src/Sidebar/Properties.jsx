@@ -16,7 +16,11 @@ const changedValues = (old, neu) => Object.keys(neu).reduce((obj, key) => {
 }, {});
 
 const Properties = ({ edit, dispatch }) => {
-  const [state, setState] = useState({ variant: edit.item.variant, disabledDays: edit.item.disabledDays });
+  const [state, setState] = useState({
+    variant: edit.item.variant,
+    disabledDays: edit.item.disabledDays,
+    options: edit.item.options
+  });
 
   // This callback is used for updating the default value selection when editing a datepicker. If the `Variant` dropdown
   // or the `Disable past dates` checkbox gets modified, we have to pass down this information to the default value field
@@ -31,7 +35,7 @@ const Properties = ({ edit, dispatch }) => {
 
   const customFormFields = {
     ...formFieldsMapper,
-    [OPTIONS]: Options,
+    [OPTIONS]: Options(state, setState),
     [componentTypes.DATE_PICKER]: DatePicker(formFieldsMapper[componentTypes.DATE_PICKER], state.variant, state.disabledDays)
   };
 

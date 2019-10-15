@@ -290,7 +290,7 @@
           }
 
           .option-value, .option-label {
-            width: calc(100% * (4 / 12));
+            width: calc(100% * (5 / 12) - 20px);
             margin-right: 20px;
           }
 
@@ -301,10 +301,10 @@
 
           .toolbox {
             text-align: center;
-            width: calc(100% * (3 / 12));
+            width: calc(100% * (1 / 12));
 
-            .btn-group {
-              display: flex;
+            i {
+              cursor: pointer;
             }
           }
         }
