@@ -4,7 +4,7 @@ import classSet from 'react-classset';
 import { DropZone, DraggableItem, itemTypes } from './backend';
 
 const Section = (Component, dispatch) => {
-  const fn = ({...props}) => {
+  const fn = ({ visible, ...props }) => {
     const { name } = props;
 
     const [{isDragging}, drag, preview] = DraggableItem({ name, type: itemTypes.SECTION }, dispatch, 'dropExisting');
