@@ -5,8 +5,13 @@ import { DropZone, DraggableItem, itemTypes } from './backend';
 
 const Input = (Component, dispatch) => {
   const fn = ({ visible, ...props }) => {
-    const { name } = props.input;
+    const { initialValue, formOptions, input: { name } } = props;
     const [{isDragging}, drag, preview] = DraggableItem({ name, type: itemTypes.INPUT }, dispatch, 'dropExisting');
+
+    const values = formOptions.getState().initialValues;
+    if (initialValue !== values[name]) {
+      setTimeout(() => formOptions.initialize({ ...values, [name]: initialValue }));
+    }
 
     // To avoid using coordinate arithmetics, the drop overlay has been vertically split up between two drop
     // handlers. The upper handler is responsible for prepending, while the lower one is analogously invokes
