@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { formFieldsMapper, layoutMapper } from '@data-driven-forms/pf3-component-mapper';
 import { componentTypes, validatorTypes } from '@data-driven-forms/react-form-renderer';
 import FormRender from '@data-driven-forms/react-form-renderer';
+import isEqual from 'lodash.isequal';
 
 import { editSchema } from './editSchema';
 import Options, { OPTIONS } from './Options';
@@ -19,8 +20,25 @@ const Properties = ({ edit, dispatch }) => {
   const [state, setState] = useState({
     variant: edit.item.variant,
     disabledDays: edit.item.disabledDays,
-    options: edit.item.options
+    options: edit.item.options,
+    initialValue: edit.item.initialValue
   });
+
+  // When switching the edit.item, the component keeps its initial state from the previous render. This useEffect hook
+  // makes sure that the new initial state gets loaded properly.
+  useEffect(
+    () =>
+      setState({
+        ...state,
+        ...["options", "variant", "disabledDays", "initialValue"].reduce(
+          (obj, key) =>
+            isEqual(state[key], edit.item[key]) ? obj : { ...obj, [key]: edit.item[key] },
+          {}
+        )
+      }),
+    [edit.item]
+  );
+
 
   // This callback is used for updating the default value selection when editing a datepicker. If the `Variant` dropdown
   // or the `Disable past dates` checkbox gets modified, we have to pass down this information to the default value field

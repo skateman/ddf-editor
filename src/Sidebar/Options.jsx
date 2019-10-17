@@ -3,7 +3,7 @@ import { componentTypes } from '@data-driven-forms/react-form-renderer';
 
 import Option from './Option';
 const Options = (state, setState) => {
-  const { options, initialValue } = state;
+  const { options = [], initialValue } = state;
 
   const fn = ({ name : prefix, label, formOptions }) => {
     const newOption = () => {
@@ -22,8 +22,9 @@ const Options = (state, setState) => {
     const checkDefault = value => {
       const options = formOptions.getState().values.options;
 
-      formOptions.change('initialValue', value);
       setState({ ...state, options, initialValue: value });
+      // The setState above forces a re-render that invalidates the call below, so its execution has to be delayed.
+      setTimeout(() => formOptions.change('initialValue', value));
     };
 
     return (
