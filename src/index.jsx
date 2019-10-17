@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import Editor from './Editor';
-import createSchema from './schema';
+import createSchema from './demo-schema';
 
 function App() {
   return (
