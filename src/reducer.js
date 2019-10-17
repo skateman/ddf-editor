@@ -1,83 +1,7 @@
 import { componentTypes } from '@data-driven-forms/react-form-renderer';
-
 import { dialogItemKinds } from './constants';
 
-// This function can recursively traverse the schema to find an item with the passed name
-// and apply the passed function on its parent. The return value is always a shallow copy
-// of the incoming data. As this happens on each level of the recursion, the final result
-// is a deep copy of the object including the changes applied by the passed function. The
-// function is able to work with any object on any depth, except the very first one.
-const traverse = (data, name, fn) => {
-  if (Array.isArray(data.fields)) {
-    // Try to find the child object with the passed name among fields
-    const idx = data.fields.findIndex(field => field.name === name);
-    if (idx === -1) { // If the object is not found, proceed recursively on all children
-      return { ...data, fields: data.fields.map(field => traverse(field, name, fn)) };
-    }
-    // Apply the passed function on the children
-    return { ...data, fields: fn(data.fields, idx) };
-  }
-
-  return { ...data };
-};
-
-// Helper function to find an item by using traverse
-const find = (data, name) => {
-  let item = undefined;
-  traverse(data, name, (fields, idx) => {
-    item = fields[idx];
-  });
-  return item;
-}
-
-// Schema manipulation functions for inserting into an array in an immutable manner
-const insert = {
-  before: (array, item, index) => [
-    ...array.slice(0, index),
-    item,
-    ...array.slice(index)
-  ],
-  after: (array, item, index) => [
-    ...array.slice(0, index + 1),
-    item,
-    ...array.slice(index + 1)
-  ],
-  child: (array, item, index) => [
-    ...array.slice(0, index),
-    {
-      ...array[index],
-      fields: [...array[index].fields, item]
-    },
-    ...array.slice(index + 1)
-  ]
-};
-
-const parseIndex = str => parseInt(str.replace(/options\[(\d+)\]/, '$1'));
-
-const remove = (array, index) => [...array.slice(0, index), ...array.slice(index + 1)];
-const replace = (array, item, index) => [...array.slice(0, index), item, ...array.slice(index + 1)];
-
-// Function to generate a locally-unique identifier for a given item kind
-const genIdentifier = (kind, { ...fieldCounter }, haystack) => {
-  // Initialize the fieldCounter for the given component kind if not available
-  if (!fieldCounter[kind]) {
-    fieldCounter[kind] = 0;
-  }
-
-  let id, found = false;
-  // Generate a new ID by incrementing until there is no name collision
-  do {
-    id = ++fieldCounter[kind];
-    found = false;
-
-    traverse(haystack, `${kind}-${id}`, (fields) => {
-      found = true
-      return [...fields];
-    });
-  } while(found);
-
-  return [id, fieldCounter];
-}
+import { traverse, find, insert, remove, replace, genIdentifier } from './schema';
 
 export default (state, { type, ...action }) => {
   switch (type) {
@@ -184,4 +108,4 @@ export default (state, { type, ...action }) => {
     default:
       throw new Error();
   }
-}
+};

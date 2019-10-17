@@ -13,12 +13,12 @@ import draggableFields from './Draggable/fields';
 import playerFields from './Player/fields';
 import Toolbox from './Toolbox';
 import Sidebar from './Sidebar';
-import Reducer from './Reducer';
+import reducer from './reducer';
 
 export default ({...props}) => {
   const { schema:initialSchema } = props;
   const [preview, setPreview] = useState(false);
-  const [{ schema, isDragging, edit }, dispatch] = useReducer(Reducer, {
+  const [{ schema, isDragging, edit }, dispatch] = useReducer(reducer, {
     isDragging: false,
     fieldCounter: {},
     schema: initialSchema,

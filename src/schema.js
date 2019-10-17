@@ -1,93 +1,74 @@
-import { componentTypes, dataTypes } from '@data-driven-forms/react-form-renderer';
-
-const createSchema = () => ({
-  fields: [
-    {
-      component: componentTypes.TABS,
-      name: 'tabs',
-      visible: true,
-      fields: [
-        {
-          component: componentTypes.TAB_ITEM,
-          name: 'tab-item-1',
-          title: 'Tab 1',
-          fields: [
-            {
-              component: componentTypes.SUB_FORM,
-              name: 'sub-form-1',
-              title: 'Basic info',
-              visible: true,
-              fields: [
-                {
-                  name: 'username',
-                  label: 'Username',
-                  visible: true,
-                  component: componentTypes.TEXT_FIELD,
-                  dataType: dataTypes.STRING,
-                  type: 'text',
-                },
-                {
-                  name: 'password',
-                  label: 'Password',
-                  visible: false,
-                  component: componentTypes.TEXT_FIELD,
-                  dataType: dataTypes.STRING,
-                  type: 'password',
-                },
-              ]
-            },
-            {
-              component: componentTypes.SUB_FORM,
-              name: 'sub-form-2',
-              title: 'Options',
-              visible: true,
-              fields: [
-                {
-                  component: componentTypes.CHECKBOX,
-                  name: 'remember',
-                  label: 'Remember me',
-                  visible: true,
-                },
-                {
-                  component: componentTypes.SELECT,
-                  name: "select-field-1",
-                  label: "Dropdown 1",
-                  visible: true,
-                  dataType: dataTypes.STRING,
-                  initialValue: 'foo',
-                  options: [
-                    {
-                      value: 'foo',
-                      label: 'foo'
-                    },
-                    {
-                      value: 'bar',
-                      label: 'bar'
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
-        },
-        {
-          component: componentTypes.TAB_ITEM,
-          name: 'tab-item-2',
-          title: 'Tab 2',
-          visible: true,
-          fields: [
-            {
-              component: componentTypes.SUB_FORM,
-              name: 'sub-form-3',
-              title: 'Extras',
-              visible: true,
-              fields: []
-            }
-          ]
-        }
-      ]
+// This function can recursively traverse the schema to find an item with the passed name
+// and apply the passed function on its parent. The return value is always a shallow copy
+// of the incoming data. As this happens on each level of the recursion, the final result
+// is a deep copy of the object including the changes applied by the passed function. The
+// function is able to work with any object on any depth, except the very first one.
+export const traverse = (data, name, fn) => {
+  if (Array.isArray(data.fields)) {
+    // Try to find the child object with the passed name among fields
+    const idx = data.fields.findIndex(field => field.name === name);
+    if (idx === -1) { // If the object is not found, proceed recursively on all children
+      return { ...data, fields: data.fields.map(field => traverse(field, name, fn)) };
     }
-  ],
-});
+    // Apply the passed function on the children
+    return { ...data, fields: fn(data.fields, idx) };
+  }
 
-export default createSchema;
+  return { ...data };
+};
+
+// Helper function to find an item by using traverse
+export const find = (data, name) => {
+  let item = undefined;
+  traverse(data, name, (fields, idx) => {
+    item = fields[idx];
+  });
+  return item;
+};
+
+// Schema manipulation functions for inserting into an array in an immutable manner
+export const insert = {
+  before: (array, item, index) => [
+    ...array.slice(0, index),
+    item,
+    ...array.slice(index)
+  ],
+  after: (array, item, index) => [
+    ...array.slice(0, index + 1),
+    item,
+    ...array.slice(index + 1)
+  ],
+  child: (array, item, index) => [
+    ...array.slice(0, index),
+    {
+      ...array[index],
+      fields: [...array[index].fields, item]
+    },
+    ...array.slice(index + 1)
+  ]
+};
+
+export const remove = (array, index) => [...array.slice(0, index), ...array.slice(index + 1)];
+export const replace = (array, item, index) => [...array.slice(0, index), item, ...array.slice(index + 1)];
+
+// Function to generate a locally-unique identifier for a given item kind
+export const genIdentifier = (kind, { ...fieldCounter }, haystack) => {
+  // Initialize the fieldCounter for the given component kind if not available
+  if (!fieldCounter[kind]) {
+    fieldCounter[kind] = 0;
+  }
+
+  let id, found = false;
+  // Generate a new ID by incrementing until there is no name collision
+  do {
+    id = ++fieldCounter[kind];
+    found = false;
+
+    traverse(haystack, `${kind}-${id}`, (fields) => {
+      found = true
+      return [...fields];
+    });
+  } while(found);
+
+  return [id, fieldCounter];
+};
