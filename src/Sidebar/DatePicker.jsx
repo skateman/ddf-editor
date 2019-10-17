@@ -4,7 +4,7 @@ import { componentTypes } from '@data-driven-forms/react-form-renderer';
 
 const Component = formFieldsMapper[componentTypes.DATE_PICKER];
 
-const DatePicker = ({ variant, disabledDays }) => {
+const DatePicker = ({ variant, disabledDays } = {}) => {
   const fn = ({ formOptions, ...props }) => {
     return <Component variant={variant} disabledDays={disabledDays} formOptions={formOptions} { ...props }/>
   };

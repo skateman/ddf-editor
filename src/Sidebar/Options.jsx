@@ -3,7 +3,8 @@ import { componentTypes } from '@data-driven-forms/react-form-renderer';
 import classSet from 'react-classset';
 
 import Option from './Option';
-const Options = ({ options = [], initialValue, isDragging = false }, dispatch) => {
+
+const Options = ({ initialValue, isDragging, options = [] } = {}, dispatch) => {
   const fn = ({ name : prefix, label, formOptions }) => {
     return (
       <div className={classSet({ 'options': true, 'drag': isDragging })}>
