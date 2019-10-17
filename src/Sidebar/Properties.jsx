@@ -8,7 +8,7 @@ import Options, { OPTIONS } from './Options';
 import DatePicker from './DatePicker';
 import reducer from './reducer';
 
-const changedValues = (old, neu) => Object.keys(neu).reduce((obj, key) => {
+const changedValues = (old, neu) => [...Object.keys(old), ...Object.keys(neu)].reduce((obj, key) => {
   if (old[key] !== neu[key]) {
     return { ...obj, [key]: neu[key] };
   }
