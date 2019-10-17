@@ -1,6 +1,6 @@
 import { useDrag, useDrop } from 'react-dnd';
 
-export const DraggableItem = ({ name, type, kind, title }, dispatch, event) => useDrag({
+export const DraggableItem = ({ name, type, ...params }, dispatch, event) => useDrag({
   item: { type, name },
   collect: monitor => ({
     isDragging: monitor.isDragging()
@@ -35,10 +35,9 @@ export const DraggableItem = ({ name, type, kind, title }, dispatch, event) => u
     dispatch({
       type: event,
       source: name,
-      kind,
-      title,
       target,
-      position
+      position,
+      ...params
     });
   }
 });
