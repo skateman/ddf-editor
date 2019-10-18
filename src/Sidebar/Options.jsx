@@ -38,5 +38,5 @@ const Options = ({ initialValue, isDragging, options = [] } = {}, dispatch) => {
   return fn;
 };
 
-export const OPTIONS = 'editable-pairs';
+export const OPTIONS = 'options';
 export default Options;
