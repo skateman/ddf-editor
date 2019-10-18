@@ -97,6 +97,11 @@ export const editSchema = {
     ...commonFields,
     dataType,
     {
+      component: componentTypes.TEXT_FIELD,
+      name: 'initialValue',
+      type: 'hidden'
+    },
+    {
       name: 'options',
       label: 'Options',
       component: OPTIONS
@@ -105,6 +110,11 @@ export const editSchema = {
   [componentTypes.RADIO]: [
     ...commonFields,
     dataType,
+    {
+      component: componentTypes.TEXT_FIELD,
+      name: 'initialValue',
+      type: 'hidden'
+    },
     {
       name: 'options',
       label: 'Options',

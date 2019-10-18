@@ -38,15 +38,14 @@ const Properties = ({ edit, dispatch }) => {
     [componentTypes.DATE_PICKER]: DatePicker(state)
   };
 
-  const onSubmit = ({ validate: [{ pattern }] = [{}], disabledDays: [{ before : disablePast }] = [{}], options : _options, ...values }) => {
+  const onSubmit = ({ validate: [{ pattern }] = [{}], disabledDays: [{ before : disablePast }] = [{}], ...values }) => {
     const validate = pattern ? [{ type: validatorTypes.PATTERN_VALIDATOR, pattern }] : undefined;
     const disabledDays = disablePast ? [{ before: 'today' }] : undefined;
-    const options = _options ? _options.filter(Boolean) : undefined;
 
     dispatch({
       type: 'editSave',
       target: edit.item.name,
-      values: changedValues(edit.item, { validate, disabledDays, options, ...values })
+      values: changedValues(edit.item, { validate, disabledDays, ...values })
     });
   };
 

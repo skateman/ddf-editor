@@ -24,7 +24,7 @@ export default (state, { type, formOptions, ...action }) => {
     case 'checkDefault': {
       const options = formOptions.getState().values.options;
       const value = action.checked ? null : options[action.source].value;
-      setTimeout(() => formOptions.change('initialValue', value));
+      formOptions.change('initialValue', value);
       return { ...state, options, initialValue: value };
     }
     case 'dropOption': {

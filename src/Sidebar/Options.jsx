@@ -1,5 +1,4 @@
 import React from "react";
-import { componentTypes } from '@data-driven-forms/react-form-renderer';
 import classSet from 'react-classset';
 
 import Option from './Option';
@@ -9,7 +8,6 @@ const Options = ({ initialValue, isDragging, options = [] } = {}, dispatch) => {
     return (
       <div className={classSet({ 'options': true, 'drag': isDragging })}>
         <h3>{ label }</h3>
-        { formOptions.renderForm([{ component: componentTypes.TEXT_FIELD, name: 'initialValue', type: 'hidden' }]) }
         <div className="option-wrapper">
           <div className="options-header">
             <div className="option-label"><label>Label</label></div>
