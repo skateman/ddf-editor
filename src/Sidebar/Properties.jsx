@@ -58,7 +58,7 @@ const Properties = ({ edit, dispatch }) => {
         layoutMapper={layoutMapper}
         onSubmit={onSubmit}
         onCancel={() => dispatch({ type: 'editEnd' })}
-        schema={{ fields: editSchema[edit.item.component] }}
+        schema={{ fields: editSchema[edit.item && edit.item.component] }}
         initialValues={ edit.item }
         buttonsLabels={{ submitLabel: 'Save', cancelLabel: 'Close' }}
         clearOnUnmount={true}

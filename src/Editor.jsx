@@ -2,7 +2,7 @@ import React, { useState, useReducer, useMemo } from "react";
 import { DndProvider } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 import TouchBackend from 'react-dnd-touch-backend';
-import FormRender from '@data-driven-forms/react-form-renderer';
+import FormRender, { layoutComponents } from '@data-driven-forms/react-form-renderer';
 import { formFieldsMapper, layoutMapper } from '@data-driven-forms/pf3-component-mapper';
 import { Switch } from 'patternfly-react';
 import classSet from 'react-classset';
@@ -14,6 +14,8 @@ import playerFields from './Player/fields';
 import Toolbox from './Toolbox';
 import Sidebar from './Sidebar';
 import reducer from './reducer';
+
+import FormWrapper from './Draggable/FormWrapper';
 
 export default ({...props}) => {
   const { schema:initialSchema } = props;
@@ -39,6 +41,14 @@ export default ({...props}) => {
     [draggableFields, formFieldsMapper, dispatch]
   );
 
+  const draggableLayoutMapper = useMemo(
+    () => ({
+      ...layoutMapper,
+      [layoutComponents.FORM_WRAPPER]: FormWrapper(dispatch)
+    }),
+    [layoutMapper, dispatch]
+  );
+
   const touch = 'ontouchstart' in document.documentElement;
 
   return (
@@ -53,7 +63,7 @@ export default ({...props}) => {
           <div className={classSet('dialog-renderer', isDragging ? `drag-${isDragging}` : undefined)}>
             <FormRender
               formFieldsMapper={preview ? playerFields : draggableFormFieldsMapper}
-              layoutMapper={layoutMapper}
+              layoutMapper={preview ? layoutMapper : draggableLayoutMapper}
               onSubmit={() => undefined}
               schema={schema}
               showFormControls={false}

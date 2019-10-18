@@ -1,6 +1,8 @@
 import { componentTypes, dataTypes } from '@data-driven-forms/react-form-renderer';
 
 const createSchema = () => ({
+  label: 'Dialog editor demo',
+  description: 'This is a demo of the new dialog editor that is based on Data Driven Forms',
   fields: [
     {
       component: componentTypes.TABS,

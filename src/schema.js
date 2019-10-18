@@ -4,6 +4,15 @@
 // is a deep copy of the object including the changes applied by the passed function. The
 // function is able to work with any object on any depth, except the very first one.
 export const traverse = (data, name, fn) => {
+  // When the name is set to undefined, we are actually working with the top-level dialog
+  // information. As the passed function always operates with an array, this special case
+  // needs a little hack. If there is a return array from the function, the first element
+  // is extracted as the return value of the traversal.
+  if (!name) {
+    const _data = fn([data], 0);
+    return _data ? { ..._data[0] } : { ...data };
+  }
+
   if (Array.isArray(data.fields)) {
     // Try to find the child object with the passed name among fields
     const idx = data.fields.findIndex(field => field.name === name);

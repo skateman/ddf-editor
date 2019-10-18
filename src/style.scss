@@ -175,6 +175,25 @@
       }
     }
 
+    .form-wrapper {
+      & > .toolbox {
+        float: right;
+
+        ul {
+          list-style: none;
+          display: inline-block;
+          padding-left: 0;
+          margin-bottom: 0;
+
+          li {
+            font-size: large;
+            display: inline;
+            cursor: pointer;
+          }
+        }
+      }
+    }
+
     .tab-header-wrapper {
       .drag {
         opacity: 0.5;

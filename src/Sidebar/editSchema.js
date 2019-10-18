@@ -171,20 +171,17 @@ export const editSchema = {
       component: componentTypes.TEXT_FIELD
     }
   ],
-};
-
-export const dialogDetailsSchema = {
-  fields: [
+  undefined: [ // special case for the top-level dialog information
     {
-      name: 'name',
-      label: 'Name',
-      component: componentTypes.TEXT_FIELD,
+      name: 'label',
+      label: 'Label',
+      component: componentTypes.TEXT_FIELD
     },
     {
       name: 'description',
       label: 'Description',
       component: componentTypes.TEXTAREA_FIELD,
       rows: 6
-    }
+    },
   ]
 };
