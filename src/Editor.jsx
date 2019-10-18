@@ -59,7 +59,7 @@ export default ({...props}) => {
               showFormControls={false}
             />
           </div>
-        <div className={classSet('dialog-sidebar', isDragging ? `drag-${isDragging}` : undefined)}>
+        <div className="dialog-sidebar">
           <Sidebar schema={schema} edit={edit} dispatch={dispatch} />
         </div>
       </div>
