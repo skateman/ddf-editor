@@ -263,10 +263,16 @@
   .dialog-sidebar {
     @media (min-width: $width) {
       width: calc(100% * (4 / 12));
+
+      .modal-container {
+        display: none;
+      }
     }
 
     @media (max-width: #{$width - 1px}) {
-      display: none;
+      #dialog-properties-tabs {
+        display: none;
+      }
     }
 
     &.drag-option .option-wrapper .horizontal-overlay {
