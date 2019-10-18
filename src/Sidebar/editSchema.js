@@ -1,6 +1,7 @@
 import { componentTypes, dataTypes } from '@data-driven-forms/react-form-renderer';
 
 import { OPTIONS } from './Options';
+import { DEFAULT_DATE } from './DefaultDate';
 
 const commonFields = [
   {
@@ -146,7 +147,7 @@ export const editSchema = {
     {
       name: 'initialValue',
       label: 'Default value',
-      component: componentTypes.DATE_PICKER
+      component: DEFAULT_DATE
     }
   ],
   [componentTypes.TAG_CONTROL]: [
