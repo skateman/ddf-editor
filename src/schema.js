@@ -60,6 +60,14 @@ export const insert = {
 export const remove = (array, index) => [...array.slice(0, index), ...array.slice(index + 1)];
 export const replace = (array, item, index) => [...array.slice(0, index), item, ...array.slice(index + 1)];
 
+// Helper function to remove fields from an object that are set to `undefined`
+export const compact = object =>
+  Object.keys(object).reduce(
+    (obj, key) =>
+      object[key] === undefined ? obj : { ...obj, [key]: object[key] },
+    {}
+  );
+
 // Function to generate a locally-unique identifier for a given item kind
 export const genIdentifier = (kind, { ...fieldCounter }, haystack) => {
   // Initialize the fieldCounter for the given component kind if not available

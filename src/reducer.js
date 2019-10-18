@@ -1,7 +1,7 @@
 import { componentTypes } from '@data-driven-forms/react-form-renderer';
 import { dialogItemKinds } from './constants';
 
-import { traverse, find, insert, remove, replace, genIdentifier } from './schema';
+import { traverse, find, insert, remove, replace, compact, genIdentifier } from './schema';
 
 export default (state, { type, ...action }) => {
   switch (type) {
@@ -18,7 +18,7 @@ export default (state, { type, ...action }) => {
         }
       }
 
-      const schema = traverse(state.schema, action.target, (fields, idx) => replace(fields, { ...fields[idx], ...state.edit.item, ...action.values }, idx));
+      const schema = traverse(state.schema, action.target, (fields, idx) => replace(fields, compact({ ...fields[idx], ...action.values }), idx));
 
       return { ...state, schema, edit: undefined };
     }
