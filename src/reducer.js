@@ -10,14 +10,6 @@ export default (state, { type, ...action }) => {
       return { ...state, edit: { target: action.target, item }};
     }
     case 'editSave': {
-      if (action.values.name) {
-        const duplicate = find(state.schema, action.values.name);
-        if (duplicate) {
-          const edit = { ...state.edit, error: 'The entered name already exists in the schema, duplications are not allowed.' };
-          return { ...state, edit };
-        }
-      }
-
       const schema = traverse(state.schema, action.target, (fields, idx) => replace(fields, compact({ ...fields[idx], ...action.values }), idx));
 
       return { ...state, schema, edit: undefined };

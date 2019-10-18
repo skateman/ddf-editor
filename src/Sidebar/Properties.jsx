@@ -7,6 +7,7 @@ import { editSchema } from './editSchema';
 import Options, { OPTIONS } from './Options';
 import DefaultDate, { DEFAULT_DATE } from './DefaultDate';
 import reducer from './reducer';
+import { find } from '../schema';
 
 const changedValues = (old, neu) => [...Object.keys(old), ...Object.keys(neu)].reduce((obj, key) => {
   if (old[key] !== neu[key]) {
@@ -16,7 +17,7 @@ const changedValues = (old, neu) => [...Object.keys(old), ...Object.keys(neu)].r
   return obj;
 }, {});
 
-const Properties = ({ edit, dispatch }) => {
+const Properties = ({ schema, edit, dispatch }) => {
   const [state, localDispatch] = useReducer(reducer, {});
   useEffect(() => localDispatch({ type: 'initialize', ...edit.item }), [edit.item]);
 
@@ -53,21 +54,22 @@ const Properties = ({ edit, dispatch }) => {
     });
   };
 
+  // Validator function that determines if there are any name duplications across the schema
+  const uniqueName = ({ name }) => name && name !== edit.item.name && find(schema, name) ? { name: "This field must be unique across the schema" } : {};
+
   return (
-    <>
-      <p>{ edit.error }</p>
-      <FormRender
-        formFieldsMapper={customFormFields}
-        layoutMapper={layoutMapper}
-        onSubmit={onSubmit}
-        onCancel={() => dispatch({ type: 'editEnd' })}
-        schema={{ fields: editSchema[edit.item && edit.item.component] }}
-        initialValues={ edit.item }
-        buttonsLabels={{ submitLabel: 'Save', cancelLabel: 'Close' }}
-        clearOnUnmount={true}
-        onStateUpdate={onStateUpdate}
-      />
-    </>
+    <FormRender
+      formFieldsMapper={customFormFields}
+      layoutMapper={layoutMapper}
+      onSubmit={onSubmit}
+      onCancel={() => dispatch({ type: 'editEnd' })}
+      schema={{ fields: editSchema[edit.item && edit.item.component] }}
+      initialValues={ edit.item }
+      buttonsLabels={{ submitLabel: 'Save', cancelLabel: 'Close' }}
+      clearOnUnmount={true}
+      onStateUpdate={onStateUpdate}
+      validate={uniqueName}
+    />
   )
 };
 

@@ -26,7 +26,7 @@ const Sidebar = ({ schema, edit, dispatch }) => {
             </TabPane>
             { edit &&
               <TabPane eventKey="properties">
-                <div className="form"><Properties edit={edit} dispatch={dispatch} /></div>
+                <div className="form"><Properties schema={schema} edit={edit} dispatch={dispatch} /></div>
               </TabPane>
             }
           </TabContent>
@@ -41,7 +41,7 @@ const Sidebar = ({ schema, edit, dispatch }) => {
         <Modal.Body>
           { edit &&
             <div className="form">
-              <Properties edit={edit} dispatch={dispatch} />
+              <Properties schema={schema} edit={edit} dispatch={dispatch} />
             </div>
           }
         </Modal.Body>
