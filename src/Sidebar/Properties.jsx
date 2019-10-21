@@ -21,15 +21,20 @@ const Properties = ({ schema, edit, dispatch }) => {
   const [state, localDispatch] = useReducer(reducer, {});
   useEffect(() => localDispatch({ type: 'initialize', ...edit.item }), [edit.item]);
 
-  // This callback is used for updating the default value selection when editing a datepicker. If the `Variant` dropdown
-  // or the `Disable past dates` checkbox gets modified, we have to pass down this information to the default value field
-  // rendered as a DatePicker component. As the onStateUpdate gets called on any change in the form, the state update is
-  // narrowed down by testing against the `active` field.
-  const onStateUpdate = ({ active, values: { variant, disabledDays: [{ before : disablePast }] = [{}] } }) => {
+  const onStateUpdate = ({ active, values: { dataType, variant, disabledDays: [{ before : disablePast }] = [{}] } }) => {
+    // This callback is used for updating the default value selection when editing a datepicker. If the `Variant` dropdown
+    // or the `Disable past dates` checkbox gets modified, we have to pass down this information to the default value field
+    // rendered as a DatePicker component. As the onStateUpdate gets called on any change in the form, the state update is
+    // narrowed down by testing against the `active` field.
     const disabledDays = disablePast ? [{ before: 'today' }] : undefined;
 
     if (['variant', 'disabledDays[0][before]'].includes(active)) {
       localDispatch({ type: 'updateDatePicker', disabledDays, variant });
+    }
+
+    // If the dataType field has been changed, it should be reflected in the options
+    if (active === 'dataType' && state.dataType !== dataType) {
+      localDispatch({ type: 'updateDataType', dataType });
     }
   };
 

@@ -6,22 +6,10 @@ import { DropZone, DraggableItem } from '../Draggable/backend';
 
 const type = 'option';
 
-const Option = ({ prefix, index, checked, formOptions, dispatch }) => {
+const Option = ({ prefix, index, checked, dataType, formOptions, dispatch }) => {
   const name = `${prefix}[${index}]`;
 
   const [{isDragging}, drag, preview] = DraggableItem({ name: index, type, formOptions }, dispatch, 'dropOption');
-
-  const fieldPair = ['label', 'value'].map(field =>
-    <div className={classSet(`option-${field}`)} key={field}>
-      {
-        formOptions.renderForm([{
-          component: componentTypes.TEXT_FIELD,
-          name: `${name}[${field}]`,
-          clearOnUnmount: false,
-        }])
-      }
-    </div>
-  );
 
   const [{ isOver:isOverTop }, dropTop] = DropZone({ name: index, type }, 'before');
   const [{ isOver:isOverBottom }, dropBottom] = DropZone({ name: index, type }, 'after');
@@ -30,7 +18,25 @@ const Option = ({ prefix, index, checked, formOptions, dispatch }) => {
     <div className={classSet({ 'option-wrapper': true, 'drag': isDragging })} ref={preview}>
       <div className="handle" ref={drag}></div>
       <div className="item">
-        { fieldPair }
+        <div className='option-label'>
+          {
+            formOptions.renderForm([{
+              component: componentTypes.TEXT_FIELD,
+              name: `${name}[label]`,
+              clearOnUnmount: false,
+            }])
+          }
+        </div>
+        <div className='option-value'>
+          {
+            formOptions.renderForm([{
+              component: componentTypes.TEXT_FIELD,
+              name: `${name}[value]`,
+              clearOnUnmount: false,
+              dataType: dataType
+            }])
+          }
+        </div>
         <div className="option-default">
           <input type="checkbox" checked={checked} onChange={() => dispatch({ type: 'checkDefault', formOptions, source: index, checked }) } />
         </div>

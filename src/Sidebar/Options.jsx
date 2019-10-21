@@ -3,7 +3,7 @@ import classSet from 'react-classset';
 
 import Option from './Option';
 
-const Options = ({ initialValue, isDragging, options = [] } = {}, dispatch) => {
+const Options = ({ initialValue, isDragging, dataType, options = [] } = {}, dispatch) => {
   const fn = ({ name : prefix, label, formOptions }) => {
     return (
       <div className={classSet({ 'options': true, 'drag': isDragging })}>
@@ -23,6 +23,7 @@ const Options = ({ initialValue, isDragging, options = [] } = {}, dispatch) => {
             checked={options[index].value === initialValue}
             formOptions={formOptions}
             dispatch={dispatch}
+            dataType={dataType}
           />
           )
         }

@@ -3,12 +3,16 @@ import { remove, insert } from '../schema';
 export default (state, { type, formOptions, ...action }) => {
   switch (type) {
     case 'initialize': {
-      const { variant, disabledDays, options, initialValue } = action;
-      return { variant, disabledDays, options, initialValue };
+      const { variant, disabledDays, options, initialValue, dataType } = action;
+      return { variant, disabledDays, options, initialValue, dataType };
     }
     case 'updateDatePicker': {
       const { variant, disabledDays } = action;
       return { ...state, variant, disabledDays };
+    }
+    case 'updateDataType': {
+      const dataType = action.dataType;
+      return { ...state, dataType }
     }
     case 'newOption': {
       const options = [...formOptions.getState().values.options, { label: '', value: '' }];
