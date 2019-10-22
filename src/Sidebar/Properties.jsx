@@ -29,12 +29,12 @@ const Properties = ({ schema, edit, dispatch }) => {
     const disabledDays = disablePast ? [{ before: 'today' }] : undefined;
 
     if (['variant', 'disabledDays[0][before]'].includes(active)) {
-      localDispatch({ type: 'updateDatePicker', disabledDays, variant });
+      localDispatch({ type: 'update', disabledDays, variant });
     }
 
     // If the dataType field has been changed, it should be reflected in the options
     if (active === 'dataType' && state.dataType !== dataType) {
-      localDispatch({ type: 'updateDataType', dataType });
+      localDispatch({ type: 'update', dataType });
     }
   };
 

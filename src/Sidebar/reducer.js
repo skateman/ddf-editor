@@ -6,14 +6,8 @@ export default (state, { type, formOptions, ...action }) => {
       const { variant, disabledDays, options, initialValue, dataType } = action;
       return { variant, disabledDays, options, initialValue, dataType };
     }
-    case 'updateDatePicker': {
-      const { variant, disabledDays } = action;
-      return { ...state, variant, disabledDays };
-    }
-    case 'updateDataType': {
-      const dataType = action.dataType;
-      return { ...state, dataType }
-    }
+    case 'update':
+      return { ...state, ...action };
     case 'newOption': {
       const options = [...formOptions.getState().values.options, { label: '', value: '' }];
       formOptions.change('options', options);
