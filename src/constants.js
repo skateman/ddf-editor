@@ -27,9 +27,9 @@ export const dialogItemKinds = {
       dataType: dataTypes.STRING,
       initialValue: null,
       options: [
-        { label: 'One', value: 1 },
-        { label: 'Two', value: 2 },
-        { label: 'Three', value: 3 }
+        { label: 'One', value: '1' },
+        { label: 'Two', value: '2' },
+        { label: 'Three', value: '3' }
       ]
     }
   },
@@ -39,9 +39,9 @@ export const dialogItemKinds = {
       dataType: dataTypes.STRING,
       initialValue: null,
       options: [
-        { label: 'One', value: 1 },
-        { label: 'Two', value: 2 },
-        { label: 'Three', value: 3 }
+        { label: 'One', value: '1' },
+        { label: 'Two', value: '2' },
+        { label: 'Three', value: '3' }
       ]
     }
   },
