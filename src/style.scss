@@ -339,6 +339,10 @@
 
           .toolbox {
             text-align: center;
+
+            & > i {
+              cursor: pointer;
+            }
           }
         }
 
