@@ -147,7 +147,7 @@ export const editSchema = {
     {
       name: 'initialValue',
       label: 'Default value',
-      component: DEFAULT_DATE
+      component: componentTypes.DATE_PICKER
     }
   ],
   [componentTypes.TAG_CONTROL]: [

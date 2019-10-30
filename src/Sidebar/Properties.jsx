@@ -1,11 +1,10 @@
 import React, { useReducer, useEffect } from "react";
 import { formFieldsMapper, layoutMapper } from '@data-driven-forms/pf3-component-mapper';
-import { validatorTypes } from '@data-driven-forms/react-form-renderer';
-import FormRender from '@data-driven-forms/react-form-renderer';
+import FormRender, { validatorTypes, componentTypes } from '@data-driven-forms/react-form-renderer';
 
 import { editSchema } from './editSchema';
 import Options, { OPTIONS } from './Options';
-import DefaultDate, { DEFAULT_DATE } from './DefaultDate';
+import DefaultDate from './DefaultDate';
 import reducer from './reducer';
 import { find } from '../schema';
 
@@ -41,7 +40,7 @@ const Properties = ({ schema, edit, dispatch }) => {
   const customFormFields = {
     ...formFieldsMapper,
     [OPTIONS]: Options(state, localDispatch),
-    [DEFAULT_DATE]: DefaultDate(state)
+    [componentTypes.DATE_PICKER]: DefaultDate(formFieldsMapper[componentTypes.DATE_PICKER], state)
   };
 
   const onSubmit = ({ disabledDays: [{ before : disablePast }] = [{}], validate: [{ pattern }] = [{}], isRequired, ...values }) => {
