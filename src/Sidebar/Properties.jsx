@@ -38,7 +38,7 @@ const Properties = ({ schema, edit, dispatch }) => {
     const disabledDays = disablePast ? [{ before: 'today' }] : undefined;
 
     if (['variant', 'disabledDays[0][before]'].includes(active)) {
-      setTimeout(() => setState({ ...state, disabledDays, variant }));
+      setState({ ...state, disabledDays, variant });
     }
 
     if (active === 'dataType' && dataType !== state.dataType) {
