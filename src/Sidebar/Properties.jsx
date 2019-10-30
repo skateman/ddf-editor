@@ -30,24 +30,17 @@ const Properties = ({ schema, edit, dispatch }) => {
   const [state, setState] = useState({ multi: edit.item.multi, disabledDays: edit.item.disabledDays, variant: edit.item.variant });
   useEffect(() => setState({ multi: edit.item.multi, disabledDays: edit.item.disabledDays, variant: edit.item.variant }), [edit.item.name]);
 
+  // This callback is used for propagating the values below to the contexts, so child components can access them
   const onStateUpdate = ({ active, values: { dataType, multi, variant, disabledDays: [{ before : disablePast }] = [{}] } }) => {
-    // This callback is used for updating the default value selection when editing a datepicker. If the `Variant` dropdown
-    // or the `Disable past dates` checkbox gets modified, we have to pass down this information to the default value field
-    // rendered as a DatePicker component. As the onStateUpdate gets called on any change in the form, the state update is
-    // narrowed down by testing against the `active` field.
-    const disabledDays = disablePast ? [{ before: 'today' }] : undefined;
+    const values = {
+      variant: variant,
+      dataType: dataType,
+      multi: multi,
+      ['disabledDays[0][before]']: disablePast ? [{ before: 'today' }] : undefined,
+    };
 
-    if (['variant', 'disabledDays[0][before]'].includes(active)) {
-      setState({ ...state, disabledDays, variant });
-    }
-
-    if (active === 'dataType' && dataType !== state.dataType) {
-      setState({ ...state, dataType });
-    }
-
-    if (active === 'multi' && multi !== state.multi) {
-      setState({ ...state, multi });
-    }
+    const key = Object.keys(values).find(key => active === key && state[key] != values[key]);
+    key && setState({ ...state, [key]: values[key] });
   };
 
   const customFormFields = {
