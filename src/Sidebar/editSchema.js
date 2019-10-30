@@ -1,7 +1,6 @@
 import { componentTypes, dataTypes } from '@data-driven-forms/react-form-renderer';
 
 import { OPTIONS } from './Options';
-import { DEFAULT_DATE } from './DefaultDate';
 
 const commonFields = [
   {

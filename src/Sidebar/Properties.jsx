@@ -40,7 +40,7 @@ const Properties = ({ schema, edit, dispatch }) => {
   const customFormFields = {
     ...formFieldsMapper,
     [OPTIONS]: Options(state, localDispatch),
-    [componentTypes.DATE_PICKER]: DefaultDate(formFieldsMapper[componentTypes.DATE_PICKER], state)
+    [componentTypes.DATE_PICKER]: DefaultDate(formFieldsMapper[componentTypes.DATE_PICKER])
   };
 
   const onSubmit = ({ disabledDays: [{ before : disablePast }] = [{}], validate: [{ pattern }] = [{}], isRequired, ...values }) => {
@@ -62,19 +62,22 @@ const Properties = ({ schema, edit, dispatch }) => {
   const uniqueName = ({ name }) => name && name !== edit.item.name && find(schema, name) ? { name: "This field must be unique across the schema" } : {};
 
   return (
-    <FormRender
-      formFieldsMapper={customFormFields}
-      layoutMapper={layoutMapper}
-      onSubmit={onSubmit}
-      onCancel={() => dispatch({ type: 'editEnd' })}
-      schema={{ fields: editSchema[edit.item && edit.item.component] }}
-      initialValues={ edit.item }
-      buttonsLabels={{ submitLabel: 'Save', cancelLabel: 'Close' }}
-      clearOnUnmount={true}
-      onStateUpdate={onStateUpdate}
-      validate={uniqueName}
-    />
+    <Context.Provider value={{ state }}>
+      <FormRender
+        formFieldsMapper={customFormFields}
+        layoutMapper={layoutMapper}
+        onSubmit={onSubmit}
+        onCancel={() => dispatch({ type: 'editEnd' })}
+        schema={{ fields: editSchema[edit.item && edit.item.component] }}
+        initialValues={ edit.item }
+        buttonsLabels={{ submitLabel: 'Save', cancelLabel: 'Close' }}
+        clearOnUnmount={true}
+        onStateUpdate={onStateUpdate}
+        validate={uniqueName}
+      />
+    </Context.Provider>
   )
 };
 
+export const Context = React.createContext({});
 export default Properties;

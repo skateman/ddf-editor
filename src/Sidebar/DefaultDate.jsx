@@ -1,7 +1,12 @@
-import React from "react";
+import React, { useContext } from 'react';
 
-const DefaultDate = (Component, { variant, disabledDays } = {}) => {
-  const fn = ({ ...props }) => (<Component variant={variant} disabledDays={disabledDays} {...props}/>);
+import { Context } from './Properties';
+
+const DefaultDate = (Component) => {
+  const fn = ({ ...props }) => {
+    const { state: { variant, disabledDays } } = useContext(Context);
+    return <Component variant={variant} disabledDays={disabledDays} {...props}/>
+  };
   return fn;
 };
 
