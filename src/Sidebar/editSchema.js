@@ -1,7 +1,5 @@
 import { componentTypes, dataTypes } from '@data-driven-forms/react-form-renderer';
 
-import { OPTIONS } from './Options';
-
 const commonFields = [
   {
     name: 'name',
@@ -95,6 +93,11 @@ export const editSchema = {
   ],
   [componentTypes.SELECT]: [
     ...commonFields,
+    {
+      name: 'multi',
+      label: 'Multiselect',
+      component: componentTypes.CHECKBOX
+    },
     dataType,
     {
       component: componentTypes.TEXT_FIELD,
@@ -104,7 +107,18 @@ export const editSchema = {
     {
       name: 'options',
       label: 'Options',
-      component: OPTIONS
+      component: componentTypes.FIELD_ARRAY,
+      itemDefault: {},
+      fields: [
+        {
+          component: componentTypes.TEXT_FIELD,
+          name: 'label',
+        },
+        {
+          component: componentTypes.TEXT_FIELD,
+          name: 'value',
+        }
+      ]
     }
   ],
   [componentTypes.RADIO]: [
@@ -118,7 +132,19 @@ export const editSchema = {
     {
       name: 'options',
       label: 'Options',
-      component: OPTIONS
+      component: componentTypes.FIELD_ARRAY,
+      itemDefault: {},
+      fields: [
+        {
+          component: componentTypes.TEXT_FIELD,
+          name: 'label',
+        },
+        {
+          component: componentTypes.TEXT_FIELD,
+          name: 'value',
+        }
+      ]
+
     }
   ],
   [componentTypes.DATE_PICKER]: [
