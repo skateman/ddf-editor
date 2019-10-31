@@ -44,7 +44,7 @@ export default ({...props}) => {
   const draggableLayoutMapper = useMemo(
     () => ({
       ...layoutMapper,
-      [layoutComponents.FORM_WRAPPER]: FormWrapper(dispatch)
+      [layoutComponents.FORM_WRAPPER]: FormWrapper(layoutMapper[layoutComponents.FORM_WRAPPER], dispatch)
     }),
     [layoutMapper, dispatch]
   );
