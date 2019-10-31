@@ -157,6 +157,11 @@
     }
   }
 
+  // This makes the input fields inaccessible in the editor
+  .input-wrapper > .item {
+    z-index: -1;
+  }
+
   .dialog-renderer {
     @media (min-width: $width) {
       width: calc(100% * (7 / 12));
