@@ -55,6 +55,7 @@ const createSchema = () => ({
                   name: "select-field-1",
                   label: "Dropdown 1",
                   visible: true,
+                  isClearable: true,
                   dataType: dataTypes.STRING,
                   initialValue: 'foo',
                   options: [
