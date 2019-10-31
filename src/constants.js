@@ -26,7 +26,6 @@ export const dialogItemKinds = {
     defaultSchema: {
       dataType: dataTypes.STRING,
       isClearable: true,
-      initialValue: null,
       options: [
         { label: 'One', value: '1' },
         { label: 'Two', value: '2' },
@@ -38,7 +37,6 @@ export const dialogItemKinds = {
     decorator: DraggableInput,
     defaultSchema: {
       dataType: dataTypes.STRING,
-      initialValue: null,
       options: [
         { label: 'One', value: '1' },
         { label: 'Two', value: '2' },
