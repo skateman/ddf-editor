@@ -1,6 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 
-const FormWrapper = (Component, dispatch) => {
+import { Context } from '../Editor';
+
+const FormWrapper = (Component) => {
+  const dispatch = useContext(Context);
+
   const fn = ({ ...props }) => {
     return (
       <div className="form-wrapper">

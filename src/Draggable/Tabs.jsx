@@ -1,12 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { TabContainer, Nav, NavItem } from 'patternfly-react';
 import { TabContent as PfTabContent } from 'patternfly-react';
 
+import { Context } from '../Editor';
 import TabHeader from './TabHeader';
 import TabContent from './TabContent';
 
-export default (_, dispatch) => {
+export default () => {
   const DraggableTabs = ({ name:target, fields, formOptions }) => {
+    const dispatch = useContext(Context);
+
     // Try to retrieve the name of the very first tab
     const firstTab = (() => {
       const [tab] = fields;

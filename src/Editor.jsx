@@ -17,6 +17,8 @@ import reducer from './reducer';
 
 import FormWrapper from './Draggable/FormWrapper';
 
+export const Context = React.createContext({});
+
 export default ({...props}) => {
   const { schema:initialSchema } = props;
   const [preview, setPreview] = useState(false);
@@ -32,21 +34,21 @@ export default ({...props}) => {
       Object.keys(draggableFields).reduce(
         (obj, key) => ({
           ...obj,
-          [key]: draggableFields[key](dispatch)
+          [key]: draggableFields[key]
         }),
         {
           ...formFieldsMapper
         }
       ),
-    [draggableFields, formFieldsMapper, dispatch]
+    [draggableFields, formFieldsMapper]
   );
 
   const draggableLayoutMapper = useMemo(
     () => ({
       ...layoutMapper,
-      [layoutComponents.FORM_WRAPPER]: FormWrapper(layoutMapper[layoutComponents.FORM_WRAPPER], dispatch)
+      [layoutComponents.FORM_WRAPPER]: FormWrapper(layoutMapper[layoutComponents.FORM_WRAPPER])
     }),
-    [layoutMapper, dispatch]
+    [layoutMapper]
   );
 
   const touch = 'ontouchstart' in document.documentElement;
@@ -61,13 +63,15 @@ export default ({...props}) => {
             <Toolbox dispatch={dispatch}/>
           </div>
           <div className={classSet('dialog-renderer', isDragging ? `drag-${isDragging}` : undefined)}>
-            <FormRender
-              formFieldsMapper={preview ? playerFields : draggableFormFieldsMapper}
-              layoutMapper={preview ? layoutMapper : draggableLayoutMapper}
-              onSubmit={() => undefined}
-              schema={schema}
-              showFormControls={false}
-            />
+            <Context.Provider value={dispatch}>
+              <FormRender
+                formFieldsMapper={preview ? playerFields : draggableFormFieldsMapper}
+                layoutMapper={preview ? layoutMapper : draggableLayoutMapper}
+                onSubmit={() => undefined}
+                schema={schema}
+                showFormControls={false}
+              />
+            </Context.Provider>
           </div>
         <div className="dialog-sidebar">
           <Sidebar schema={schema} edit={edit} dispatch={dispatch} />

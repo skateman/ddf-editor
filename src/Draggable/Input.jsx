@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
 import classSet from 'react-classset';
 
+import { Context } from '../Editor';
 import { DropZone, DraggableItem, itemTypes } from './backend';
 
-const Input = (Component, dispatch) => {
+const Input = (Component) => {
   const fn = ({ visible, ...props }) => {
+    const dispatch = useContext(Context);
+
     const { initialValue, formOptions, input: { name } } = props;
     const [{isDragging}, drag, preview] = DraggableItem({ name, type: itemTypes.INPUT }, dispatch, 'dropExisting');
 
