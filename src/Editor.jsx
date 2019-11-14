@@ -3,7 +3,7 @@ import { DndProvider } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 import TouchBackend from 'react-dnd-touch-backend';
 import FormRender, { layoutComponents } from '@data-driven-forms/react-form-renderer';
-import { formFieldsMapper, layoutMapper } from '@data-driven-forms/pf3-component-mapper';
+import { layoutMapper } from '@data-driven-forms/pf3-component-mapper';
 import { Switch } from 'patternfly-react';
 import classSet from 'react-classset';
 
@@ -27,21 +27,6 @@ export default ({ schema : initialSchema }) => {
     schema: initialSchema,
   });
 
-  // Memoize the decorated component mapping for a better performance
-  const draggableFormFieldsMapper = useMemo(
-    () =>
-      Object.keys(draggableFields).reduce(
-        (obj, key) => ({
-          ...obj,
-          [key]: draggableFields[key]
-        }),
-        {
-          ...formFieldsMapper
-        }
-      ),
-    [draggableFields, formFieldsMapper]
-  );
-
   const draggableLayoutMapper = useMemo(
     () => ({
       ...layoutMapper,
@@ -64,7 +49,7 @@ export default ({ schema : initialSchema }) => {
           <div className={classSet('dialog-renderer', isDragging ? `drag-${isDragging}` : undefined)}>
             <Context.Provider value={dispatch}>
               <FormRender
-                formFieldsMapper={preview ? playerFields : draggableFormFieldsMapper}
+                formFieldsMapper={preview ? playerFields : draggableFields}
                 layoutMapper={preview ? layoutMapper : draggableLayoutMapper}
                 onSubmit={() => undefined}
                 schema={schema}

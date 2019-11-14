@@ -8,7 +8,7 @@ const fields = Object.keys(dialogItemKinds)
       ...obj,
       [key]: dialogItemKinds[key].decorator(formFieldsMapper[key])
     }),
-    {}
+    { ...formFieldsMapper }
   );
 
 export default fields;
