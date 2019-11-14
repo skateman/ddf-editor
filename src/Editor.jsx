@@ -67,10 +67,7 @@ export default ({ schema : initialSchema }) => {
     <DndProvider backend={touch ? TouchBackend : HTML5Backend}>
       <div className="dialog-editor">
           <div className="dialog-toolbox">
-            <div className="preview-switch">
-              <Switch onText="View" offText="Edit" value={preview} inverse={true} onChange={() => dispatch({ type: 'togglePreview', preview })}/>
-            </div>
-            <Toolbox dispatch={dispatch} fields={toolboxFields}/>
+            <Toolbox Switch={Switch} preview={preview} dispatch={dispatch} fields={toolboxFields}/>
           </div>
           <div className={classSet('dialog-renderer', isDragging ? `drag-${isDragging}` : undefined)}>
             <Context.Provider value={dispatch}>
