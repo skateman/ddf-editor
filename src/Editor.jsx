@@ -10,13 +10,15 @@ import classSet from 'react-classset';
 import './style.scss';
 
 import draggableDecorator from './Draggable/decorator';
-import playerFields from './Player/fields';
+import playerDecorator from './Player/decorator';
 import Toolbox from './Toolbox';
 import Sidebar from './Sidebar';
 import reducer from './reducer';
 
 const draggableFieldsMapper = draggableDecorator(formFieldsMapper);
 const draggableLayoutMapper = draggableDecorator(layoutMapper);
+const previewFieldsMapper = playerDecorator(formFieldsMapper);
+const previewLayoutMapper = layoutMapper;
 
 export const Context = React.createContext({});
 
@@ -42,8 +44,8 @@ export default ({ schema : initialSchema }) => {
           <div className={classSet('dialog-renderer', isDragging ? `drag-${isDragging}` : undefined)}>
             <Context.Provider value={dispatch}>
               <FormRender
-                formFieldsMapper={preview ? playerFields : draggableFieldsMapper}
-                layoutMapper={preview ? layoutMapper : draggableLayoutMapper}
+                formFieldsMapper={preview ? previewFieldsMapper : draggableFieldsMapper}
+                layoutMapper={preview ? previewLayoutMapper : draggableLayoutMapper}
                 onSubmit={() => undefined}
                 schema={schema}
                 showFormControls={false}
