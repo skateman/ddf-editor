@@ -1,4 +1,4 @@
-import React, { useState, useReducer } from "react";
+import React, { useReducer } from "react";
 import { DndProvider } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 import TouchBackend from 'react-dnd-touch-backend';
@@ -54,8 +54,8 @@ const toolboxFields = {
 export const Context = React.createContext({});
 
 export default ({ schema : initialSchema }) => {
-  const [preview, setPreview] = useState(false);
-  const [{ schema, isDragging, edit }, dispatch] = useReducer(reducer, {
+  const [{ schema, isDragging, edit, preview }, dispatch] = useReducer(reducer, {
+    preview: false,
     isDragging: false,
     fieldCounter: {},
     schema: initialSchema,
@@ -68,7 +68,7 @@ export default ({ schema : initialSchema }) => {
       <div className="dialog-editor">
           <div className="dialog-toolbox">
             <div className="preview-switch">
-              <Switch onText="View" offText="Edit" value={preview} inverse={true} onChange={() => setPreview(!preview)}/>
+              <Switch onText="View" offText="Edit" value={preview} inverse={true} onChange={() => dispatch({ type: 'togglePreview', preview })}/>
             </div>
             <Toolbox dispatch={dispatch} fields={toolboxFields}/>
           </div>

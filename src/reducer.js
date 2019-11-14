@@ -5,6 +5,8 @@ import { traverse, find, insert, remove, replace, compact, genIdentifier } from 
 
 export default (state, { type, ...action }) => {
   switch (type) {
+    case 'togglePreview':
+      return { ...state, preview: !action.preview }
     case 'editStart': {
       const item = find(state.schema, action.target);
       return { ...state, edit: { target: action.target, item }};
