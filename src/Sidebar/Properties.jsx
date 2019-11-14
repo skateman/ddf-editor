@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { formFieldsMapper, layoutMapper } from '@data-driven-forms/pf3-component-mapper';
 import FormRender, { validatorTypes, componentTypes } from '@data-driven-forms/react-form-renderer';
 
-import { editSchema } from './editSchema';
 import FieldArray from './FieldArray';
 import DefaultDate from './DefaultDate';
 import { find } from '../schema';
@@ -26,7 +25,7 @@ const changedValues = (old, neu) => [...Object.keys(old), ...Object.keys(neu)].r
   return obj;
 }, {});
 
-const Properties = ({ schema, edit, dispatch }) => {
+const Properties = ({ editSchema, schema, edit, dispatch }) => {
   const [state, setState] = useState({ multi: edit.item.multi, disabledDays: edit.item.disabledDays, variant: edit.item.variant });
   useEffect(() => setState({ multi: edit.item.multi, disabledDays: edit.item.disabledDays, variant: edit.item.variant }), [edit.item.name]);
 

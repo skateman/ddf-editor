@@ -4,7 +4,7 @@ import { Modal } from 'patternfly-react';
 
 import Properties from './Properties';
 
-const Sidebar = ({ schema, edit, dispatch }) => {
+const Sidebar = ({ editSchema, schema, edit, dispatch }) => {
   const [activeTab, setActiveTab] = useState('dialog');
   const modalContainer = useRef(null);
 
@@ -26,7 +26,7 @@ const Sidebar = ({ schema, edit, dispatch }) => {
             </TabPane>
             { edit &&
               <TabPane eventKey="properties">
-                <div className="form"><Properties schema={schema} edit={edit} dispatch={dispatch} /></div>
+                <div className="form"><Properties editSchema={editSchema} schema={schema} edit={edit} dispatch={dispatch} /></div>
               </TabPane>
             }
           </TabContent>
@@ -41,7 +41,7 @@ const Sidebar = ({ schema, edit, dispatch }) => {
         <Modal.Body>
           { edit &&
             <div className="form">
-              <Properties schema={schema} edit={edit} dispatch={dispatch} />
+              <Properties editSchema={editSchema} schema={schema} edit={edit} dispatch={dispatch} />
             </div>
           }
         </Modal.Body>

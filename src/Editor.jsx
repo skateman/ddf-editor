@@ -14,6 +14,7 @@ import playerDecorator from './Player/decorator';
 import Toolbox from './Toolbox';
 import Sidebar from './Sidebar';
 import reducer from './reducer';
+import editSchema from './editSchema';
 
 const draggableFieldsMapper = draggableDecorator(formFieldsMapper);
 const draggableLayoutMapper = draggableDecorator(layoutMapper);
@@ -81,7 +82,7 @@ export default ({ schema : initialSchema }) => {
             </Context.Provider>
           </div>
         <div className="dialog-sidebar">
-          <Sidebar schema={schema} edit={edit} dispatch={dispatch} />
+          <Sidebar editSchema={editSchema} schema={schema} edit={edit} dispatch={dispatch} />
         </div>
       </div>
     </DndProvider>
