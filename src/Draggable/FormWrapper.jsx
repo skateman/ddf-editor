@@ -3,9 +3,9 @@ import React, { useContext } from "react";
 import { Context } from '../Editor';
 
 const FormWrapper = (Component) => {
-  const dispatch = useContext(Context);
-
   const fn = ({ ...props }) => {
+    const dispatch = useContext(Context);
+
     return (
       <div className="form-wrapper">
         <div className="toolbox">
