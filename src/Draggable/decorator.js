@@ -16,10 +16,12 @@ const draggables = {
   [componentTypes.TABS]: Tabs,
 };
 
-export const fields = mapper => Object.keys(mapper).reduce(
+const decorator = mapper => Object.keys(mapper).reduce(
   (obj, key) => ({
     ...obj,
     [key]: draggables[key] ? draggables[key](mapper[key]) : mapper[key]
   }),
   {}
 );
+
+export default decorator;

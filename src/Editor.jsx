@@ -9,13 +9,13 @@ import classSet from 'react-classset';
 
 import './style.scss';
 
-import { fields as draggableFields } from './Draggable/fields';
+import draggableDecorator from './Draggable/decorator';
 import playerFields from './Player/fields';
 import Toolbox from './Toolbox';
 import Sidebar from './Sidebar';
 import reducer from './reducer';
 
-const draggableFieldsMapper = draggableFields(formFieldsMapper);
+const draggableFieldsMapper = draggableDecorator(formFieldsMapper);
 
 import FormWrapper from './Draggable/FormWrapper';
 
