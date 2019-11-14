@@ -1,28 +1,19 @@
 import { componentTypes, dataTypes } from '@data-driven-forms/react-form-renderer';
 
-import DraggableInput from './Draggable/Input';
-import DraggableSection from './Draggable/Section';
-import DraggableTabs from './Draggable/Tabs';
-
 export const dialogItemKinds = {
   [componentTypes.TEXT_FIELD]: {
-    decorator: DraggableInput,
     defaultSchema: {
       type: 'text',
       dataType: dataTypes.STRING
     }
   },
   [componentTypes.TEXTAREA_FIELD]: {
-    decorator: DraggableInput,
     defaultSchema: {
       dataType: dataTypes.STRING
     }
   },
-  [componentTypes.CHECKBOX]: {
-    decorator: DraggableInput,
-  },
+  [componentTypes.CHECKBOX]: {},
   [componentTypes.SELECT]: {
-    decorator: DraggableInput,
     defaultSchema: {
       dataType: dataTypes.STRING,
       isClearable: true,
@@ -34,7 +25,6 @@ export const dialogItemKinds = {
     }
   },
   [componentTypes.RADIO]: {
-    decorator: DraggableInput,
     defaultSchema: {
       dataType: dataTypes.STRING,
       options: [
@@ -45,7 +35,6 @@ export const dialogItemKinds = {
     }
   },
   [componentTypes.DATE_PICKER]: {
-    decorator: DraggableInput,
     defaultSchema: {
       disabledDays: [{
         before: 'today'
@@ -53,14 +42,8 @@ export const dialogItemKinds = {
       variant: 'date'
     }
   },
-  [componentTypes.TAG_CONTROL]: {
-    decorator: DraggableInput,
-  },
-  [componentTypes.SUB_FORM]: {
-    decorator: DraggableSection
-  },
-  [componentTypes.TABS]: {
-    decorator: DraggableTabs,
-  },
+  [componentTypes.TAG_CONTROL]: {},
+  [componentTypes.SUB_FORM]: {},
+  [componentTypes.TABS]: {},
   [componentTypes.TAB_ITEM]: {}
 };
