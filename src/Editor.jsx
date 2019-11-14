@@ -19,8 +19,7 @@ import FormWrapper from './Draggable/FormWrapper';
 
 export const Context = React.createContext({});
 
-export default ({...props}) => {
-  const { schema:initialSchema } = props;
+export default ({ schema : initialSchema }) => {
   const [preview, setPreview] = useState(false);
   const [{ schema, isDragging, edit }, dispatch] = useReducer(reducer, {
     isDragging: false,
