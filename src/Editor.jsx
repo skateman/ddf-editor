@@ -2,7 +2,7 @@ import React, { useState, useReducer } from "react";
 import { DndProvider } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 import TouchBackend from 'react-dnd-touch-backend';
-import FormRender from '@data-driven-forms/react-form-renderer';
+import FormRender, { componentTypes } from '@data-driven-forms/react-form-renderer';
 import { formFieldsMapper, layoutMapper } from '@data-driven-forms/pf3-component-mapper';
 import { Switch } from 'patternfly-react';
 import classSet from 'react-classset';
@@ -19,6 +19,37 @@ const draggableFieldsMapper = draggableDecorator(formFieldsMapper);
 const draggableLayoutMapper = draggableDecorator(layoutMapper);
 const previewFieldsMapper = playerDecorator(formFieldsMapper);
 const previewLayoutMapper = layoutMapper;
+
+const toolboxFields = {
+  [componentTypes.TEXT_FIELD]: {
+    title: 'Text Box',
+    icon: 'fa fa-font',
+  },
+  [componentTypes.TEXTAREA_FIELD]: {
+    title: 'Text Area',
+    icon: 'fa fa-file-text-o',
+  },
+  [componentTypes.CHECKBOX]: {
+    title: 'Checkbox',
+    icon: 'fa fa-check-square-o',
+  },
+  [componentTypes.SELECT]: {
+    title: 'Dropdown',
+    icon: 'fa fa-caret-square-o-down',
+  },
+  [componentTypes.RADIO]: {
+    title: 'Radio Button',
+    icon: 'fa fa-circle-o',
+  },
+  [componentTypes.DATE_PICKER]: {
+    title: 'Datepicker',
+    icon: 'fa fa-calendar',
+  },
+  [componentTypes.TAG_CONTROL]: {
+    title: 'Tag Control',
+    icon: 'fa fa-tags',
+  },
+};
 
 export const Context = React.createContext({});
 
@@ -39,7 +70,7 @@ export default ({ schema : initialSchema }) => {
             <div className="preview-switch">
               <Switch onText="View" offText="Edit" value={preview} inverse={true} onChange={() => setPreview(!preview)}/>
             </div>
-            <Toolbox dispatch={dispatch}/>
+            <Toolbox dispatch={dispatch} fields={toolboxFields}/>
           </div>
           <div className={classSet('dialog-renderer', isDragging ? `drag-${isDragging}` : undefined)}>
             <Context.Provider value={dispatch}>
