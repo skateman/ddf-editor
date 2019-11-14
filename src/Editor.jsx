@@ -1,8 +1,8 @@
-import React, { useState, useReducer, useMemo } from "react";
+import React, { useState, useReducer } from "react";
 import { DndProvider } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 import TouchBackend from 'react-dnd-touch-backend';
-import FormRender, { layoutComponents } from '@data-driven-forms/react-form-renderer';
+import FormRender from '@data-driven-forms/react-form-renderer';
 import { formFieldsMapper, layoutMapper } from '@data-driven-forms/pf3-component-mapper';
 import { Switch } from 'patternfly-react';
 import classSet from 'react-classset';
@@ -16,8 +16,7 @@ import Sidebar from './Sidebar';
 import reducer from './reducer';
 
 const draggableFieldsMapper = draggableDecorator(formFieldsMapper);
-
-import FormWrapper from './Draggable/FormWrapper';
+const draggableLayoutMapper = draggableDecorator(layoutMapper);
 
 export const Context = React.createContext({});
 
@@ -28,14 +27,6 @@ export default ({ schema : initialSchema }) => {
     fieldCounter: {},
     schema: initialSchema,
   });
-
-  const draggableLayoutMapper = useMemo(
-    () => ({
-      ...layoutMapper,
-      [layoutComponents.FORM_WRAPPER]: FormWrapper(layoutMapper[layoutComponents.FORM_WRAPPER])
-    }),
-    [layoutMapper]
-  );
 
   const touch = 'ontouchstart' in document.documentElement;
 
