@@ -1,4 +1,3 @@
-import { formFieldsMapper } from '@data-driven-forms/pf3-component-mapper';
 import { componentTypes } from '@data-driven-forms/react-form-renderer';
 
 import Input from './Input';
@@ -17,11 +16,10 @@ const draggables = {
   [componentTypes.TABS]: Tabs,
 };
 
-export const fields = Object.keys(draggables)
-  .reduce(
-    (obj, key) => ({
-      ...obj,
-      [key]: draggables[key](formFieldsMapper[key])
-    }),
-    { ...formFieldsMapper }
-  );
+export const fields = mapper => Object.keys(mapper).reduce(
+  (obj, key) => ({
+    ...obj,
+    [key]: draggables[key] ? draggables[key](mapper[key]) : mapper[key]
+  }),
+  {}
+);

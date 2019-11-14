@@ -3,7 +3,7 @@ import { DndProvider } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 import TouchBackend from 'react-dnd-touch-backend';
 import FormRender, { layoutComponents } from '@data-driven-forms/react-form-renderer';
-import { layoutMapper } from '@data-driven-forms/pf3-component-mapper';
+import { formFieldsMapper, layoutMapper } from '@data-driven-forms/pf3-component-mapper';
 import { Switch } from 'patternfly-react';
 import classSet from 'react-classset';
 
@@ -14,6 +14,8 @@ import playerFields from './Player/fields';
 import Toolbox from './Toolbox';
 import Sidebar from './Sidebar';
 import reducer from './reducer';
+
+const draggableFieldsMapper = draggableFields(formFieldsMapper);
 
 import FormWrapper from './Draggable/FormWrapper';
 
@@ -49,7 +51,7 @@ export default ({ schema : initialSchema }) => {
           <div className={classSet('dialog-renderer', isDragging ? `drag-${isDragging}` : undefined)}>
             <Context.Provider value={dispatch}>
               <FormRender
-                formFieldsMapper={preview ? playerFields : draggableFields}
+                formFieldsMapper={preview ? playerFields : draggableFieldsMapper}
                 layoutMapper={preview ? layoutMapper : draggableLayoutMapper}
                 onSubmit={() => undefined}
                 schema={schema}
