@@ -2,7 +2,7 @@ import React, { useReducer } from "react";
 import { DndProvider } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 import TouchBackend from 'react-dnd-touch-backend';
-import FormRender, { componentTypes } from '@data-driven-forms/react-form-renderer';
+import FormRender, { componentTypes, dataTypes } from '@data-driven-forms/react-form-renderer';
 import { formFieldsMapper, layoutMapper } from '@data-driven-forms/pf3-component-mapper';
 import { Switch } from 'patternfly-react';
 import classSet from 'react-classset';
@@ -25,10 +25,17 @@ const toolboxFields = {
   [componentTypes.TEXT_FIELD]: {
     title: 'Text Box',
     icon: 'fa fa-font',
+    defaultSchema: {
+      type: 'text',
+      dataType: dataTypes.STRING
+    }
   },
   [componentTypes.TEXTAREA_FIELD]: {
     title: 'Text Area',
     icon: 'fa fa-file-text-o',
+    defaultSchema: {
+      dataType: dataTypes.STRING
+    }
   },
   [componentTypes.CHECKBOX]: {
     title: 'Checkbox',
@@ -37,14 +44,37 @@ const toolboxFields = {
   [componentTypes.SELECT]: {
     title: 'Dropdown',
     icon: 'fa fa-caret-square-o-down',
+    defaultSchema: {
+      dataType: dataTypes.STRING,
+      isClearable: true,
+      options: [
+        { label: 'One', value: '1' },
+        { label: 'Two', value: '2' },
+        { label: 'Three', value: '3' }
+      ]
+    }
   },
   [componentTypes.RADIO]: {
     title: 'Radio Button',
     icon: 'fa fa-circle-o',
+    defaultSchema: {
+      dataType: dataTypes.STRING,
+      options: [
+        { label: 'One', value: '1' },
+        { label: 'Two', value: '2' },
+        { label: 'Three', value: '3' }
+      ]
+    }
   },
   [componentTypes.DATE_PICKER]: {
     title: 'Datepicker',
     icon: 'fa fa-calendar',
+    defaultSchema: {
+      disabledDays: [{
+        before: 'today'
+      }],
+      variant: 'date'
+    }
   },
   [componentTypes.TAG_CONTROL]: {
     title: 'Tag Control',

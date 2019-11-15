@@ -1,5 +1,4 @@
 import { componentTypes } from '@data-driven-forms/react-form-renderer';
-import { dialogItemKinds } from './constants';
 
 import { traverse, find, insert, remove, replace, compact, genIdentifier } from './schema';
 
@@ -30,7 +29,7 @@ export default (state, { type, ...action }) => {
         name: `${action.kind}-${id}`,
         label: `${action.title} ${id}`,
         visible: true,
-        ...dialogItemKinds[action.kind].defaultSchema
+        ...action.defaultSchema
       };
 
       const schema = traverse(state.schema, action.target, (fields, idx) => insert[action.position](fields, item, idx));

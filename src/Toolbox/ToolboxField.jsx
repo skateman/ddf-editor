@@ -3,8 +3,8 @@ import classSet from 'react-classset';
 
 import { DraggableItem, itemTypes } from '../Draggable/backend';
 
-const ToolboxField = ({dispatch, kind, title, icon}) => {
-  const [, drag, preview] = DraggableItem({ type: itemTypes.INPUT, title, kind }, dispatch, 'dropNew');
+const ToolboxField = ({ kind, title, icon, defaultSchema = {}, dispatch }) => {
+  const [, drag, preview] = DraggableItem({ type: itemTypes.INPUT, title, kind, defaultSchema }, dispatch, 'dropNew');
 
   return (
     <div className="toolbox-field-inner" ref={drag}>
