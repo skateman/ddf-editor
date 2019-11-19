@@ -17,14 +17,6 @@ const cleanupInitialValues = (initialValue = [], options = [], multi) => {
   return filtered.length > 0 ? filtered : undefined;
 };
 
-const changedValues = (old, neu) => [...Object.keys(old), ...Object.keys(neu)].reduce((obj, key) => {
-  if (old[key] !== neu[key]) {
-    return { ...obj, [key]: neu[key] };
-  }
-
-  return obj;
-}, {});
-
 const Properties = ({ editSchema, schema, edit, dispatch }) => {
   const [state, setState] = useState({ multi: edit.item.multi, disabledDays: edit.item.disabledDays, variant: edit.item.variant });
   useEffect(() => setState({ multi: edit.item.multi, disabledDays: edit.item.disabledDays, variant: edit.item.variant }), [edit.item.name]);
@@ -71,7 +63,7 @@ const Properties = ({ editSchema, schema, edit, dispatch }) => {
     dispatch({
       type: 'editSave',
       target: edit.item.name,
-      values: changedValues(edit.item, { component, validate, disabledDays, isRequired, multi, options, initialValue, ...values })
+      values: { component, validate, disabledDays, isRequired, multi, options, initialValue, ...values }
     });
   };
 

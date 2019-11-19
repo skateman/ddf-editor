@@ -11,7 +11,16 @@ export default (state, { type, ...action }) => {
       return { ...state, edit: { target: action.target, item }};
     }
     case 'editSave': {
-      const schema = traverse(state.schema, action.target, (fields, idx) => replace(fields, compact({ ...fields[idx], ...action.values }), idx));
+      // Merge together the original values with the changed ones
+      const values = [...Object.keys(state.edit.item), ...Object.keys(action.values)].reduce(
+        (obj, key) =>
+          state.edit.item[key] === action.values[key]
+            ? obj
+            : { ...obj, [key]: action.values[key] },
+        {}
+      );
+
+      const schema = traverse(state.schema, action.target, (fields, idx) => replace(fields, compact({ ...fields[idx], ...values }), idx));
 
       return { ...state, schema, edit: undefined };
     }
