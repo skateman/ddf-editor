@@ -8,7 +8,7 @@ import './style.scss';
 
 function App() {
   return (
-    <Editor schema={createSchema()}/>
+    <Editor initialSchema={createSchema()} onSubmit={() => undefined}/>
   )
 }
 

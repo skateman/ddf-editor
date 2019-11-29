@@ -22,7 +22,7 @@ const previewLayoutMapper = layoutMapper;
 
 export const Context = React.createContext({});
 
-export default ({ schema : initialSchema }) => {
+export default ({ initialSchema, onSubmit }) => {
   const [{ schema, isDragging, edit, preview }, dispatch] = useReducer(reducer, {
     preview: false,
     isDragging: false,
@@ -43,7 +43,7 @@ export default ({ schema : initialSchema }) => {
               <FormRender
                 formFieldsMapper={preview ? previewFieldsMapper : draggableFieldsMapper}
                 layoutMapper={preview ? previewLayoutMapper : draggableLayoutMapper}
-                onSubmit={() => undefined}
+                onSubmit={onSubmit}
                 schema={schema}
                 showFormControls={false}
               />
