@@ -7,8 +7,6 @@ import { formFieldsMapper, layoutMapper } from '@data-driven-forms/pf3-component
 import { Switch } from 'patternfly-react';
 import classSet from 'react-classset';
 
-import './style.scss';
-
 import draggableDecorator from './Draggable/decorator';
 import playerDecorator from './Player/decorator';
 import Toolbox from './Toolbox';
