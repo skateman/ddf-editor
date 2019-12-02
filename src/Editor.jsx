@@ -1,34 +1,49 @@
-import React, { useReducer } from "react";
+import React, { useReducer, useMemo } from "react";
 import { DndProvider } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 import TouchBackend from 'react-dnd-touch-backend';
 import FormRender from '@data-driven-forms/react-form-renderer';
-import { formFieldsMapper, layoutMapper } from '@data-driven-forms/pf3-component-mapper';
 import { Switch } from 'patternfly-react';
 import classSet from 'react-classset';
 
-import draggableDecorator from './Draggable/decorator';
-import playerDecorator from './Player/decorator';
+import DraggableInput from './Draggable/Input';
 import Toolbox from './Toolbox';
 import Sidebar from './Sidebar';
 import reducer from './reducer';
 import editSchema from './editSchema';
 import toolboxFields from './toolboxFields';
 
-const draggableFieldsMapper = draggableDecorator(formFieldsMapper);
-const draggableLayoutMapper = draggableDecorator(layoutMapper);
-const previewFieldsMapper = playerDecorator(formFieldsMapper);
-const previewLayoutMapper = layoutMapper;
-
 export const Context = React.createContext({});
 
-export default ({ initialSchema, onSubmit }) => {
+// Function that decorates all items in mapper with either the matching function from the decorators
+// or with the defaultDecorator, which is by default an identity function.
+const decorate = (mapper, decorators = {}, defaultDecorator = ident => ident) => Object.keys(mapper).reduce(
+  (obj, key) => ({
+    ...obj,
+    [key]: decorators[key] ? decorators[key](mapper[key]) : defaultDecorator(mapper[key])
+  }),
+  mapper
+);
+
+export default ({
+  draggableDecorators = {},
+  draggableFieldsMapper : _draggableFieldsMapper,
+  draggableLayoutMapper : _draggableLayoutMapper,
+  previewFieldsMapper,
+  previewLayoutMapper,
+  initialSchema,
+  onSubmit
+}) => {
   const [{ schema, isDragging, edit, preview }, dispatch] = useReducer(reducer, {
     preview: false,
     isDragging: false,
     fieldCounter: {},
     schema: initialSchema,
   });
+
+  // Decorate the draggable mappers and memoize them for performance
+  const draggableFieldsMapper = useMemo(() => decorate(_draggableFieldsMapper, draggableDecorators, DraggableInput), [draggableDecorators, _draggableFieldsMapper]);
+  const draggableLayoutMapper = useMemo(() => decorate(_draggableLayoutMapper, draggableDecorators), [draggableDecorators, _draggableLayoutMapper]);
 
   const touch = 'ontouchstart' in document.documentElement;
 
