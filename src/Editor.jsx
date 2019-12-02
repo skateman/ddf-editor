@@ -6,7 +6,7 @@ import FormRender from '@data-driven-forms/react-form-renderer';
 import { Switch } from 'patternfly-react';
 import classSet from 'react-classset';
 
-import DraggableInput from './Draggable/Input';
+import DraggableField from './DraggableField';
 import Toolbox from './Toolbox';
 import Sidebar from './Sidebar';
 import reducer from './reducer';
@@ -42,7 +42,7 @@ export default ({
   });
 
   // Decorate the draggable mappers and memoize them for performance
-  const draggableFieldsMapper = useMemo(() => decorate(_draggableFieldsMapper, draggableDecorators, DraggableInput), [draggableDecorators, _draggableFieldsMapper]);
+  const draggableFieldsMapper = useMemo(() => decorate(_draggableFieldsMapper, draggableDecorators, DraggableField), [draggableDecorators, _draggableFieldsMapper]);
   const draggableLayoutMapper = useMemo(() => decorate(_draggableLayoutMapper, draggableDecorators), [draggableDecorators, _draggableLayoutMapper]);
 
   const touch = 'ontouchstart' in document.documentElement;

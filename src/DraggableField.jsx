@@ -1,10 +1,10 @@
 import React, { useContext } from "react";
 import classSet from 'react-classset';
 
-import { Context } from '../Editor';
-import { DropZone, DraggableItem, itemTypes } from '../dragAndDrop';
+import { Context } from './Editor';
+import { DropZone, DraggableItem, itemTypes } from './dragAndDrop';
 
-const Input = (Component) => {
+const DraggableField = (Component) => {
   const fn = ({ visible, ...props }) => {
     const dispatch = useContext(Context);
 
@@ -46,4 +46,4 @@ const Input = (Component) => {
   return fn;
 };
 
-export default Input;
+export default DraggableField;
