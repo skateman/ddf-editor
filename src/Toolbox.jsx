@@ -1,5 +1,4 @@
 import React from "react";
-import classSet from 'react-classset';
 
 import { DraggableItem, itemTypes } from './dragAndDrop';
 
@@ -8,9 +7,7 @@ const ToolboxField = ({ kind, title, icon, defaultSchema = {}, dispatch }) => {
 
   return (
     <div className="toolbox-field-inner" ref={drag}>
-      <div className="icon" ref={preview}>
-        <i className={classSet(icon, 'fa-fw')}></i>
-      </div>
+      <div className="icon" ref={preview}>{ icon }</div>
       <div className="title">
         { title }
       </div>

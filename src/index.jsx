@@ -1,9 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { componentTypes, layoutComponents } from '@data-driven-forms/react-form-renderer';
+import { componentTypes, layoutComponents, dataTypes } from '@data-driven-forms/react-form-renderer';
 import { formFieldsMapper, layoutMapper } from '@data-driven-forms/pf3-component-mapper';
-import { Switch } from 'patternfly-react';
-import { Modal } from 'patternfly-react';
+import { Switch, Modal, Icon } from 'patternfly-react';
 
 import Editor from './Editor';
 
@@ -73,6 +72,67 @@ const customReducer = (state, { type, ...action }, helpers) => {
   }
 };
 
+const toolboxFields = {
+  [componentTypes.TEXT_FIELD]: {
+    title: 'Text Box',
+    icon: <Icon type="fa" name="font"/>,
+    defaultSchema: {
+      type: 'text',
+      dataType: dataTypes.STRING
+    }
+  },
+  [componentTypes.TEXTAREA_FIELD]: {
+    title: 'Text Area',
+    icon: <Icon type="fa" name="file-text-o"/>,
+    defaultSchema: {
+      dataType: dataTypes.STRING
+    }
+  },
+  [componentTypes.CHECKBOX]: {
+    title: 'Checkbox',
+    icon: <Icon type="fa" name="check-square-o"/>,
+  },
+  [componentTypes.SELECT]: {
+    title: 'Dropdown',
+    icon: <Icon type="fa" name="caret-square-o-down"/>,
+    defaultSchema: {
+      dataType: dataTypes.STRING,
+      isClearable: true,
+      options: [
+        { label: 'One', value: '1' },
+        { label: 'Two', value: '2' },
+        { label: 'Three', value: '3' }
+      ]
+    }
+  },
+  [componentTypes.RADIO]: {
+    title: 'Radio Button',
+    icon: <Icon type="fa" name="circle-o"/>,
+    defaultSchema: {
+      dataType: dataTypes.STRING,
+      options: [
+        { label: 'One', value: '1' },
+        { label: 'Two', value: '2' },
+        { label: 'Three', value: '3' }
+      ]
+    }
+  },
+  [componentTypes.DATE_PICKER]: {
+    title: 'Datepicker',
+    icon: <Icon type="fa" name="calendar"/>,
+    defaultSchema: {
+      disabledDays: [{
+        before: 'today'
+      }],
+      variant: 'date'
+    }
+  },
+  [componentTypes.TAG_CONTROL]: {
+    title: 'Tag Control',
+    icon: <Icon type="fa" name="tags"/>,
+  },
+};
+
 const PreviewSwitch = ({ value, onChange }) => <Switch onText="View" offText="Edit" value={value} inverse={true} onChange={onChange}/>;
 
 const PropertiesModal = ({ title, show, onHide, container, children }) => (
@@ -93,6 +153,7 @@ function App() {
       previewFieldsMapper={previewFieldsMapper}
       previewLayoutMapper={layoutMapper}
       customReducer={customReducer}
+      toolboxFields={toolboxFields}
       initialSchema={schema}
       onSubmit={() => undefined}
       PreviewSwitch={PreviewSwitch}

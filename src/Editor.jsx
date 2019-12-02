@@ -10,7 +10,6 @@ import Toolbox from './Toolbox';
 import Sidebar from './Sidebar';
 import createReducer from './reducer';
 import editSchema from './editSchema';
-import toolboxFields from './toolboxFields';
 
 export const Context = React.createContext({});
 
@@ -31,6 +30,7 @@ export default ({
   previewFieldsMapper,
   previewLayoutMapper,
   customReducer,
+  toolboxFields,
   initialSchema,
   onSubmit,
   PreviewSwitch,
