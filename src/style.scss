@@ -296,7 +296,7 @@
     }
 
     @media (max-width: #{$width - 1px}) {
-      #dialog-properties-tabs {
+      .hide-small {
         display: none;
       }
     }
@@ -305,7 +305,11 @@
       z-index: auto;
     }
 
-    .form {
+    .schema {
+      white-space: pre-wrap;
+    }
+
+    .properties {
       margin: 1em;
 
       .options {
