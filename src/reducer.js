@@ -1,11 +1,15 @@
-import { componentTypes } from '@data-driven-forms/react-form-renderer';
-
 import { traverse, find, insert, remove, replace, compact, genIdentifier } from './schema';
 
-export default (state, { type, ...action }) => {
+export default (fn = (() => undefined)) => (state, { type, ...action }) => {
   switch (type) {
+    case 'dragStart':
+      return { ...state, isDragging: action.itemType };
+    case 'dragEnd':
+      return { ...state, isDragging: false };
     case 'togglePreview':
       return { ...state, edit: undefined, preview: !action.preview }
+    case 'editEnd':
+      return { ...state, edit: undefined }
     case 'editStart': {
       const item = find(state.schema, action.target);
       return { ...state, edit: { target: action.target, item }};
@@ -24,12 +28,6 @@ export default (state, { type, ...action }) => {
 
       return { ...state, schema, edit: undefined };
     }
-    case 'editEnd':
-      return { ...state, edit: undefined }
-    case 'dragStart':
-      return { ...state, isDragging: action.itemType };
-    case 'dragEnd':
-      return { ...state, isDragging: false };
     case 'dropNew': {
       const [id, fieldCounter] = genIdentifier(action.kind, state.fieldCounter, state.schema);
 
@@ -60,54 +58,20 @@ export default (state, { type, ...action }) => {
 
       return { ...state, schema, isDragging: false };
     }
-    case 'newSection': {
-      const [id, fieldCounter] = genIdentifier(componentTypes.SUB_FORM, state.fieldCounter, state.schema);
-
-      const item = {
-        component: componentTypes.SUB_FORM,
-        name: `${componentTypes.SUB_FORM}-${id}`,
-        title: `Section ${id}`,
-        visible: true,
-        fields: []
-      };
-
-      const schema = traverse(state.schema, action.target, (fields, idx) => {
-        return insert['child'](fields, item, idx);
-      });
-
-      return { ...state, schema, fieldCounter };
-    }
-    case 'newTab': {
-      // Foe a better experience, a new tab always contains an new empty section
-      const [tId, fc] = genIdentifier(componentTypes.TAB_ITEM, state.fieldCounter, state.schema);
-      const [sId, fieldCounter] = genIdentifier(componentTypes.SUB_FORM, fc, state.schema);
-
-      const item = {
-        component: componentTypes.TAB_ITEM,
-        name: `${componentTypes.TAB_ITEM}-${tId}`,
-        title: `Tab ${tId}`,
-        visible: true,
-        fields: [
-          {
-            component: componentTypes.SUB_FORM,
-            name: `${componentTypes.SUB_FORM}-${sId}`,
-            title: `Section ${sId}`,
-            fields: []
-          }
-        ]
-      };
-
-      const schema = traverse(state.schema, action.target, (fields, idx) => insert['child'](fields, item, idx));
-
-      return { ...state, schema, fieldCounter };
-    }
     case 'delete': {
       const schema = traverse(state.schema, action.source, remove);
       // If the deleted item is currently being edited, it should be removed from the state
       const edit = state.edit && action.source !== state.edit.target ? state.edit : undefined;
       return { ...state, schema, edit };
     }
-    default:
-      throw new Error();
+    default: {
+      // Try to run the external reducer if available
+      const result = fn(state, { type, ...action }, { traverse, find, insert, remove, replace, compact, genIdentifier });
+      if (result) {
+        return result;
+      } else {
+        throw new Error();
+      }
+    }
   }
 };

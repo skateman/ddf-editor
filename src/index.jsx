@@ -23,7 +23,53 @@ const draggableDecorators = {
 const previewFieldsMapper = Object.keys(formFieldsMapper).reduce((obj, key) => ({
   ...obj,
   [key]: PlayerField(formFieldsMapper[key])
-}), {})
+}), {});
+
+const customReducer = (state, { type, ...action }, helpers) => {
+  switch (type) {
+    case 'newSection': {
+      const [id, fieldCounter] = helpers.genIdentifier(componentTypes.SUB_FORM, state.fieldCounter, state.schema);
+
+      const item = {
+        component: componentTypes.SUB_FORM,
+        name: `${componentTypes.SUB_FORM}-${id}`,
+        title: `Section ${id}`,
+        visible: true,
+        fields: []
+      };
+
+      const schema = helpers.traverse(state.schema, action.target, (fields, idx) => {
+        return helpers.insert['child'](fields, item, idx);
+      });
+
+      return { ...state, schema, fieldCounter };
+    }
+    case 'newTab': {
+      // Foe a better experience, a new tab always contains an new empty section
+      const [tId, fc] = helpers.genIdentifier(componentTypes.TAB_ITEM, state.fieldCounter, state.schema);
+      const [sId, fieldCounter] = helpers.genIdentifier(componentTypes.SUB_FORM, fc, state.schema);
+
+      const item = {
+        component: componentTypes.TAB_ITEM,
+        name: `${componentTypes.TAB_ITEM}-${tId}`,
+        title: `Tab ${tId}`,
+        visible: true,
+        fields: [
+          {
+            component: componentTypes.SUB_FORM,
+            name: `${componentTypes.SUB_FORM}-${sId}`,
+            title: `Section ${sId}`,
+            fields: []
+          }
+        ]
+      };
+
+      const schema = helpers.traverse(state.schema, action.target, (fields, idx) => helpers.insert['child'](fields, item, idx));
+
+      return { ...state, schema, fieldCounter };
+    }
+  }
+};
 
 function App() {
   return (
@@ -33,6 +79,7 @@ function App() {
       draggableLayoutMapper={layoutMapper}
       previewFieldsMapper={previewFieldsMapper}
       previewLayoutMapper={layoutMapper}
+      customReducer={customReducer}
       initialSchema={createSchema()}
       onSubmit={() => undefined}
     />

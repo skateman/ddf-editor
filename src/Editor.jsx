@@ -9,7 +9,7 @@ import classSet from 'react-classset';
 import DraggableField from './DraggableField';
 import Toolbox from './Toolbox';
 import Sidebar from './Sidebar';
-import reducer from './reducer';
+import createReducer from './reducer';
 import editSchema from './editSchema';
 import toolboxFields from './toolboxFields';
 
@@ -31,10 +31,11 @@ export default ({
   draggableLayoutMapper : _draggableLayoutMapper,
   previewFieldsMapper,
   previewLayoutMapper,
+  customReducer,
   initialSchema,
   onSubmit
 }) => {
-  const [{ schema, isDragging, edit, preview }, dispatch] = useReducer(reducer, {
+  const [{ schema, isDragging, edit, preview }, dispatch] = useReducer(createReducer(customReducer), {
     preview: false,
     isDragging: false,
     fieldCounter: {},
