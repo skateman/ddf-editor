@@ -2,9 +2,9 @@ import React, { useContext } from "react";
 import classSet from 'react-classset';
 
 import { Context } from '../Editor';
-import { DropZone, DraggableItem, itemTypes } from './backend';
+import { DropZone, DraggableItem, itemTypes } from '../Draggable/backend';
 
-const Section = (Component) => {
+const EditableSection = (Component) => {
   const fn = ({ visible, ...props }) => {
     const dispatch = useContext(Context);
 
@@ -44,4 +44,4 @@ const Section = (Component) => {
   return fn;
 };
 
-export default Section;
+export default EditableSection;

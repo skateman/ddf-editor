@@ -2,9 +2,9 @@ import React from 'react';
 import { TabPane } from 'patternfly-react';
 import classSet from 'react-classset';
 
-import { DropZone, itemTypes } from './backend';
+import { DropZone, itemTypes } from '../Draggable/backend';
 
-const TabContent = ({ name, fields, formOptions, dispatch }) => {
+const EditableTabContent = ({ name, fields, formOptions, dispatch }) => {
   const [{ isOver:isOverEmpty }, dropEmpty] = DropZone({ name, type: itemTypes.SECTION }, 'child');
 
   return (
@@ -22,4 +22,4 @@ const TabContent = ({ name, fields, formOptions, dispatch }) => {
   )
 };
 
-export default TabContent;
+export default EditableTabContent;

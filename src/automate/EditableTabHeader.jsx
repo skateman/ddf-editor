@@ -3,9 +3,9 @@ import { NavItem } from 'patternfly-react';
 import classSet from 'react-classset';
 import debounce from 'lodash.debounce';
 
-import { DropZone, FakeDropZone, DraggableItem, itemTypes } from './backend';
+import { DropZone, FakeDropZone, DraggableItem, itemTypes } from '../Draggable/backend';
 
-const TabHeader = ({name, title, active, single, setActiveTab, dispatch}) => {
+const EditableTabHeader = ({name, title, active, single, setActiveTab, dispatch}) => {
   const [{isDragging}, drag, preview] = DraggableItem({ name, type: itemTypes.TAB_ITEM }, dispatch, 'dropExisting');
 
   const [{ isOver:isOverLeft }, dropLeft] = DropZone({ name, type: itemTypes.TAB_ITEM }, 'before');
@@ -45,4 +45,4 @@ const TabHeader = ({name, title, active, single, setActiveTab, dispatch}) => {
   )
 };
 
-export default TabHeader;
+export default EditableTabHeader;

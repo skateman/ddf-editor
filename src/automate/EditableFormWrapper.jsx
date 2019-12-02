@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 
 import { Context } from '../Editor';
 
-const FormWrapper = (Component) => {
+const EditableFormWrapper = (Component) => {
   const fn = ({ ...props }) => {
     const dispatch = useContext(Context);
 
@@ -21,4 +21,4 @@ const FormWrapper = (Component) => {
   return fn;
 };
 
-export default FormWrapper;
+export default EditableFormWrapper;

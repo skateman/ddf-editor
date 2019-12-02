@@ -3,11 +3,11 @@ import { TabContainer, Nav, NavItem } from 'patternfly-react';
 import { TabContent as PfTabContent } from 'patternfly-react';
 
 import { Context } from '../Editor';
-import TabHeader from './TabHeader';
-import TabContent from './TabContent';
+import EditableTabHeader from './EditableTabHeader';
+import EditableTabContent from './EditableTabContent';
 
 export default () => {
-  const DraggableTabs = ({ name:target, fields, formOptions }) => {
+  const EditableTabs = ({ name:target, fields, formOptions }) => {
     const dispatch = useContext(Context);
 
     // Try to retrieve the name of the very first tab
@@ -24,7 +24,7 @@ export default () => {
     }
 
     const renderTabHeader = (items) => items.map(({ name, title }) => (
-      <TabHeader
+      <EditableTabHeader
         key={ name }
         active={ activeTab === name }
         single={ items.length === 1 }
@@ -43,12 +43,12 @@ export default () => {
           </Nav>
           <PfTabContent animation>
             <div className="spacer"></div>
-            { fields.map(({ name, fields }) => <TabContent key={name} { ...{name, fields, formOptions, dispatch }} />) }
+            { fields.map(({ name, fields }) => <EditableTabContent key={name} { ...{name, fields, formOptions, dispatch }} />) }
           </PfTabContent>
         </div>
       </TabContainer>
     )
   };
 
-  return DraggableTabs;
+  return EditableTabs;
 };

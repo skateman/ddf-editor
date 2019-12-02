@@ -5,25 +5,24 @@ import { formFieldsMapper, layoutMapper } from '@data-driven-forms/pf3-component
 
 import Editor from './Editor';
 
-import DraggableTabs from './Draggable/Tabs';
-import DraggableSection from './Draggable/Section';
-import FormWrapper from './Draggable/FormWrapper';
+import PlayerField from './automate/PlayerField';
+import EditableTabs from './automate/EditableTabs';
+import EditableSection from './automate/EditableSection';
+import EditableFormWrapper from './automate/EditableFormWrapper';
 
 import createSchema from './demo-schema';
 
 import './style.scss';
 
 const draggableDecorators = {
-  [componentTypes.SUB_FORM]: DraggableSection,
-  [componentTypes.TABS]: DraggableTabs,
-  [layoutComponents.FORM_WRAPPER]: FormWrapper,
+  [componentTypes.SUB_FORM]: EditableSection,
+  [componentTypes.TABS]: EditableTabs,
+  [layoutComponents.FORM_WRAPPER]: EditableFormWrapper,
 };
 
-// TODO: extract this more as it is automate-specific
-import PlayerInput from './Player/Input';
 const previewFieldsMapper = Object.keys(formFieldsMapper).reduce((obj, key) => ({
   ...obj,
-  [key]: PlayerInput(formFieldsMapper[key])
+  [key]: PlayerField(formFieldsMapper[key])
 }), {})
 
 function App() {

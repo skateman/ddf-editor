@@ -1,6 +1,6 @@
 import React from "react";
 
-const Input = (Component) => {
+const PlayerField = (Component) => {
   const fn = ({ visible, ...props }) => {
     if (visible === false) {
       return (
@@ -16,4 +16,4 @@ const Input = (Component) => {
   return fn;
 };
 
-export default Input;
+export default PlayerField;
