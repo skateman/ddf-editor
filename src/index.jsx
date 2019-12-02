@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import { componentTypes, layoutComponents } from '@data-driven-forms/react-form-renderer';
 import { formFieldsMapper, layoutMapper } from '@data-driven-forms/pf3-component-mapper';
 import { Switch } from 'patternfly-react';
+import { Modal } from 'patternfly-react';
 
 import Editor from './Editor';
 
@@ -74,6 +75,15 @@ const customReducer = (state, { type, ...action }, helpers) => {
 
 const PreviewSwitch = ({ value, onChange }) => <Switch onText="View" offText="Edit" value={value} inverse={true} onChange={onChange}/>;
 
+const PropertiesModal = ({ title, show, onHide, container, children }) => (
+  <Modal container={container} show={show} onHide={onHide}>
+    <Modal.Header closeButton>
+      <Modal.Title>{ title }</Modal.Title>
+    </Modal.Header>
+    <Modal.Body>{ children }</Modal.Body>
+  </Modal>
+);
+
 function App() {
   return (
     <Editor
@@ -86,6 +96,7 @@ function App() {
       initialSchema={schema}
       onSubmit={() => undefined}
       PreviewSwitch={PreviewSwitch}
+      PropertiesModal={PropertiesModal}
     />
   )
 }

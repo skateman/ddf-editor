@@ -33,7 +33,8 @@ export default ({
   customReducer,
   initialSchema,
   onSubmit,
-  PreviewSwitch
+  PreviewSwitch,
+  PropertiesModal
 }) => {
   const [{ schema, isDragging, edit, preview }, dispatch] = useReducer(createReducer(customReducer), {
     preview: false,
@@ -66,7 +67,7 @@ export default ({
             </Context.Provider>
           </div>
         <div className="dialog-sidebar">
-          <Sidebar editSchema={editSchema} schema={schema} edit={edit} dispatch={dispatch} />
+          <Sidebar PropertiesModal={PropertiesModal} editSchema={editSchema} schema={schema} edit={edit} dispatch={dispatch} />
         </div>
       </div>
     </DndProvider>
