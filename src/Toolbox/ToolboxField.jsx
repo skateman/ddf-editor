@@ -1,7 +1,7 @@
 import React from "react";
 import classSet from 'react-classset';
 
-import { DraggableItem, itemTypes } from '../Draggable/backend';
+import { DraggableItem, itemTypes } from '../dragAndDrop';
 
 const ToolboxField = ({ kind, title, icon, defaultSchema = {}, dispatch }) => {
   const [, drag, preview] = DraggableItem({ type: itemTypes.INPUT, title, kind, defaultSchema }, dispatch, 'dropNew');

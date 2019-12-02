@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import classSet from 'react-classset';
 
 import { Context } from '../Editor';
-import { DropZone, DraggableItem, itemTypes } from './backend';
+import { DropZone, DraggableItem, itemTypes } from '../dragAndDrop';
 
 const Input = (Component) => {
   const fn = ({ visible, ...props }) => {
