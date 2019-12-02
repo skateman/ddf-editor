@@ -18,12 +18,12 @@ const ToolboxField = ({ kind, title, icon, defaultSchema = {}, dispatch }) => {
   )
 };
 
-const Toolbox = ({ Switch, fields, preview, dispatch }) => {
+const Toolbox = ({ PreviewSwitch, fields, preview, dispatch }) => {
   return (
     <>
-      { Switch &&
+      { PreviewSwitch &&
         <div className="preview-switch">
-          <Switch onText="View" offText="Edit" value={preview} inverse={true} onChange={() => dispatch({ type: 'togglePreview', preview })}/>
+          <PreviewSwitch value={preview} onChange={() => dispatch({ type: 'togglePreview', preview })}/>
         </div>
       }
       <ul className="toolbox">

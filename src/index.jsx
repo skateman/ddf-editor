@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { componentTypes, layoutComponents } from '@data-driven-forms/react-form-renderer';
 import { formFieldsMapper, layoutMapper } from '@data-driven-forms/pf3-component-mapper';
+import { Switch } from 'patternfly-react';
 
 import Editor from './Editor';
 
@@ -71,6 +72,8 @@ const customReducer = (state, { type, ...action }, helpers) => {
   }
 };
 
+const PreviewSwitch = ({ value, onChange }) => <Switch onText="View" offText="Edit" value={value} inverse={true} onChange={onChange}/>;
+
 function App() {
   return (
     <Editor
@@ -82,6 +85,7 @@ function App() {
       customReducer={customReducer}
       initialSchema={schema}
       onSubmit={() => undefined}
+      PreviewSwitch={PreviewSwitch}
     />
   )
 }

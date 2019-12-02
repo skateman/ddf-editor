@@ -3,7 +3,6 @@ import { DndProvider } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 import TouchBackend from 'react-dnd-touch-backend';
 import FormRender from '@data-driven-forms/react-form-renderer';
-import { Switch } from 'patternfly-react';
 import classSet from 'react-classset';
 
 import DraggableField from './DraggableField';
@@ -33,7 +32,8 @@ export default ({
   previewLayoutMapper,
   customReducer,
   initialSchema,
-  onSubmit
+  onSubmit,
+  PreviewSwitch
 }) => {
   const [{ schema, isDragging, edit, preview }, dispatch] = useReducer(createReducer(customReducer), {
     preview: false,
@@ -52,7 +52,7 @@ export default ({
     <DndProvider backend={touch ? TouchBackend : HTML5Backend}>
       <div className="dialog-editor">
           <div className="dialog-toolbox">
-            <Toolbox Switch={Switch} preview={preview} dispatch={dispatch} fields={toolboxFields}/>
+            <Toolbox PreviewSwitch={PreviewSwitch} preview={preview} dispatch={dispatch} fields={toolboxFields}/>
           </div>
           <div className={classSet('dialog-renderer', isDragging ? `drag-${isDragging}` : undefined)}>
             <Context.Provider value={dispatch}>
