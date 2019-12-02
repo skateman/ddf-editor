@@ -1,6 +1,6 @@
 import { componentTypes, dataTypes } from '@data-driven-forms/react-form-renderer';
 
-const createSchema = () => ({
+const schema = {
   label: 'Dialog editor demo',
   description: 'This is a demo of the new dialog editor that is based on Data Driven Forms',
   fields: [
@@ -91,6 +91,6 @@ const createSchema = () => ({
       ]
     }
   ],
-});
+};
 
-export default createSchema;
+export default schema;

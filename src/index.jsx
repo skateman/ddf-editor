@@ -10,7 +10,7 @@ import EditableTabs from './automate/EditableTabs';
 import EditableSection from './automate/EditableSection';
 import EditableFormWrapper from './automate/EditableFormWrapper';
 
-import createSchema from './demo-schema';
+import schema from './demo-schema';
 
 import './style.scss';
 
@@ -80,7 +80,7 @@ function App() {
       previewFieldsMapper={previewFieldsMapper}
       previewLayoutMapper={layoutMapper}
       customReducer={customReducer}
-      initialSchema={createSchema()}
+      initialSchema={schema}
       onSubmit={() => undefined}
     />
   )
