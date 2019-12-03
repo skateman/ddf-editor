@@ -1,4 +1,24 @@
-import { componentTypes, dataTypes } from '@data-driven-forms/react-form-renderer';
+import { componentTypes, dataTypes, validatorTypes } from '@data-driven-forms/react-form-renderer';
+
+const postProcessValidation = ({ isRequired, validate : [{ pattern }] = [{}] }) => {
+  const validate = !pattern && !isRequired ? undefined : [
+    pattern ? { type: validatorTypes.PATTERN_VALIDATOR, pattern } : undefined,
+    isRequired ? { type: validatorTypes.REQUIRED } : undefined
+  ].filter(Boolean);
+
+  return { isRequired, validate };
+};
+
+const postProcessInitialValues = ({ initialValue = [], options = [], multi }) => {
+  const opts = options.map(option => option.value);
+
+  if (!multi) {
+    return { initialValue: opts.includes(initialValue) ? initialValue : undefined };
+  }
+
+  const filtered = initialValue.filter(value => opts.includes(value));
+  return { initialValue: filtered.length > 0 ? filtered : undefined };
+}
 
 const commonFields = [
   {
@@ -29,7 +49,10 @@ const commonFields = [
   {
     name: 'isRequired',
     label: 'Required',
-    component: componentTypes.CHECKBOX
+    component: componentTypes.CHECKBOX,
+    DDF: {
+      postProcess: postProcessValidation
+    }
   },
   {
     name: 'isReadOnly',
@@ -57,7 +80,10 @@ const defaultString = {
 const validator = {
   name: 'validate[0].pattern',
   label: 'Validator',
-  component: componentTypes.TEXT_FIELD
+  component: componentTypes.TEXT_FIELD,
+  DDF: {
+    postProcess: postProcessValidation
+  },
 };
 
 const editSchema = {
@@ -96,13 +122,24 @@ const editSchema = {
     {
       name: 'multi',
       label: 'Multiselect',
-      component: componentTypes.CHECKBOX
+      component: componentTypes.CHECKBOX,
+      DDF: {
+        synchronize: 'multi',
+      }
     },
-    dataType,
+    {
+      ...dataType,
+      DDF: {
+        synchronize: 'dataType'
+      }
+    },
     {
       component: componentTypes.TEXT_FIELD,
       name: 'initialValue',
-      type: 'hidden'
+      type: 'hidden',
+      DDF: {
+        postProcess: postProcessInitialValues
+      }
     },
     {
       name: 'options',
@@ -123,11 +160,19 @@ const editSchema = {
   ],
   [componentTypes.RADIO]: [
     ...commonFields,
-    dataType,
+    {
+      ...dataType,
+      DDF: {
+        synchronize: 'dataType'
+      }
+    },
     {
       component: componentTypes.TEXT_FIELD,
       name: 'initialValue',
-      type: 'hidden'
+      type: 'hidden',
+      DDF: {
+        postProcess: postProcessInitialValues
+      }
     },
     {
       name: 'options',
@@ -152,7 +197,11 @@ const editSchema = {
     {
       name: 'disabledDays[0][before]',
       label: 'Disable past dates',
-      component: componentTypes.CHECKBOX
+      component: componentTypes.CHECKBOX,
+      DDF: {
+        synchronize: 'disabledDays',
+        postProcess: ({ disabledDays: [{ before: disablePast }] = [{}] }) => ({ disabledDays: disablePast ? [{ before: 'today' }] : undefined })
+      }
     },
     {
       name: 'variant',
@@ -167,7 +216,10 @@ const editSchema = {
           label: 'Datetime',
           value: 'date-time'
         }
-      ]
+      ],
+      DDF: {
+        synchronize: 'variant'
+      }
     },
     {
       name: 'initialValue',
