@@ -1,12 +1,12 @@
 import React, { useContext } from "react";
 import classSet from 'react-classset';
 
-import { Context } from './Editor';
+import { ReducerContext } from './Editor';
 import { DropZone, DraggableItem, itemTypes } from './dragAndDrop';
 
 const DraggableField = (Component) => {
   const fn = ({ visible, ...props }) => {
-    const dispatch = useContext(Context);
+    const dispatch = useContext(ReducerContext);
 
     const { initialValue, formOptions, input: { name } } = props;
     const [{isDragging}, drag, preview] = DraggableItem({ name, type: itemTypes.INPUT }, dispatch, 'dropExisting');

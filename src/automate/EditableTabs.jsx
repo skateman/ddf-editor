@@ -2,13 +2,13 @@ import React, { useState, useContext } from 'react';
 import { TabContainer, Nav, NavItem } from 'patternfly-react';
 import { TabContent as PfTabContent } from 'patternfly-react';
 
-import { Context } from '../Editor';
+import { ReducerContext } from '../Editor';
 import EditableTabHeader from './EditableTabHeader';
 import EditableTabContent from './EditableTabContent';
 
 export default () => {
   const EditableTabs = ({ name:target, fields, formOptions }) => {
-    const dispatch = useContext(Context);
+    const dispatch = useContext(ReducerContext);
 
     // Try to retrieve the name of the very first tab
     const firstTab = (() => {

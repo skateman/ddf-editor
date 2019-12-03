@@ -1,10 +1,10 @@
 import React, { useContext } from "react";
 
-import { Context } from '../Editor';
+import { ReducerContext } from '../Editor';
 
 const EditableFormWrapper = (Component) => {
   const fn = ({ ...props }) => {
-    const dispatch = useContext(Context);
+    const dispatch = useContext(ReducerContext);
 
     return (
       <div className="form-wrapper">

@@ -77,7 +77,7 @@ const Properties = ({
   const uniqueName = ({ name }) => name && name !== edit.item.name && find(schema, name) ? { name: "This field must be unique across the schema" } : {};
 
   return (
-    <Context.Provider value={{ state, setState }}>
+    <PropertiesContext.Provider value={{ state, setState }}>
       <FormRender
         formFieldsMapper={customFormFields}
         layoutMapper={layoutMapper}
@@ -90,9 +90,9 @@ const Properties = ({
         onStateUpdate={onStateUpdate}
         validate={uniqueName}
       />
-    </Context.Provider>
+    </PropertiesContext.Provider>
   )
 };
 
-export const Context = React.createContext({});
+export const PropertiesContext = React.createContext({});
 export default Properties;

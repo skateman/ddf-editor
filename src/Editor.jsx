@@ -11,8 +11,6 @@ import Sidebar from './Sidebar';
 import createReducer from './reducer';
 import editSchema from './editSchema';
 
-export const Context = React.createContext({});
-
 // Function that decorates all items in mapper with either the matching function from the decorators
 // or with the defaultDecorator, which is by default an identity function.
 const decorate = (mapper, decorators = {}, defaultDecorator = ident => ident) => Object.keys(mapper).reduce(
@@ -58,7 +56,7 @@ export default ({
             <Toolbox PreviewSwitch={PreviewSwitch} preview={preview} dispatch={dispatch} fields={toolboxFields}/>
           </div>
           <div className={classSet('dialog-renderer', isDragging ? `drag-${isDragging}` : undefined)}>
-            <Context.Provider value={dispatch}>
+            <ReducerContext.Provider value={dispatch}>
               <FormRender
                 formFieldsMapper={preview ? previewFieldsMapper : draggableFieldsMapper}
                 layoutMapper={preview ? previewLayoutMapper : draggableLayoutMapper}
@@ -66,7 +64,7 @@ export default ({
                 schema={schema}
                 showFormControls={false}
               />
-            </Context.Provider>
+            </ReducerContext.Provider>
           </div>
         <div className="dialog-sidebar">
           <Sidebar
@@ -83,3 +81,5 @@ export default ({
     </DndProvider>
    )
 };
+
+export const ReducerContext = React.createContext({});

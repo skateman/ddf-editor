@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useReducer } from "react";
 import classSet from 'react-classset';
 
 import FieldArrayItem from './FieldArrayItem';
-import { Context } from './Properties';
+import { PropertiesContext } from './Properties';
 
 const reducer = (state, { type, ...action }) => {
   switch(type) {
@@ -45,7 +45,7 @@ const FieldArray = ({
   formOptions,
   ...rest
 }) => {
-  const { state, setState } = useContext(Context);
+  const { state, setState } = useContext(PropertiesContext);
   const { multi, dummy } = state;
   const [{ isDragging }, dispatch] = useReducer(reducer, { isDragging: false });
   const name = rest.input.name;
