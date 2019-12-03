@@ -29,6 +29,8 @@ export default ({
   draggableLayoutMapper : _draggableLayoutMapper,
   previewFieldsMapper,
   previewLayoutMapper,
+  editorFieldsMapper,
+  editorLayoutMapper,
   customReducer,
   toolboxFields,
   initialSchema,
@@ -67,7 +69,15 @@ export default ({
             </Context.Provider>
           </div>
         <div className="dialog-sidebar">
-          <Sidebar PropertiesModal={PropertiesModal} editSchema={editSchema} schema={schema} edit={edit} dispatch={dispatch} />
+          <Sidebar
+            formFieldsMapper={editorFieldsMapper}
+            layoutMapper={editorLayoutMapper}
+            PropertiesModal={PropertiesModal}
+            editSchema={editSchema}
+            schema={schema}
+            edit={edit}
+            dispatch={dispatch}
+          />
         </div>
       </div>
     </DndProvider>

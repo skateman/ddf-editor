@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { formFieldsMapper, layoutMapper } from '@data-driven-forms/pf3-component-mapper';
 import FormRender, { validatorTypes, componentTypes } from '@data-driven-forms/react-form-renderer';
 
 import FieldArray from './FieldArray';
@@ -17,7 +16,14 @@ const cleanupInitialValues = (initialValue = [], options = [], multi) => {
   return filtered.length > 0 ? filtered : undefined;
 };
 
-const Properties = ({ editSchema, schema, edit, dispatch }) => {
+const Properties = ({
+  formFieldsMapper,
+  layoutMapper,
+  editSchema,
+  schema,
+  edit,
+  dispatch
+}) => {
   const [state, setState] = useState({ multi: edit.item.multi, disabledDays: edit.item.disabledDays, variant: edit.item.variant });
   useEffect(() => setState({ multi: edit.item.multi, disabledDays: edit.item.disabledDays, variant: edit.item.variant }), [edit.item.name]);
 

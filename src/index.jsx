@@ -144,6 +144,10 @@ const PropertiesModal = ({ title, show, onHide, container, children }) => (
   </Modal>
 );
 
+const editorFieldsMapper = {
+  ...formFieldsMapper
+};
+
 function App() {
   return (
     <Editor
@@ -152,6 +156,8 @@ function App() {
       draggableLayoutMapper={layoutMapper}
       previewFieldsMapper={previewFieldsMapper}
       previewLayoutMapper={layoutMapper}
+      editorFieldsMapper={editorFieldsMapper}
+      editorLayoutMapper={layoutMapper}
       customReducer={customReducer}
       toolboxFields={toolboxFields}
       initialSchema={schema}
