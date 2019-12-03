@@ -10,6 +10,9 @@ import PlayerField from './automate/PlayerField';
 import EditableTabs from './automate/EditableTabs';
 import EditableSection from './automate/EditableSection';
 import EditableFormWrapper from './automate/EditableFormWrapper';
+import FieldArray from './automate/FieldArray';
+import DefaultDate from './automate/DefaultDate';
+
 
 import schema from './demo-schema';
 
@@ -145,7 +148,9 @@ const PropertiesModal = ({ title, show, onHide, container, children }) => (
 );
 
 const editorFieldsMapper = {
-  ...formFieldsMapper
+  ...formFieldsMapper,
+  [componentTypes.FIELD_ARRAY]: FieldArray,
+  [componentTypes.DATE_PICKER]: DefaultDate(formFieldsMapper[componentTypes.DATE_PICKER])
 };
 
 function App() {

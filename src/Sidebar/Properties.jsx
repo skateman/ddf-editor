@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
 import FormRender, { validatorTypes, componentTypes } from '@data-driven-forms/react-form-renderer';
 
-import FieldArray from './FieldArray';
-import DefaultDate from './DefaultDate';
 import { find } from '../schema';
 
 const cleanupInitialValues = (initialValue = [], options = [], multi) => {
@@ -45,12 +43,6 @@ const Properties = ({
     }
   };
 
-  const customFormFields = {
-    ...formFieldsMapper,
-    [componentTypes.FIELD_ARRAY]: FieldArray,
-    [componentTypes.DATE_PICKER]: DefaultDate(formFieldsMapper[componentTypes.DATE_PICKER])
-  };
-
   const onSubmit = ({
       multi,
       options,
@@ -84,7 +76,7 @@ const Properties = ({
   return (
     <PropertiesContext.Provider value={{ state, setState }}>
       <FormRender
-        formFieldsMapper={customFormFields}
+        formFieldsMapper={formFieldsMapper}
         layoutMapper={layoutMapper}
         onSubmit={onSubmit}
         onCancel={() => dispatch({ type: 'editEnd' })}

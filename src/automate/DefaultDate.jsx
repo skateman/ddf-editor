@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 
-import { PropertiesContext } from './Properties';
+import { PropertiesContext } from '../Sidebar/Properties';
 
 const DefaultDate = (Component) => {
   const fn = ({ ...props }) => {

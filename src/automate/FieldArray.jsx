@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useReducer } from "react";
 import classSet from 'react-classset';
 
 import FieldArrayItem from './FieldArrayItem';
-import { PropertiesContext } from './Properties';
+import { PropertiesContext } from '../Sidebar/Properties';
 
 const reducer = (state, { type, ...action }) => {
   switch(type) {
