@@ -29,15 +29,20 @@ const Properties = ({
 
   // This callback is used for propagating the values below to the contexts, so child components can access them
   const onStateUpdate = ({ active, values: { dataType, multi, variant, disabledDays: [{ before : disablePast }] = [{}] } }) => {
-    const values = {
-      variant: variant,
-      dataType: dataType,
-      multi: multi,
-      ['disabledDays[0][before]']: disablePast ? [{ before: 'today' }] : undefined,
-    };
-
-    const key = Object.keys(values).find(key => active === key && state[key] != values[key]);
-    key && setState({ ...state, [key]: values[key] });
+    switch (active) {
+      case 'variant':
+        setState({ ...state, variant });
+        break;
+      case 'dataType':
+        setState({ ...state, dataType });
+        break;
+      case 'multi':
+        setState({ ...state, multi });
+        break;
+      case 'disabledDays[0][before]':
+        setState({ ...state, disabledDays: disablePast ? [{ before: 'today' }] : undefined });
+        break;
+    }
   };
 
   const customFormFields = {
