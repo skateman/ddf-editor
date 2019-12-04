@@ -224,7 +224,10 @@ const editSchemas = {
     {
       name: 'initialValue',
       label: 'Default value',
-      component: componentTypes.DATE_PICKER
+      component: componentTypes.DATE_PICKER,
+      DDF: {
+        preProcess: ({ variant, disabledDays }) => ({ variant, disabledDays })
+      }
     }
   ],
   [componentTypes.TAG_CONTROL]: [

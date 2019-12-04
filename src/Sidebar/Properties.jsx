@@ -4,9 +4,6 @@ import isEqual from 'lodash.isequal';
 
 import { find } from '../schema';
 
-// Function used to get rid of the DDF attribute in the final schema to suppress React errors
-const cleanupDDF = (array) => array.map(({ DDF, ...item }) => item);
-
 // Preload schema values that are marked for synchronization with the local state
 const loadSynchronizable = (schema, object) => schema.reduce((obj, { DDF: { synchronize } = {} }) => ({
   ...obj,
@@ -16,6 +13,13 @@ const loadSynchronizable = (schema, object) => schema.reduce((obj, { DDF: { sync
 const Properties = ({ formFieldsMapper, layoutMapper, editSchema = [], schema, edit, dispatch }) => {
   const [state, setState] = useState(loadSynchronizable(editSchema, edit.item));
   useEffect(() => setState(loadSynchronizable(editSchema, edit.item)), [edit.item.name]);
+
+  // This function calls any available preprocess functions and appends their results to the affected fields
+  // It also omits the DDF attribute from each field, preventing React to throw unused attribute errors
+  const preProcessFields = (fields) => fields.map(({ DDF: { preProcess } = {}, ...item }) => ({
+    ...item,
+    ...(preProcess && preProcess(state))
+  }));
 
   // This callback synchronizes the marked components' values with the local state
   const onStateUpdate = ({ active, values }) => {
@@ -50,7 +54,7 @@ const Properties = ({ formFieldsMapper, layoutMapper, editSchema = [], schema, e
         layoutMapper={layoutMapper}
         onSubmit={onSubmit}
         onCancel={() => dispatch({ type: 'editEnd' })}
-        schema={{ fields: cleanupDDF(editSchema) }}
+        schema={{ fields: preProcessFields(editSchema) }}
         initialValues={ edit.item }
         buttonsLabels={{ submitLabel: 'Save', cancelLabel: 'Close' }}
         clearOnUnmount={true}

@@ -11,7 +11,6 @@ import EditableTabs from './automate/EditableTabs';
 import EditableSection from './automate/EditableSection';
 import EditableFormWrapper from './automate/EditableFormWrapper';
 import FieldArray from './automate/FieldArray';
-import DefaultDate from './automate/DefaultDate';
 import editSchemas from './automate/editSchemas';
 
 import schema from './demo-schema';
@@ -149,8 +148,7 @@ const PropertiesModal = ({ title, show, onHide, container, children }) => (
 
 const editorFieldsMapper = {
   ...formFieldsMapper,
-  [componentTypes.FIELD_ARRAY]: FieldArray,
-  [componentTypes.DATE_PICKER]: DefaultDate(formFieldsMapper[componentTypes.DATE_PICKER])
+  [componentTypes.FIELD_ARRAY]: FieldArray
 };
 
 function App() {
