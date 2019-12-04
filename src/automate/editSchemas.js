@@ -155,7 +155,10 @@ const editSchemas = {
           component: componentTypes.TEXT_FIELD,
           name: 'value',
         }
-      ]
+      ],
+      DDF: {
+        preProcess: ({ multi }) => ({ multi })
+      }
     }
   ],
   [componentTypes.RADIO]: [

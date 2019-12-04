@@ -48,22 +48,19 @@ const Properties = ({ formFieldsMapper, layoutMapper, editSchema = [], schema, e
   const uniqueName = ({ name }) => name && name !== edit.item.name && find(schema, name) ? { name: "This field must be unique across the schema" } : {};
 
   return (
-    <PropertiesContext.Provider value={{ state }}>
-      <FormRender
-        formFieldsMapper={formFieldsMapper}
-        layoutMapper={layoutMapper}
-        onSubmit={onSubmit}
-        onCancel={() => dispatch({ type: 'editEnd' })}
-        schema={{ fields: preProcessFields(editSchema) }}
-        initialValues={ edit.item }
-        buttonsLabels={{ submitLabel: 'Save', cancelLabel: 'Close' }}
-        clearOnUnmount={true}
-        onStateUpdate={onStateUpdate}
-        validate={uniqueName}
-      />
-    </PropertiesContext.Provider>
+    <FormRender
+      formFieldsMapper={formFieldsMapper}
+      layoutMapper={layoutMapper}
+      onSubmit={onSubmit}
+      onCancel={() => dispatch({ type: 'editEnd' })}
+      schema={{ fields: preProcessFields(editSchema) }}
+      initialValues={ edit.item }
+      buttonsLabels={{ submitLabel: 'Save', cancelLabel: 'Close' }}
+      clearOnUnmount={true}
+      onStateUpdate={onStateUpdate}
+      validate={uniqueName}
+    />
   )
 };
 
-export const PropertiesContext = React.createContext({});
 export default Properties;

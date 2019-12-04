@@ -1,8 +1,7 @@
-import React, { useContext, useEffect, useReducer } from "react";
+import React, { useEffect, useReducer } from "react";
 import classSet from 'react-classset';
 
 import FieldArrayItem from './FieldArrayItem';
-import { PropertiesContext } from '../Sidebar/Properties';
 
 const reducer = (state, { type, ...action }) => {
   switch(type) {
@@ -43,9 +42,9 @@ const FieldArray = ({
   fields,
   itemDefault,
   formOptions,
+  multi,
   ...rest
 }) => {
-  const { state: { multi } } = useContext(PropertiesContext);
   const [{ isDragging }, dispatch] = useReducer(reducer, { isDragging: false });
   const name = rest.input.name;
 
