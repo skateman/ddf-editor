@@ -8,7 +8,9 @@ import classSet from 'react-classset';
 import DraggableField from './DraggableField';
 import Toolbox from './Toolbox';
 import Sidebar from './Sidebar';
-import createReducer from './reducer';
+import reducer from './reducer';
+
+import { DraggableItem, FakeDropZone, DropZone, itemTypes } from './dragAndDrop';
 
 // Function that decorates all items in mapper with either the matching function from the decorators
 // or with the defaultDecorator, which is by default an identity function.
@@ -36,7 +38,7 @@ export default ({
   PreviewSwitch,
   PropertiesModal
 }) => {
-  const [{ schema, isDragging, edit, preview }, dispatch] = useReducer(createReducer(customReducer), {
+  const [{ schema, isDragging, edit, preview }, dispatch] = useReducer(reducer(customReducer), {
     preview: false,
     isDragging: false,
     fieldCounter: {},
@@ -83,3 +85,4 @@ export default ({
 };
 
 export const ReducerContext = React.createContext({});
+export { DraggableItem, FakeDropZone, DropZone, itemTypes };
