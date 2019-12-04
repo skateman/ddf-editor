@@ -13,15 +13,13 @@ const loadSynchronizable = (schema, object) => schema.reduce((obj, { DDF: { sync
   ...synchronize ? { [synchronize]: object[synchronize] } : undefined
 }), {});
 
-const Properties = ({ formFieldsMapper, layoutMapper, editSchema, schema, edit, dispatch }) => {
-  const currentSchema = editSchema[edit.item && edit.item.component];
-
-  const [state, setState] = useState(loadSynchronizable(currentSchema, edit.item));
-  useEffect(() => setState(loadSynchronizable(currentSchema, edit.item)), [edit.item.name]);
+const Properties = ({ formFieldsMapper, layoutMapper, editSchema = [], schema, edit, dispatch }) => {
+  const [state, setState] = useState(loadSynchronizable(editSchema, edit.item));
+  useEffect(() => setState(loadSynchronizable(editSchema, edit.item)), [edit.item.name]);
 
   // This callback synchronizes the marked components' values with the local state
   const onStateUpdate = ({ active, values }) => {
-    const { DDF: { synchronize, postProcess } = {} } = currentSchema.find(({ name }) => name === active) || { DDF: {} };
+    const { DDF: { synchronize, postProcess } = {} } = editSchema.find(({ name }) => name === active) || { DDF: {} };
     if (synchronize) {
       // If there's a post-processing function available, call it to set the new value
       const newVal = postProcess ? postProcess(values) : { [synchronize]: values[synchronize] };
@@ -34,7 +32,7 @@ const Properties = ({ formFieldsMapper, layoutMapper, editSchema, schema, edit, 
 
   const onSubmit = (_values) => {
     // Go through all the fields in the schema, call all the defined post-processing functions and merge the results with the submitted values
-    const values = currentSchema.reduce((obj, { DDF : { postProcess } = {} }) => ({
+    const values = editSchema.reduce((obj, { DDF : { postProcess } = {} }) => ({
       ...obj,
       ...postProcess ? postProcess(_values) : undefined
     }), _values);
@@ -52,7 +50,7 @@ const Properties = ({ formFieldsMapper, layoutMapper, editSchema, schema, edit, 
         layoutMapper={layoutMapper}
         onSubmit={onSubmit}
         onCancel={() => dispatch({ type: 'editEnd' })}
-        schema={{ fields: cleanupDDF(currentSchema) }}
+        schema={{ fields: cleanupDDF(editSchema) }}
         initialValues={ edit.item }
         buttonsLabels={{ submitLabel: 'Save', cancelLabel: 'Close' }}
         clearOnUnmount={true}

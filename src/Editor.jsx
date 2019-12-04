@@ -9,7 +9,6 @@ import DraggableField from './DraggableField';
 import Toolbox from './Toolbox';
 import Sidebar from './Sidebar';
 import createReducer from './reducer';
-import editSchema from './editSchema';
 
 // Function that decorates all items in mapper with either the matching function from the decorators
 // or with the defaultDecorator, which is by default an identity function.
@@ -30,6 +29,7 @@ export default ({
   editorFieldsMapper,
   editorLayoutMapper,
   customReducer,
+  editSchemas,
   toolboxFields,
   initialSchema,
   onSubmit,
@@ -71,7 +71,7 @@ export default ({
             formFieldsMapper={editorFieldsMapper}
             layoutMapper={editorLayoutMapper}
             PropertiesModal={PropertiesModal}
-            editSchema={editSchema}
+            editSchema={editSchemas[edit && edit.item && edit.item.component]}
             schema={schema}
             edit={edit}
             dispatch={dispatch}

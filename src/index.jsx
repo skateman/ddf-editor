@@ -12,7 +12,7 @@ import EditableSection from './automate/EditableSection';
 import EditableFormWrapper from './automate/EditableFormWrapper';
 import FieldArray from './automate/FieldArray';
 import DefaultDate from './automate/DefaultDate';
-
+import editSchemas from './automate/editSchemas';
 
 import schema from './demo-schema';
 
@@ -164,6 +164,7 @@ function App() {
       editorFieldsMapper={editorFieldsMapper}
       editorLayoutMapper={layoutMapper}
       customReducer={customReducer}
+      editSchemas={editSchemas}
       toolboxFields={toolboxFields}
       initialSchema={schema}
       onSubmit={() => undefined}

@@ -86,7 +86,7 @@ const validator = {
   },
 };
 
-const editSchema = {
+const editSchemas = {
   [componentTypes.TEXT_FIELD]: [
     ...commonFields,
     validator,
@@ -274,4 +274,4 @@ const editSchema = {
   ]
 };
 
-export default editSchema;
+export default editSchemas;
