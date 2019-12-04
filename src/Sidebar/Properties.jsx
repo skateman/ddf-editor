@@ -48,7 +48,7 @@ const Properties = ({ formFieldsMapper, layoutMapper, editSchema = [], schema, e
   const uniqueName = ({ name }) => name && name !== edit.item.name && find(schema, name) ? { name: "This field must be unique across the schema" } : {};
 
   return (
-    <PropertiesContext.Provider value={{ state, setState }}>
+    <PropertiesContext.Provider value={{ state }}>
       <FormRender
         formFieldsMapper={formFieldsMapper}
         layoutMapper={layoutMapper}

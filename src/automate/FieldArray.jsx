@@ -45,13 +45,13 @@ const FieldArray = ({
   formOptions,
   ...rest
 }) => {
-  const { state, setState } = useContext(PropertiesContext);
-  const { multi, dummy } = state;
+  const { state: { multi } } = useContext(PropertiesContext);
   const [{ isDragging }, dispatch] = useReducer(reducer, { isDragging: false });
   const name = rest.input.name;
 
+  // Modify initial value based on the multiselect setting
   useEffect(() => {
-    if (dummy) {
+    setTimeout(() => {
       const initialValue = formOptions.getFieldState('initialValue').value;
       if (multi) {
         if (!Array.isArray(initialValue) && initialValue) {
@@ -62,10 +62,8 @@ const FieldArray = ({
           formOptions.change('initialValue', initialValue[0]);
         }
       }
-    } else {
-      setState({ ...state, dummy: true });
-    }
-  }, [multi, dummy]);
+    })
+  }, [multi]);
 
   return (
     <FieldArrayProvider name={ name } validate={ arrayValidator }>
