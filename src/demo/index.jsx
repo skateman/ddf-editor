@@ -13,7 +13,7 @@ import EditableFormWrapper from './EditableFormWrapper';
 import FieldArray from './FieldArray';
 import editSchemas from './editSchemas';
 
-import schema from './demo-schema';
+import schema from './schema';
 
 import './style.scss';
 
