@@ -151,25 +151,23 @@ const editorFieldsMapper = {
   [componentTypes.FIELD_ARRAY]: FieldArray
 };
 
-function App() {
-  return (
-    <Editor
-      draggableDecorators={draggableDecorators}
-      draggableFieldsMapper={formFieldsMapper}
-      draggableLayoutMapper={layoutMapper}
-      previewFieldsMapper={previewFieldsMapper}
-      previewLayoutMapper={layoutMapper}
-      editorFieldsMapper={editorFieldsMapper}
-      editorLayoutMapper={layoutMapper}
-      customReducer={customReducer}
-      editSchemas={editSchemas}
-      toolboxFields={toolboxFields}
-      initialSchema={schema}
-      onSubmit={() => undefined}
-      PreviewSwitch={PreviewSwitch}
-      PropertiesModal={PropertiesModal}
-    />
-  )
-}
+const App = () => (
+  <Editor
+    draggableDecorators={draggableDecorators}
+    draggableFieldsMapper={formFieldsMapper}
+    draggableLayoutMapper={layoutMapper}
+    previewFieldsMapper={previewFieldsMapper}
+    previewLayoutMapper={layoutMapper}
+    editorFieldsMapper={editorFieldsMapper}
+    editorLayoutMapper={layoutMapper}
+    customReducer={customReducer}
+    editSchemas={editSchemas}
+    toolboxFields={toolboxFields}
+    initialSchema={schema}
+    onSubmit={() => undefined}
+    PreviewSwitch={PreviewSwitch}
+    PropertiesModal={PropertiesModal}
+  />
+);
 
-ReactDOM.render(<App/>, document.getElementById("app"));
+ReactDOM.render(<App/>, document.querySelector('body'));

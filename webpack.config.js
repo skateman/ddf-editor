@@ -1,5 +1,6 @@
 const webpack = require('webpack');
 const path = require('path');
+const html = require('html-webpack-plugin');
 
 const config = {
   entry: './src/demo/index.jsx',
@@ -34,6 +35,9 @@ const config = {
       '.jsx'
     ]
   },
+  plugins: [
+    new html()
+  ],
   devServer: {
     contentBase: './dist'
   }
