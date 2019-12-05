@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react';
 import { TabContainer, Nav, NavItem } from 'patternfly-react';
 import { TabContent as PfTabContent } from 'patternfly-react';
 
-import { ReducerContext } from '..';
+import { ReducerContext } from '../src';
 import EditableTabHeader from './EditableTabHeader';
 import EditableTabContent from './EditableTabContent';
 

@@ -37,4 +37,5 @@ vendor.css
 *.iml
 
 coverage
-src/demo
+demo
+src

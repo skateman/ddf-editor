@@ -4,7 +4,7 @@ import { componentTypes, layoutComponents, dataTypes } from '@data-driven-forms/
 import { formFieldsMapper, layoutMapper } from '@data-driven-forms/pf3-component-mapper';
 import { Switch, Modal, Icon } from 'patternfly-react';
 
-import Editor from '..';
+import Editor from '../src';
 
 import PlayerField from './PlayerField';
 import EditableTabs from './EditableTabs';

@@ -1,7 +1,7 @@
 import React from "react";
 import classSet from 'react-classset';
 
-import { DropZone, DraggableItem } from '..';
+import { DropZone, DraggableItem } from '../src';
 
 const type = 'option';
 

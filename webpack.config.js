@@ -3,7 +3,7 @@ const path = require('path');
 const html = require('html-webpack-plugin');
 
 const config = {
-  entry: './src/demo/index.jsx',
+  entry: './demo/index.jsx',
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'bundle.js'

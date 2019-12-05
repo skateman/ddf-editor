@@ -2,15 +2,17 @@
   "name": "ddf-editor",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
-    "clean": "rm dist/bundle.js",
-    "start": "webpack-dev-server --hot --mode development --open"
+    "clean": "rm -r dist",
+    "start": "webpack-dev-server --hot --mode development --open",
+    "build": "babel -d dist/ src"
   },
   "keywords": [],
   "author": "Dávid Halász",
   "license": "MIT",
   "devDependencies": {
+    "@babel/cli": "^7.7.4",
     "@babel/core": "^7.5.5",
     "@babel/preset-env": "^7.5.5",
     "@babel/preset-react": "^7.0.0",
