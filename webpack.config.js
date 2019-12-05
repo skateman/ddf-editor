@@ -21,7 +21,11 @@ const config = {
           'css-loader',
           'sass-loader'
         ]
-      }
+      },
+      {
+        test: /\.(png|jpg|gif|svg|woff|ttf|eot)/,
+        loader: 'url-loader?limit=20480&name=static/[name].[ext]',
+      },
     ]
   },
   resolve: {
