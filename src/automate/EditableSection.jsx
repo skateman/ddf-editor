@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import classSet from 'react-classset';
 
-import { ReducerContext, DropZone, DraggableItem, itemTypes } from '../Editor';
+import { ReducerContext, DropZone, DraggableItem, itemTypes } from '..';
 
 const EditableSection = (Component) => {
   const fn = ({ visible, ...props }) => {

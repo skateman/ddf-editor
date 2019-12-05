@@ -4,14 +4,14 @@ import { componentTypes, layoutComponents, dataTypes } from '@data-driven-forms/
 import { formFieldsMapper, layoutMapper } from '@data-driven-forms/pf3-component-mapper';
 import { Switch, Modal, Icon } from 'patternfly-react';
 
-import Editor from './Editor';
+import Editor from '..';
 
-import PlayerField from './automate/PlayerField';
-import EditableTabs from './automate/EditableTabs';
-import EditableSection from './automate/EditableSection';
-import EditableFormWrapper from './automate/EditableFormWrapper';
-import FieldArray from './automate/FieldArray';
-import editSchemas from './automate/editSchemas';
+import PlayerField from './PlayerField';
+import EditableTabs from './EditableTabs';
+import EditableSection from './EditableSection';
+import EditableFormWrapper from './EditableFormWrapper';
+import FieldArray from './FieldArray';
+import editSchemas from './editSchemas';
 
 import schema from './demo-schema';
 

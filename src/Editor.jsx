@@ -10,8 +10,6 @@ import Toolbox from './Toolbox';
 import Sidebar from './Sidebar';
 import reducer from './reducer';
 
-import { DraggableItem, FakeDropZone, DropZone, itemTypes } from './dragAndDrop';
-
 // Function that decorates all items in mapper with either the matching function from the decorators
 // or with the defaultDecorator, which is by default an identity function.
 const decorate = (mapper, decorators = {}, defaultDecorator = ident => ident) => Object.keys(mapper).reduce(
@@ -22,7 +20,7 @@ const decorate = (mapper, decorators = {}, defaultDecorator = ident => ident) =>
   mapper
 );
 
-export default ({
+const Editor = ({
   draggableDecorators = {},
   draggableFieldsMapper : _draggableFieldsMapper,
   draggableLayoutMapper : _draggableLayoutMapper,
@@ -85,4 +83,4 @@ export default ({
 };
 
 export const ReducerContext = React.createContext({});
-export { DraggableItem, FakeDropZone, DropZone, itemTypes };
+export default Editor;
