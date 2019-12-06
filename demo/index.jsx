@@ -25,7 +25,7 @@ const draggableDecorators = {
 
 const previewFieldsMapper = Object.keys(formFieldsMapper).reduce((obj, key) => ({
   ...obj,
-  [key]: PlayerField(formFieldsMapper[key])
+  [key]: PlayerField(formFieldsMapper[key]),
 }), {});
 
 const customReducer = (state, { type, ...action }, helpers) => {
@@ -38,12 +38,10 @@ const customReducer = (state, { type, ...action }, helpers) => {
         name: `${componentTypes.SUB_FORM}-${id}`,
         title: `Section ${id}`,
         visible: true,
-        fields: []
+        fields: [],
       };
 
-      const schema = helpers.traverse(state.schema, action.target, (fields, idx) => {
-        return helpers.insert['child'](fields, item, idx);
-      });
+      const schema = helpers.traverse(state.schema, action.target, (fields, idx) => helpers.insert.child(fields, item, idx));
 
       return { ...state, schema, fieldCounter };
     }
@@ -62,80 +60,82 @@ const customReducer = (state, { type, ...action }, helpers) => {
             component: componentTypes.SUB_FORM,
             name: `${componentTypes.SUB_FORM}-${sId}`,
             title: `Section ${sId}`,
-            fields: []
-          }
-        ]
+            fields: [],
+          },
+        ],
       };
 
-      const schema = helpers.traverse(state.schema, action.target, (fields, idx) => helpers.insert['child'](fields, item, idx));
+      const schema = helpers.traverse(state.schema, action.target, (fields, idx) => helpers.insert.child(fields, item, idx));
 
       return { ...state, schema, fieldCounter };
     }
+    default:
+      return undefined;
   }
 };
 
 const toolboxFields = {
   [componentTypes.TEXT_FIELD]: {
     title: 'Text Box',
-    icon: <Icon type="fa" name="font"/>,
+    icon: <Icon type="fa" name="font" />,
     defaultSchema: {
       type: 'text',
-      dataType: dataTypes.STRING
-    }
+      dataType: dataTypes.STRING,
+    },
   },
   [componentTypes.TEXTAREA_FIELD]: {
     title: 'Text Area',
-    icon: <Icon type="fa" name="file-text-o"/>,
+    icon: <Icon type="fa" name="file-text-o" />,
     defaultSchema: {
-      dataType: dataTypes.STRING
-    }
+      dataType: dataTypes.STRING,
+    },
   },
   [componentTypes.CHECKBOX]: {
     title: 'Checkbox',
-    icon: <Icon type="fa" name="check-square-o"/>,
+    icon: <Icon type="fa" name="check-square-o" />,
   },
   [componentTypes.SELECT]: {
     title: 'Dropdown',
-    icon: <Icon type="fa" name="caret-square-o-down"/>,
+    icon: <Icon type="fa" name="caret-square-o-down" />,
     defaultSchema: {
       dataType: dataTypes.STRING,
       isClearable: true,
       options: [
         { label: 'One', value: '1' },
         { label: 'Two', value: '2' },
-        { label: 'Three', value: '3' }
-      ]
-    }
+        { label: 'Three', value: '3' },
+      ],
+    },
   },
   [componentTypes.RADIO]: {
     title: 'Radio Button',
-    icon: <Icon type="fa" name="circle-o"/>,
+    icon: <Icon type="fa" name="circle-o" />,
     defaultSchema: {
       dataType: dataTypes.STRING,
       options: [
         { label: 'One', value: '1' },
         { label: 'Two', value: '2' },
-        { label: 'Three', value: '3' }
-      ]
-    }
+        { label: 'Three', value: '3' },
+      ],
+    },
   },
   [componentTypes.DATE_PICKER]: {
     title: 'Datepicker',
-    icon: <Icon type="fa" name="calendar"/>,
+    icon: <Icon type="fa" name="calendar" />,
     defaultSchema: {
       disabledDays: [{
-        before: 'today'
+        before: 'today',
       }],
-      variant: 'date'
-    }
+      variant: 'date',
+    },
   },
   [componentTypes.TAG_CONTROL]: {
     title: 'Tag Control',
-    icon: <Icon type="fa" name="tags"/>,
+    icon: <Icon type="fa" name="tags" />,
   },
 };
 
-const PreviewSwitch = ({ value, onChange }) => <Switch onText="View" offText="Edit" value={value} inverse={true} onChange={onChange}/>;
+const PreviewSwitch = ({ value, onChange }) => <Switch onText="View" offText="Edit" value={value} inverse onChange={onChange} />;
 
 const EditIcon = <Icon type="fa" name="pencil" fixedWidth />;
 const DeleteIcon = <Icon type="fa" name="times" fixedWidth />;
@@ -151,7 +151,7 @@ const PropertiesModal = ({ title, show, onHide, container, children }) => (
 
 const editorFieldsMapper = {
   ...formFieldsMapper,
-  [componentTypes.FIELD_ARRAY]: FieldArray
+  [componentTypes.FIELD_ARRAY]: FieldArray,
 };
 
 const App = () => (

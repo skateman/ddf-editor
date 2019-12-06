@@ -11,12 +11,14 @@ const EditableFormWrapper = (Component) => {
       <div className="form-wrapper">
         <div className="toolbox">
           <ul>
-            <li onClick={() => dispatch({ type: 'editStart', target: undefined })}><Icon type="fa" name="pencil" fixedWidth/></li>
+            <li>
+              <Icon type="fa" name="pencil" fixedWidth onClick={() => dispatch({ type: 'editStart', target: undefined })} />
+            </li>
           </ul>
         </div>
         <Component {...props} />
       </div>
-    )
+    );
   };
 
   return fn;

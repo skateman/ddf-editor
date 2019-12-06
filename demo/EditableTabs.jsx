@@ -6,13 +6,13 @@ import EditableTabHeader from './EditableTabHeader';
 import EditableTabContent from './EditableTabContent';
 
 export default () => {
-  const EditableTabs = ({ name:target, fields, formOptions }) => {
+  const EditableTabs = ({ name: target, fields, formOptions }) => {
     const dispatch = useContext(ReducerContext);
 
     // Try to retrieve the name of the very first tab
     const firstTab = (() => {
       const [tab] = fields;
-      const { name:tabName } = tab || {};
+      const { name: tabName } = tab || {};
       return tabName;
     })();
 
@@ -22,12 +22,15 @@ export default () => {
       setActiveTab(firstTab);
     }
 
-    const renderTabHeader = (items) => items.map(({ name, title }) => (
+    const renderTabHeader = items => items.map(({ name, title }) => (
       <EditableTabHeader
-        key={ name }
-        active={ activeTab === name }
-        single={ items.length === 1 }
-        { ...{name, title, setActiveTab, dispatch} }
+        key={name}
+        active={activeTab === name}
+        single={items.length === 1}
+        name={name}
+        title={title}
+        setActiveTab={setActiveTab}
+        dispatch={dispatch}
       />
     ));
 
@@ -36,17 +39,18 @@ export default () => {
         <div>
           <Nav bsClass="nav nav-tabs">
             { renderTabHeader(fields) }
-            <NavItem eventKey="newTab" onSelect={() => dispatch({type: 'newTab', target})}>
-              <Icon type="fa" name="plus" fixedWidth/> New Tab
+            <NavItem eventKey="newTab" onSelect={() => dispatch({ type: 'newTab', target })}>
+              <Icon type="fa" name="plus" fixedWidth />
+              New Tab
             </NavItem>
           </Nav>
           <PfTabContent animation>
-            <div className="spacer"></div>
-            { fields.map(({ name, fields }) => <EditableTabContent key={name} { ...{name, fields, formOptions, dispatch }} />) }
+            <div className="spacer" />
+            { fields.map(({ name, fields }) => <EditableTabContent key={name} {...{ name, fields, formOptions, dispatch }} />) }
           </PfTabContent>
         </div>
       </TabContainer>
-    )
+    );
   };
 
   return EditableTabs;

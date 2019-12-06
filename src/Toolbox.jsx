@@ -15,25 +15,23 @@ const ToolboxField = ({ kind, title, icon, defaultSchema = {}, dispatch }) => {
   )
 };
 
-const Toolbox = ({ PreviewSwitch, fields, preview, dispatch }) => {
-  return (
-    <>
-      { PreviewSwitch &&
-        <div className="preview-switch">
-          <PreviewSwitch value={preview} onChange={() => dispatch({ type: 'togglePreview', preview })}/>
-        </div>
+const Toolbox = ({ PreviewSwitch, fields, preview, dispatch }) => (
+  <>
+    { PreviewSwitch && (
+      <div className="preview-switch">
+        <PreviewSwitch value={preview} onChange={() => dispatch({ type: 'togglePreview', preview })} />
+      </div>
+    )}
+    <ul className="toolbox">
+      {
+        Object.keys(fields).map(key => (
+          <li key={key} className="toolbox-field">
+            <ToolboxField dispatch={dispatch} kind={key} {...fields[key]} />
+          </li>
+        ))
       }
-      <ul className="toolbox">
-        {
-          Object.keys(fields).map(key => (
-            <li key={key} className="toolbox-field">
-              <ToolboxField dispatch={dispatch} kind={key} {...fields[key]}/>
-            </li>
-          ))
-        }
-      </ul>
-    </>
-  )
-};
+    </ul>
+  </>
+);
 
 export default Toolbox;

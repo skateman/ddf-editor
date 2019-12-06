@@ -3,7 +3,7 @@ import { useDrag, useDrop } from 'react-dnd';
 export const DraggableItem = ({ name, type, ...params }, dispatch, event) => useDrag({
   item: { type, name },
   collect: monitor => ({
-    isDragging: monitor.isDragging()
+    isDragging: monitor.isDragging(),
   }),
   begin: () => {
     // Initially the dragging handles have a z-index set above the drop overlay in order to allow mouse
@@ -18,28 +18,28 @@ export const DraggableItem = ({ name, type, ...params }, dispatch, event) => use
     // setTimeout function. Long story short: this set of "hacks" is necessary :)
     setTimeout(() => dispatch({
       type: 'dragStart',
-      itemType: type
+      itemType: type,
     }));
   },
   end: (_, monitor) => {
     // If the dragging operation ended with an invalid drop target, we just tell the main component that
     // the drag operation has ended.
     if (!monitor.didDrop()) {
-      return dispatch({type: 'dragEnd'});
+      return dispatch({ type: 'dragEnd' });
     }
 
     // If the dragging operation finished with a valid drop target, we can retrieve the position and the
     // name of this target.
-    const { name:target, position } = monitor.getDropResult();
+    const { name: target, position } = monitor.getDropResult();
 
     dispatch({
       type: event,
       source: name,
       target,
       position,
-      ...params
+      ...params,
     });
-  }
+  },
 });
 
 // This is a drop zone that doesn't allow any item to be dropped into it, but it calls
@@ -49,21 +49,19 @@ export const FakeDropZone = (type, onDragEnter, onDragLeave) => useDrop({
   accept: type,
   canDrop: () => false,
   hover: onDragEnter,
-  collect: monitor => !monitor.isOver() && onDragLeave() || undefined
+  collect: monitor => (!monitor.isOver() && onDragLeave()) || undefined,
 });
 
 // As it is possible to drag different kind of items and drop them into the same drop zone, this handler
 // only passes the name of the drop target and the before/after position to the dragging handler.
-export const DropZone = ({ name, type }, position) => {
-  return useDrop({
-    accept: type,
-    canDrop: item => item.name !== name,
-    drop: () => ({ name, position }),
-    collect: monitor => ({
-      isOver: monitor.canDrop() && monitor.isOver()
-    }),
-  });
-};
+export const DropZone = ({ name, type }, position) => useDrop({
+  accept: type,
+  canDrop: item => item.name !== name,
+  drop: () => ({ name, position }),
+  collect: monitor => ({
+    isOver: monitor.canDrop() && monitor.isOver(),
+  }),
+});
 
 export const itemTypes = {
   INPUT: 'input',

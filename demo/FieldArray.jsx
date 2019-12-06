@@ -5,7 +5,7 @@ import { Icon } from 'patternfly-react';
 import FieldArrayItem from './FieldArrayItem';
 
 const reducer = (state, { type, ...action }) => {
-  switch(type) {
+  switch (type) {
     case 'dragStart':
       return { isDragging: true };
     case 'dragEnd':
@@ -16,7 +16,7 @@ const reducer = (state, { type, ...action }) => {
     case 'checkDefault':
       setTimeout(() => {
         const options = action.fields.value;
-        const value = options[action.target].value;
+        const { value } = options[action.target];
 
         if (action.multi) {
           const __initialValue = action.formOptions.getFieldState('initialValue').value || [];
@@ -32,6 +32,8 @@ const reducer = (state, { type, ...action }) => {
       setTimeout(() => action.fields.remove(action.target));
       return { ...state };
     }
+    default:
+      throw new Error();
   }
 };
 
@@ -47,7 +49,7 @@ const FieldArray = ({
   ...rest
 }) => {
   const [{ isDragging }, dispatch] = useReducer(reducer, { isDragging: false });
-  const name = rest.input.name;
+  const { name } = rest.input;
 
   // Modify initial value based on the multiselect setting
   useEffect(() => {
@@ -62,14 +64,13 @@ const FieldArray = ({
           formOptions.change('initialValue', initialValue[0]);
         }
       }
-    })
+    });
   }, [multi]);
 
   return (
-    <FieldArrayProvider name={ name } validate={ arrayValidator }>
-      { (cosi) => {
-        return (
-        <div className={classNames({ 'options': true, 'drag': isDragging })}>
+    <FieldArrayProvider name={name} validate={arrayValidator}>
+      { cosi => (
+        <div className={classNames({ options: true, drag: isDragging })}>
           <h3>{ label }</h3>
           <div className="option-wrapper">
             <div className="options-header">
@@ -79,28 +80,30 @@ const FieldArray = ({
             </div>
           </div>
           {
-            cosi.fields.map((option, index) => <FieldArrayItem
-              key={ option }
-              name={ option }
-              fields={ fields }
-              value={ cosi.fields.value[index].value }
-              fieldIndex={ index }
-              dispatch={ (args) => dispatch({ ...args, fields: cosi.fields, multi }) }
-              formOptions={ formOptions }
-              FieldProvider={ FieldProvider }
-              dataType={ formOptions.getFieldState('dataType').value }
-            />
-            )
+            cosi.fields.map((option, index) => (
+              <FieldArrayItem
+                key={option}
+                name={option}
+                fields={fields}
+                value={cosi.fields.value[index].value}
+                fieldIndex={index}
+                dispatch={args => dispatch({ ...args, fields: cosi.fields, multi })}
+                formOptions={formOptions}
+                FieldProvider={FieldProvider}
+                dataType={formOptions.getFieldState('dataType').value}
+              />
+            ))
           }
           <div className="option-wrapper">
             <div className="item new-option" onClick={() => cosi.fields.push(itemDefault)}>
-              <Icon type="fa" name="plus" fixedWidth/> New option
+              <Icon type="fa" name="plus" fixedWidth />
+              New option
             </div>
           </div>
         </div>
-      ) }}
+      )}
     </FieldArrayProvider>
-  )
+  );
 };
 
 export default FieldArray;

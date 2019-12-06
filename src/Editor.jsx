@@ -12,8 +12,8 @@ import reducer from './reducer';
 
 const Editor = ({
   draggableDecorators = {},
-  draggableFieldsMapper : _draggableFieldsMapper,
-  draggableLayoutMapper : _draggableLayoutMapper,
+  draggableFieldsMapper: _draggableFieldsMapper,
+  draggableLayoutMapper: _draggableLayoutMapper,
   previewFieldsMapper,
   previewLayoutMapper,
   editorFieldsMapper,
@@ -26,7 +26,7 @@ const Editor = ({
   initialSchema,
   onSubmit,
   PreviewSwitch,
-  PropertiesModal
+  PropertiesModal,
 }) => {
   const [{ schema, isDragging, edit, preview }, dispatch] = useReducer(reducer(customReducer), {
     preview: false,
@@ -40,9 +40,9 @@ const Editor = ({
   const decorate = (mapper, decorators = {}, defaultDecorator = ident => ident) => Object.keys(mapper).reduce(
     (obj, key) => ({
       ...obj,
-      [key]: decorators[key] ? decorators[key](mapper[key]) : defaultDecorator(mapper[key], EditIcon, DeleteIcon)
+      [key]: decorators[key] ? decorators[key](mapper[key]) : defaultDecorator(mapper[key], EditIcon, DeleteIcon),
     }),
-    mapper
+    mapper,
   );
 
   // Decorate the draggable mappers and memoize them for performance
@@ -54,20 +54,20 @@ const Editor = ({
   return (
     <DndProvider backend={touch ? TouchBackend : HTML5Backend}>
       <div className="dialog-editor">
-          <div className="dialog-toolbox">
-            <Toolbox PreviewSwitch={PreviewSwitch} preview={preview} dispatch={dispatch} fields={toolboxFields}/>
-          </div>
-          <div className={classNames('dialog-renderer', isDragging ? `drag-${isDragging}` : undefined)}>
-            <ReducerContext.Provider value={dispatch}>
-              <FormRender
-                formFieldsMapper={preview ? previewFieldsMapper : draggableFieldsMapper}
-                layoutMapper={preview ? previewLayoutMapper : draggableLayoutMapper}
-                onSubmit={onSubmit}
-                schema={schema}
-                showFormControls={false}
-              />
-            </ReducerContext.Provider>
-          </div>
+        <div className="dialog-toolbox">
+          <Toolbox PreviewSwitch={PreviewSwitch} preview={preview} dispatch={dispatch} fields={toolboxFields} />
+        </div>
+        <div className={classNames('dialog-renderer', isDragging ? `drag-${isDragging}` : undefined)}>
+          <ReducerContext.Provider value={dispatch}>
+            <FormRender
+              formFieldsMapper={preview ? previewFieldsMapper : draggableFieldsMapper}
+              layoutMapper={preview ? previewLayoutMapper : draggableLayoutMapper}
+              onSubmit={onSubmit}
+              schema={schema}
+              showFormControls={false}
+            />
+          </ReducerContext.Provider>
+        </div>
         <div className="dialog-sidebar">
           <Sidebar
             formFieldsMapper={editorFieldsMapper}
@@ -81,7 +81,7 @@ const Editor = ({
         </div>
       </div>
     </DndProvider>
-   )
+  );
 };
 
 export const ReducerContext = React.createContext({});

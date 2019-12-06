@@ -20,14 +20,14 @@ const DraggableField = (Component, EditIcon, DeleteIcon) => {
     // handlers. The upper handler is responsible for prepending, while the lower one is analogously invokes
     // appending. Both overlays have a little border to indicate the future location of the dragged item. It
     // is being handled by a CSS class which is being set based on the isOverTop and isOverBottom variables.
-    const [{ isOver:isOverTop }, dropTop] = DropZone({ name, type: itemTypes.INPUT }, 'before');
-    const [{ isOver:isOverBottom }, dropBottom] = DropZone({ name, type: itemTypes.INPUT }, 'after');
+    const [{ isOver: isOverTop }, dropTop] = DropZone({ name, type: itemTypes.INPUT }, 'before');
+    const [{ isOver: isOverBottom }, dropBottom] = DropZone({ name, type: itemTypes.INPUT }, 'after');
 
     return (
-      <div className={classNames({'input-wrapper': true, 'drag': isDragging, 'not-visible': !visible})} ref={preview}>
-        <div className="handle" ref={drag}></div>
+      <div className={classNames({ 'input-wrapper': true, drag: isDragging, 'not-visible': !visible })} ref={preview}>
+        <div className="handle" ref={drag} />
         <div className="item">
-          <Component {...props}/>
+          <Component {...props} />
         </div>
         <div className="toolbox">
           <ul>
@@ -36,11 +36,11 @@ const DraggableField = (Component, EditIcon, DeleteIcon) => {
           </ul>
         </div>
         <div className="horizontal-overlay">
-          <div className={classNames({'overlay-top': true, 'over': isOverTop})} ref={dropTop}></div>
-          <div className={classNames({'overlay-bottom': true, 'over': isOverBottom})} ref={dropBottom}></div>
+          <div className={classNames({ 'overlay-top': true, over: isOverTop })} ref={dropTop} />
+          <div className={classNames({ 'overlay-bottom': true, over: isOverBottom })} ref={dropBottom} />
         </div>
       </div>
-    )
+    );
   };
 
   return fn;

@@ -1,9 +1,9 @@
 import { componentTypes, dataTypes, validatorTypes } from '@data-driven-forms/react-form-renderer';
 
-const postProcessValidation = ({ isRequired, validate : [{ pattern }] = [{}] }) => {
+const postProcessValidation = ({ isRequired, validate: [{ pattern }] = [{}] }) => {
   const validate = !pattern && !isRequired ? undefined : [
     pattern ? { type: validatorTypes.PATTERN_VALIDATOR, pattern } : undefined,
-    isRequired ? { type: validatorTypes.REQUIRED } : undefined
+    isRequired ? { type: validatorTypes.REQUIRED } : undefined,
   ].filter(Boolean);
 
   return { isRequired, validate };
@@ -18,47 +18,47 @@ const postProcessInitialValues = ({ initialValue = [], options = [], multi }) =>
 
   const filtered = initialValue.filter(value => opts.includes(value));
   return { initialValue: filtered.length > 0 ? filtered : undefined };
-}
+};
 
 const commonFields = [
   {
     name: 'name',
     label: 'Name',
-    component: componentTypes.TEXT_FIELD
+    component: componentTypes.TEXT_FIELD,
   },
   {
     name: 'label',
     label: 'Label',
-    component: componentTypes.TEXT_FIELD
+    component: componentTypes.TEXT_FIELD,
   },
   {
     name: 'description',
     label: 'Description',
-    component: componentTypes.TEXT_FIELD
+    component: componentTypes.TEXT_FIELD,
   },
   {
     name: 'helperText',
     label: 'Help',
-    component: componentTypes.TEXT_FIELD
+    component: componentTypes.TEXT_FIELD,
   },
   {
     name: 'visible',
     label: 'Visible',
-    component: componentTypes.CHECKBOX
+    component: componentTypes.CHECKBOX,
   },
   {
     name: 'isRequired',
     label: 'Required',
     component: componentTypes.CHECKBOX,
     DDF: {
-      postProcess: postProcessValidation
-    }
+      postProcess: postProcessValidation,
+    },
   },
   {
     name: 'isReadOnly',
     label: 'Read only',
-    component: componentTypes.CHECKBOX
-  }
+    component: componentTypes.CHECKBOX,
+  },
 ];
 
 const dataType = {
@@ -67,14 +67,14 @@ const dataType = {
   component: componentTypes.SELECT,
   options: [
     { label: 'String', value: dataTypes.STRING },
-    { label: 'Number', value: dataTypes.NUMBER }
-  ]
+    { label: 'Number', value: dataTypes.NUMBER },
+  ],
 };
 
 const defaultString = {
   name: 'initialValue',
   label: 'Default value',
-  component: componentTypes.TEXT_FIELD
+  component: componentTypes.TEXT_FIELD,
 };
 
 const validator = {
@@ -82,7 +82,7 @@ const validator = {
   label: 'Validator',
   component: componentTypes.TEXT_FIELD,
   DDF: {
-    postProcess: postProcessValidation
+    postProcess: postProcessValidation,
   },
 };
 
@@ -100,22 +100,22 @@ const editSchemas = {
         { label: 'Text', value: 'text' },
         { label: 'Number', value: 'number' },
         { label: 'Password', value: 'password' },
-      ]
-    }
+      ],
+    },
   ],
   [componentTypes.TEXTAREA_FIELD]: [
     ...commonFields,
     validator,
     defaultString,
-    dataType
+    dataType,
   ],
   [componentTypes.CHECKBOX]: [
     ...commonFields,
     {
       name: 'initialValue',
       label: 'Checked',
-      component: componentTypes.CHECKBOX
-    }
+      component: componentTypes.CHECKBOX,
+    },
   ],
   [componentTypes.SELECT]: [
     ...commonFields,
@@ -125,21 +125,21 @@ const editSchemas = {
       component: componentTypes.CHECKBOX,
       DDF: {
         synchronize: 'multi',
-      }
+      },
     },
     {
       ...dataType,
       DDF: {
-        synchronize: 'dataType'
-      }
+        synchronize: 'dataType',
+      },
     },
     {
       component: componentTypes.TEXT_FIELD,
       name: 'initialValue',
       type: 'hidden',
       DDF: {
-        postProcess: postProcessInitialValues
-      }
+        postProcess: postProcessInitialValues,
+      },
     },
     {
       name: 'options',
@@ -154,28 +154,28 @@ const editSchemas = {
         {
           component: componentTypes.TEXT_FIELD,
           name: 'value',
-        }
+        },
       ],
       DDF: {
-        preProcess: ({ multi }) => ({ multi })
-      }
-    }
+        preProcess: ({ multi }) => ({ multi }),
+      },
+    },
   ],
   [componentTypes.RADIO]: [
     ...commonFields,
     {
       ...dataType,
       DDF: {
-        synchronize: 'dataType'
-      }
+        synchronize: 'dataType',
+      },
     },
     {
       component: componentTypes.TEXT_FIELD,
       name: 'initialValue',
       type: 'hidden',
       DDF: {
-        postProcess: postProcessInitialValues
-      }
+        postProcess: postProcessInitialValues,
+      },
     },
     {
       name: 'options',
@@ -190,10 +190,9 @@ const editSchemas = {
         {
           component: componentTypes.TEXT_FIELD,
           name: 'value',
-        }
-      ]
-
-    }
+        },
+      ],
+    },
   ],
   [componentTypes.DATE_PICKER]: [
     ...commonFields,
@@ -203,8 +202,8 @@ const editSchemas = {
       component: componentTypes.CHECKBOX,
       DDF: {
         synchronize: 'disabledDays',
-        postProcess: ({ disabledDays: [{ before: disablePast }] = [{}] }) => ({ disabledDays: disablePast ? [{ before: 'today' }] : undefined })
-      }
+        postProcess: ({ disabledDays: [{ before: disablePast }] = [{}] }) => ({ disabledDays: disablePast ? [{ before: 'today' }] : undefined }),
+      },
     },
     {
       name: 'variant',
@@ -213,71 +212,71 @@ const editSchemas = {
       options: [
         {
           label: 'Date',
-          value: 'date'
+          value: 'date',
         },
         {
           label: 'Datetime',
-          value: 'date-time'
-        }
+          value: 'date-time',
+        },
       ],
       DDF: {
-        synchronize: 'variant'
-      }
+        synchronize: 'variant',
+      },
     },
     {
       name: 'initialValue',
       label: 'Default value',
       component: componentTypes.DATE_PICKER,
       DDF: {
-        preProcess: ({ variant, disabledDays }) => ({ variant, disabledDays })
-      }
-    }
+        preProcess: ({ variant, disabledDays }) => ({ variant, disabledDays }),
+      },
+    },
   ],
   [componentTypes.TAG_CONTROL]: [
-    ...commonFields
+    ...commonFields,
   ],
   [componentTypes.SUB_FORM]: [
     {
       name: 'name',
       label: 'Name',
-      component: componentTypes.TEXT_FIELD
+      component: componentTypes.TEXT_FIELD,
     },
     {
       name: 'title',
       label: 'Title',
-      component: componentTypes.TEXT_FIELD
-    },
-    {
-      name: 'description',
-      label: 'Description',
-      component: componentTypes.TEXTAREA_FIELD
-    }
-  ],
-  [componentTypes.TAB_ITEM]: [
-    {
-      name: 'name',
-      label: 'Name',
-      component: componentTypes.TEXT_FIELD
-    },
-    {
-      name: 'title',
-      label: 'Title',
-      component: componentTypes.TEXT_FIELD
-    }
-  ],
-  undefined: [ // special case for the top-level dialog information
-    {
-      name: 'label',
-      label: 'Label',
-      component: componentTypes.TEXT_FIELD
+      component: componentTypes.TEXT_FIELD,
     },
     {
       name: 'description',
       label: 'Description',
       component: componentTypes.TEXTAREA_FIELD,
-      rows: 6
     },
-  ]
+  ],
+  [componentTypes.TAB_ITEM]: [
+    {
+      name: 'name',
+      label: 'Name',
+      component: componentTypes.TEXT_FIELD,
+    },
+    {
+      name: 'title',
+      label: 'Title',
+      component: componentTypes.TEXT_FIELD,
+    },
+  ],
+  undefined: [ // special case for the top-level dialog information
+    {
+      name: 'label',
+      label: 'Label',
+      component: componentTypes.TEXT_FIELD,
+    },
+    {
+      name: 'description',
+      label: 'Description',
+      component: componentTypes.TEXTAREA_FIELD,
+      rows: 6,
+    },
+  ],
 };
 
 export default editSchemas;

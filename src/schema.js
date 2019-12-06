@@ -28,7 +28,7 @@ export const traverse = (data, name, fn) => {
 
 // Helper function to find an item by using traverse
 export const find = (data, name) => {
-  let item = undefined;
+  let item;
   traverse(data, name, (fields, idx) => {
     item = fields[idx];
   });
@@ -40,21 +40,21 @@ export const insert = {
   before: (array, item, index) => [
     ...array.slice(0, index),
     item,
-    ...array.slice(index)
+    ...array.slice(index),
   ],
   after: (array, item, index) => [
     ...array.slice(0, index + 1),
     item,
-    ...array.slice(index + 1)
+    ...array.slice(index + 1),
   ],
   child: (array, item, index) => [
     ...array.slice(0, index),
     {
       ...array[index],
-      fields: [...array[index].fields, item]
+      fields: [...array[index].fields, item],
     },
-    ...array.slice(index + 1)
-  ]
+    ...array.slice(index + 1),
+  ],
 };
 
 export const remove = (array, index) => [...array.slice(0, index), ...array.slice(index + 1)];
@@ -63,9 +63,9 @@ export const replace = (array, item, index) => [...array.slice(0, index), item, 
 // Helper function to remove fields from an object that are set to `undefined`
 export const compact = object =>
   Object.keys(object).reduce(
-    (obj, key) =>
-      object[key] === undefined ? obj : { ...obj, [key]: object[key] },
-    {}
+    (obj, key) => (
+      object[key] === undefined ? obj : { ...obj, [key]: object[key] }
+    ), {},
   );
 
 // Function to generate a locally-unique identifier for a given item kind
@@ -75,17 +75,18 @@ export const genIdentifier = (kind, { ...fieldCounter }, haystack) => {
     fieldCounter[kind] = 0;
   }
 
-  let id, found = false;
+  let id;
+  let found = false;
   // Generate a new ID by incrementing until there is no name collision
   do {
     id = ++fieldCounter[kind];
     found = false;
 
-    traverse(haystack, `${kind}-${id}`, (fields) => {
-      found = true
+    traverse(haystack, `${kind}-${id}`, fields => {
+      found = true;
       return [...fields];
     });
-  } while(found);
+  } while (found);
 
   return [id, fieldCounter];
 };

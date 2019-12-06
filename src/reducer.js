@@ -7,21 +7,20 @@ export default (fn = (() => undefined)) => (state, { type, ...action }) => {
     case 'dragEnd':
       return { ...state, isDragging: false };
     case 'togglePreview':
-      return { ...state, edit: undefined, preview: !action.preview }
+      return { ...state, edit: undefined, preview: !action.preview };
     case 'editEnd':
-      return { ...state, edit: undefined }
+      return { ...state, edit: undefined };
     case 'editStart': {
       const item = find(state.schema, action.target);
-      return { ...state, edit: { target: action.target, item }};
+      return { ...state, edit: { target: action.target, item } };
     }
     case 'editSave': {
       // Merge together the original values with the changed ones
       const values = [...Object.keys(state.edit.item), ...Object.keys(action.values)].reduce(
-        (obj, key) =>
-          state.edit.item[key] === action.values[key]
-            ? obj
-            : { ...obj, [key]: action.values[key] },
-        {}
+        (obj, key) => (
+          state.edit.item[key] === action.values[key] ? obj : { ...obj, [key]: action.values[key] }
+        ),
+        {},
       );
 
       const schema = traverse(state.schema, action.target, (fields, idx) => replace(fields, compact({ ...fields[idx], ...values }), idx));
@@ -36,7 +35,7 @@ export default (fn = (() => undefined)) => (state, { type, ...action }) => {
         name: `${action.kind}-${id}`,
         label: `${action.title} ${id}`,
         visible: true,
-        ...action.defaultSchema
+        ...action.defaultSchema,
       };
 
       const schema = traverse(state.schema, action.target, (fields, idx) => insert[action.position](fields, item, idx));
@@ -52,9 +51,7 @@ export default (fn = (() => undefined)) => (state, { type, ...action }) => {
       });
 
 
-      const schema = traverse(_schema, action.target, (fields, idx) => {
-        return insert[action.position](fields, item, idx);
-      });
+      const schema = traverse(_schema, action.target, (fields, idx) => insert[action.position](fields, item, idx));
 
       return { ...state, schema, isDragging: false };
     }
@@ -69,9 +66,8 @@ export default (fn = (() => undefined)) => (state, { type, ...action }) => {
       const result = fn(state, { type, ...action }, { traverse, find, insert, remove, replace, compact, genIdentifier });
       if (result) {
         return result;
-      } else {
-        throw new Error();
       }
+      throw new Error();
     }
   }
 };

@@ -5,12 +5,12 @@ const PlayerField = (Component) => {
     if (visible === false) {
       return (
         <div style={{ display: 'none' }}>
-          <Component { ...props } />
+          <Component {...props} />
         </div>
-      )
+      );
     }
 
-    return <Component { ...props } />
+    return <Component {...props} />;
   };
 
   return fn;
