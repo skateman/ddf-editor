@@ -10,16 +10,6 @@ import Toolbox from './Toolbox';
 import Sidebar from './Sidebar';
 import reducer from './reducer';
 
-// Function that decorates all items in mapper with either the matching function from the decorators
-// or with the defaultDecorator, which is by default an identity function.
-const decorate = (mapper, decorators = {}, defaultDecorator = ident => ident) => Object.keys(mapper).reduce(
-  (obj, key) => ({
-    ...obj,
-    [key]: decorators[key] ? decorators[key](mapper[key]) : defaultDecorator(mapper[key])
-  }),
-  mapper
-);
-
 const Editor = ({
   draggableDecorators = {},
   draggableFieldsMapper : _draggableFieldsMapper,
@@ -28,6 +18,8 @@ const Editor = ({
   previewLayoutMapper,
   editorFieldsMapper,
   editorLayoutMapper,
+  EditIcon,
+  DeleteIcon,
   customReducer,
   editSchemas,
   toolboxFields,
@@ -42,6 +34,16 @@ const Editor = ({
     fieldCounter: {},
     schema: initialSchema,
   });
+
+  // Function that decorates all items in mapper with either the matching function from the decorators
+  // or with the defaultDecorator, which is by default an identity function.
+  const decorate = (mapper, decorators = {}, defaultDecorator = ident => ident) => Object.keys(mapper).reduce(
+    (obj, key) => ({
+      ...obj,
+      [key]: decorators[key] ? decorators[key](mapper[key]) : defaultDecorator(mapper[key], EditIcon, DeleteIcon)
+    }),
+    mapper
+  );
 
   // Decorate the draggable mappers and memoize them for performance
   const draggableFieldsMapper = useMemo(() => decorate(_draggableFieldsMapper, draggableDecorators, DraggableField), [draggableDecorators, _draggableFieldsMapper]);

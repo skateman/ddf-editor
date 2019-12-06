@@ -137,6 +137,9 @@ const toolboxFields = {
 
 const PreviewSwitch = ({ value, onChange }) => <Switch onText="View" offText="Edit" value={value} inverse={true} onChange={onChange}/>;
 
+const EditIcon = <Icon type="fa" name="pencil" fixedWidth />;
+const DeleteIcon = <Icon type="fa" name="times" fixedWidth />;
+
 const PropertiesModal = ({ title, show, onHide, container, children }) => (
   <Modal container={container} show={show} onHide={onHide}>
     <Modal.Header closeButton>
@@ -160,6 +163,8 @@ const App = () => (
     previewLayoutMapper={layoutMapper}
     editorFieldsMapper={editorFieldsMapper}
     editorLayoutMapper={layoutMapper}
+    EditIcon={EditIcon}
+    DeleteIcon={DeleteIcon}
     customReducer={customReducer}
     editSchemas={editSchemas}
     toolboxFields={toolboxFields}

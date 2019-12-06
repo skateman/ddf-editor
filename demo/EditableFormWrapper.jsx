@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import { Icon } from 'patternfly-react';
 
 import { ReducerContext } from '../src';
 
@@ -10,7 +11,7 @@ const EditableFormWrapper = (Component) => {
       <div className="form-wrapper">
         <div className="toolbox">
           <ul>
-            <li onClick={() => dispatch({ type: 'editStart', target: undefined })}><i className="fa fa-pencil fa-fw"></i></li>
+            <li onClick={() => dispatch({ type: 'editStart', target: undefined })}><Icon type="fa" name="pencil" fixedWidth/></li>
           </ul>
         </div>
         <Component {...props} />

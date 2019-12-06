@@ -1,5 +1,6 @@
 import React from "react";
 import classNames from 'classnames';
+import { Icon } from 'patternfly-react';
 
 import { DropZone, DraggableItem } from '../src';
 
@@ -50,7 +51,7 @@ const FieldArrayItem = ({
         </div>
       </div>
       <div className="toolbox">
-        <i className="fa fa-times" onClick={() => dispatch({ type: 'removeOption', target: fieldIndex })}></i>
+        <Icon type="fa" name="times" fixedWidth onClick={() => dispatch({ type: 'removeOption', target: fieldIndex })} />
       </div>
       <div className="horizontal-overlay">
         <div className={classNames({'overlay-top': true, 'over': isOverTop})} ref={dropTop}></div>

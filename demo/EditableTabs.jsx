@@ -1,6 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { TabContainer, Nav, NavItem } from 'patternfly-react';
-import { TabContent as PfTabContent } from 'patternfly-react';
+import { Icon, TabContainer, Nav, NavItem, TabContent as PfTabContent } from 'patternfly-react';
 
 import { ReducerContext } from '../src';
 import EditableTabHeader from './EditableTabHeader';
@@ -38,7 +37,7 @@ export default () => {
           <Nav bsClass="nav nav-tabs">
             { renderTabHeader(fields) }
             <NavItem eventKey="newTab" onSelect={() => dispatch({type: 'newTab', target})}>
-              <i className="fa fa-plus"></i> New Tab
+              <Icon type="fa" name="plus" fixedWidth/> New Tab
             </NavItem>
           </Nav>
           <PfTabContent animation>

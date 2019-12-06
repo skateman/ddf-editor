@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { NavItem } from 'patternfly-react';
+import { NavItem, Icon } from 'patternfly-react';
 import classNames from 'classnames';
 import debounce from 'lodash.debounce';
 
@@ -30,10 +30,10 @@ const EditableTabHeader = ({name, title, active, single, setActiveTab, dispatch}
         { title }
         <ul className="toolbox" ref={toolboxRef}>
           <li onClick={() => dispatch({ type: 'editStart', target: name })}>
-            <i className="fa fa-pencil"></i>
+            <Icon type="fa" name="pencil" fixedWidth/>
           </li>
           <li onClick={() => single ? undefined : dispatch({type: 'delete', source: name})} className={classNames({'disabled': single})}>
-            <i className="fa fa-times"></i>
+            <Icon type="fa" name="times" fixedWidth/>
           </li>
         </ul>
         <div className="vertical-overlay" ref={tabSwitch}>

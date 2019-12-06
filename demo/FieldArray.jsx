@@ -1,5 +1,6 @@
 import React, { useEffect, useReducer } from "react";
 import classNames from 'classnames';
+import { Icon } from 'patternfly-react';
 
 import FieldArrayItem from './FieldArrayItem';
 
@@ -93,7 +94,7 @@ const FieldArray = ({
           }
           <div className="option-wrapper">
             <div className="item new-option" onClick={() => cosi.fields.push(itemDefault)}>
-              <i className="fa fa-plus"></i> New option
+              <Icon type="fa" name="plus" fixedWidth/> New option
             </div>
           </div>
         </div>

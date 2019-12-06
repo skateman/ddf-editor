@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import classNames from 'classnames';
+import { Icon } from 'patternfly-react';
 
 import { ReducerContext, DropZone, DraggableItem, itemTypes } from '../src';
 
@@ -28,8 +29,8 @@ const EditableSection = (Component) => {
         </div>
         <div className="toolbox">
           <ul>
-            <li onClick={() => dispatch({ type: 'editStart', target: name })}><i className="fa fa-pencil fa-fw"></i></li>
-            <li onClick={() => dispatch({type: 'delete', source: name})}><i className="fa fa-times fa-fw"></i></li>
+            <li onClick={() => dispatch({ type: 'editStart', target: name })}><Icon type="fa" name="pencil" fixedWidth/></li>
+            <li onClick={() => dispatch({type: 'delete', source: name})}><Icon type="fa" name="times" fixedWidth/></li>
           </ul>
         </div>
         <div className="horizontal-overlay">

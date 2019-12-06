@@ -1,5 +1,5 @@
 import React from 'react';
-import { TabPane } from 'patternfly-react';
+import { TabPane, Icon } from 'patternfly-react';
 import classNames from 'classnames';
 
 import { DropZone, itemTypes } from '../src';
@@ -15,7 +15,7 @@ const EditableTabContent = ({ name, fields, formOptions, dispatch }) => {
       }
       <div className="section-wrapper">
         <div className="item new-section" onClick={() => dispatch({type: 'newSection', target: name})}>
-          <i className="fa fa-plus"></i> New section
+          <Icon type="fa" name="plus" fixedWidth/> New section
         </div>
       </div>
     </TabPane>
