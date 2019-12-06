@@ -10,6 +10,7 @@ pids
 # Users Environment Variables
 .lock-wscript
 
+dist/demo/
 dist/assets/
 dist/data/
 dist/docs/
@@ -19,7 +20,6 @@ dist/**/demo-app.*
 libs/
 node_modules/
 bower_components/
-dist/index.html
 tsd/
 typings/
 vendor.js

@@ -5,7 +5,7 @@ const html = require('html-webpack-plugin');
 const config = {
   entry: './demo/index.jsx',
   output: {
-    path: path.resolve(__dirname, 'dist'),
+    path: path.resolve(__dirname, 'dist/demo'),
     filename: 'bundle.js'
   },
   module: {
@@ -37,10 +37,7 @@ const config = {
   },
   plugins: [
     new html()
-  ],
-  devServer: {
-    contentBase: './dist'
-  }
+  ]
 }
 
 module.exports = config;
