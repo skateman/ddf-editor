@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState, useEffect } from 'react';
 import FormRender from '@data-driven-forms/react-form-renderer';
 import isEqual from 'lodash.isequal';
 

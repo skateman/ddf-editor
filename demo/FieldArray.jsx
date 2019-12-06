@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer } from "react";
+import React, { useEffect, useReducer } from 'react';
 import classNames from 'classnames';
 import { Icon } from 'patternfly-react';
 

@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 import { DraggableItem, itemTypes } from './dragAndDrop';
 
