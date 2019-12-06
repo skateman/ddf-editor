@@ -1,5 +1,5 @@
 import React, { useEffect, useReducer } from "react";
-import classSet from 'react-classset';
+import classNames from 'classnames';
 
 import FieldArrayItem from './FieldArrayItem';
 
@@ -68,7 +68,7 @@ const FieldArray = ({
     <FieldArrayProvider name={ name } validate={ arrayValidator }>
       { (cosi) => {
         return (
-        <div className={classSet({ 'options': true, 'drag': isDragging })}>
+        <div className={classNames({ 'options': true, 'drag': isDragging })}>
           <h3>{ label }</h3>
           <div className="option-wrapper">
             <div className="options-header">

@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import { NavItem } from 'patternfly-react';
-import classSet from 'react-classset';
+import classNames from 'classnames';
 import debounce from 'lodash.debounce';
 
 import { DropZone, FakeDropZone, DraggableItem, itemTypes } from '../src';
@@ -25,20 +25,20 @@ const EditableTabHeader = ({name, title, active, single, setActiveTab, dispatch}
 
   return (
     <NavItem eventKey={ name } active={ active } onSelect={ handleSelect } className="tab-header-wrapper">
-      <span className={classSet({'drag': isDragging})} ref={preview}>
-        <div className={classSet({'handle': true, 'active': active})} ref={drag}></div>
+      <span className={classNames({'drag': isDragging})} ref={preview}>
+        <div className={classNames({'handle': true, 'active': active})} ref={drag}></div>
         { title }
         <ul className="toolbox" ref={toolboxRef}>
           <li onClick={() => dispatch({ type: 'editStart', target: name })}>
             <i className="fa fa-pencil"></i>
           </li>
-          <li onClick={() => single ? undefined : dispatch({type: 'delete', source: name})} className={classSet({'disabled': single})}>
+          <li onClick={() => single ? undefined : dispatch({type: 'delete', source: name})} className={classNames({'disabled': single})}>
             <i className="fa fa-times"></i>
           </li>
         </ul>
         <div className="vertical-overlay" ref={tabSwitch}>
-          <div className={classSet({'overlay-left': true, 'over': isOverLeft})} ref={dropLeft}></div>
-          <div className={classSet({'overlay-right': true, 'over': isOverRight})} ref={dropRight}></div>
+          <div className={classNames({'overlay-left': true, 'over': isOverLeft})} ref={dropLeft}></div>
+          <div className={classNames({'overlay-right': true, 'over': isOverRight})} ref={dropRight}></div>
         </div>
       </span>
     </NavItem>

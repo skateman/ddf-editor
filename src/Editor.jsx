@@ -3,7 +3,7 @@ import { DndProvider } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 import TouchBackend from 'react-dnd-touch-backend';
 import FormRender from '@data-driven-forms/react-form-renderer';
-import classSet from 'react-classset';
+import classNames from 'classnames';
 
 import DraggableField from './DraggableField';
 import Toolbox from './Toolbox';
@@ -55,7 +55,7 @@ const Editor = ({
           <div className="dialog-toolbox">
             <Toolbox PreviewSwitch={PreviewSwitch} preview={preview} dispatch={dispatch} fields={toolboxFields}/>
           </div>
-          <div className={classSet('dialog-renderer', isDragging ? `drag-${isDragging}` : undefined)}>
+          <div className={classNames('dialog-renderer', isDragging ? `drag-${isDragging}` : undefined)}>
             <ReducerContext.Provider value={dispatch}>
               <FormRender
                 formFieldsMapper={preview ? previewFieldsMapper : draggableFieldsMapper}

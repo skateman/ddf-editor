@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import classSet from 'react-classset';
+import classNames from 'classnames';
 
 import { ReducerContext, DropZone, DraggableItem, itemTypes } from '../src';
 
@@ -18,12 +18,12 @@ const EditableSection = (Component) => {
     const [{ isOver:isOverEmpty }, dropEmpty] = DropZone({ name, type: itemTypes.INPUT }, 'child');
 
     return (
-      <div className={classSet({'section-wrapper': true, 'drag': isDragging})} ref={preview}>
+      <div className={classNames({'section-wrapper': true, 'drag': isDragging})} ref={preview}>
         <div className="handle" ref={drag}></div>
         <div className="item">
           <Component {...props}/>
           {props.fields.length === 0 &&
-            <div className={classSet({'empty': true, 'over': isOverEmpty})} ref={dropEmpty}></div>
+            <div className={classNames({'empty': true, 'over': isOverEmpty})} ref={dropEmpty}></div>
           }
         </div>
         <div className="toolbox">
@@ -33,8 +33,8 @@ const EditableSection = (Component) => {
           </ul>
         </div>
         <div className="horizontal-overlay">
-          <div className={classSet({'overlay-top': true, 'over': isOverTop})} ref={dropTop}></div>
-          <div className={classSet({'overlay-bottom': true, 'over': isOverBottom})} ref={dropBottom}></div>
+          <div className={classNames({'overlay-top': true, 'over': isOverTop})} ref={dropTop}></div>
+          <div className={classNames({'overlay-bottom': true, 'over': isOverBottom})} ref={dropBottom}></div>
         </div>
       </div>
     )

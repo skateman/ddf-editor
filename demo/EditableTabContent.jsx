@@ -1,6 +1,6 @@
 import React from 'react';
 import { TabPane } from 'patternfly-react';
-import classSet from 'react-classset';
+import classNames from 'classnames';
 
 import { DropZone, itemTypes } from '../src';
 
@@ -11,7 +11,7 @@ const EditableTabContent = ({ name, fields, formOptions, dispatch }) => {
     <TabPane key={ name } eventKey={ name } >
       { formOptions.renderForm(fields, formOptions) }
       { fields.length === 0 &&
-        <div className={classSet({'empty': true, 'over': isOverEmpty})} ref={dropEmpty}></div>
+        <div className={classNames({'empty': true, 'over': isOverEmpty})} ref={dropEmpty}></div>
       }
       <div className="section-wrapper">
         <div className="item new-section" onClick={() => dispatch({type: 'newSection', target: name})}>

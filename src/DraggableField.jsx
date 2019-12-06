@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import classSet from 'react-classset';
+import classNames from 'classnames';
 
 import { ReducerContext } from './Editor';
 import { DropZone, DraggableItem, itemTypes } from './dragAndDrop';
@@ -24,7 +24,7 @@ const DraggableField = (Component) => {
     const [{ isOver:isOverBottom }, dropBottom] = DropZone({ name, type: itemTypes.INPUT }, 'after');
 
     return (
-      <div className={classSet({'input-wrapper': true, 'drag': isDragging, 'not-visible': !visible})} ref={preview}>
+      <div className={classNames({'input-wrapper': true, 'drag': isDragging, 'not-visible': !visible})} ref={preview}>
         <div className="handle" ref={drag}></div>
         <div className="item">
           <Component {...props}/>
@@ -36,8 +36,8 @@ const DraggableField = (Component) => {
           </ul>
         </div>
         <div className="horizontal-overlay">
-          <div className={classSet({'overlay-top': true, 'over': isOverTop})} ref={dropTop}></div>
-          <div className={classSet({'overlay-bottom': true, 'over': isOverBottom})} ref={dropBottom}></div>
+          <div className={classNames({'overlay-top': true, 'over': isOverTop})} ref={dropTop}></div>
+          <div className={classNames({'overlay-bottom': true, 'over': isOverBottom})} ref={dropBottom}></div>
         </div>
       </div>
     )
