@@ -279,4 +279,6 @@ const editSchemas = {
   ],
 };
 
-export default editSchemas;
+const editSchema = field => editSchemas[field];
+
+export default editSchema;

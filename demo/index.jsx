@@ -11,7 +11,7 @@ import EditableTabs from './EditableTabs';
 import EditableSection from './EditableSection';
 import EditableFormWrapper from './EditableFormWrapper';
 import FieldArray from './FieldArray';
-import editSchemas from './editSchemas';
+import editSchema from './editSchema';
 
 import schema from './schema';
 
@@ -166,7 +166,7 @@ const App = () => (
     EditIcon={EditIcon}
     DeleteIcon={DeleteIcon}
     customReducer={customReducer}
-    editSchemas={editSchemas}
+    editSchema={editSchema}
     toolboxFields={toolboxFields}
     initialSchema={schema}
     onSubmit={() => undefined}

@@ -14,7 +14,7 @@ const Sidebar = ({
   formFieldsMapper,
   layoutMapper,
   PropertiesModal,
-  editSchema = [],
+  editSchema,
   schema,
   edit: { item: editItem } = {},
   dispatch,
@@ -22,8 +22,10 @@ const Sidebar = ({
   const modalContainer = useRef(null);
   const displayModal = modalContainer.current && window.getComputedStyle(modalContainer.current).display !== 'none';
 
-  const [state, setState] = useState(loadSynchronizable(editSchema, editItem));
-  useEffect(() => setState(loadSynchronizable(editSchema, editItem)), [editItem]);
+
+  const editorSchema = editSchema(editItem && editItem.component, schema) || [];
+  const [state, setState] = useState(loadSynchronizable(editorSchema, editItem));
+  useEffect(() => setState(loadSynchronizable(editorSchema, editItem)), [editItem]);
 
   // This function calls any available preprocess functions and appends their results to the affected fields
   // It also omits the DDF attribute from each field, preventing React to throw unused attribute errors
@@ -34,7 +36,7 @@ const Sidebar = ({
 
   // This callback synchronizes the marked components' values with the local state
   const onStateUpdate = ({ active, values }) => {
-    const { DDF: { synchronize, postProcess } = {} } = editSchema.find(({ name }) => name === active) || { DDF: {} };
+    const { DDF: { synchronize, postProcess } = {} } = editorSchema.find(({ name }) => name === active) || { DDF: {} };
     if (synchronize) {
       // If there's a post-processing function available, call it to set the new value
       const newVal = postProcess ? postProcess(values) : { [synchronize]: values[synchronize] };
@@ -47,7 +49,7 @@ const Sidebar = ({
 
   const onSubmit = (_values) => {
     // Go through all the fields in the schema, call all the defined post-processing functions and merge the results with the submitted values
-    const values = editSchema.reduce((obj, { DDF: { postProcess } = {} }) => ({
+    const values = editorSchema.reduce((obj, { DDF: { postProcess } = {} }) => ({
       ...obj,
       ...postProcess ? postProcess(_values) : undefined,
     }), _values);
@@ -64,7 +66,7 @@ const Sidebar = ({
       layoutMapper={layoutMapper}
       onSubmit={onSubmit}
       onCancel={() => dispatch({ type: 'editEnd' })}
-      schema={{ fields: preProcessFields(editSchema) }}
+      schema={{ fields: preProcessFields(editorSchema) }}
       initialValues={editItem}
       buttonsLabels={{ submitLabel: 'Save', cancelLabel: 'Close' }}
       clearOnUnmount

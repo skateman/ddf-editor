@@ -21,7 +21,7 @@ const Editor = ({
   EditIcon,
   DeleteIcon,
   customReducer,
-  editSchemas,
+  editSchema,
   toolboxFields,
   initialSchema,
   onSubmit,
@@ -73,7 +73,7 @@ const Editor = ({
             formFieldsMapper={editorFieldsMapper}
             layoutMapper={editorLayoutMapper}
             PropertiesModal={PropertiesModal}
-            editSchema={editSchemas[edit && edit.item && edit.item.component]}
+            editSchema={editSchema}
             schema={schema}
             edit={edit}
             dispatch={dispatch}
