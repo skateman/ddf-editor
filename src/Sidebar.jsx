@@ -23,7 +23,7 @@ const Sidebar = ({
   const displayModal = modalContainer.current && window.getComputedStyle(modalContainer.current).display !== 'none';
 
 
-  const editorSchema = editSchema(editItem && editItem.component, schema) || [];
+  const editorSchema = editSchema(editItem, schema) || [];
   const [state, setState] = useState(loadSynchronizable(editorSchema, editItem));
   useEffect(() => setState(loadSynchronizable(editorSchema, editItem)), [editItem]);
 

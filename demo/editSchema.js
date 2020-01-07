@@ -279,6 +279,6 @@ const editSchemas = {
   ],
 };
 
-const editSchema = field => editSchemas[field];
+const editSchema = ({ component } = {}) => editSchemas[component];
 
 export default editSchema;
