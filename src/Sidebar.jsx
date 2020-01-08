@@ -1,6 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import FormRender from '@data-driven-forms/react-form-renderer';
 import isEqual from 'lodash.isequal';
+import classNames from 'classnames';
 
 import { find } from './schema';
 
@@ -60,7 +61,7 @@ const Sidebar = ({
   // Validator function that determines if there are any name duplications across the schema
   const uniqueName = ({ name }) => (name && name !== editItem.name && find(schema, name) ? { name: 'This field must be unique across the schema' } : {});
 
-  const Properties = editItem && (
+  const Properties = () => (
     <FormRender
       formFieldsMapper={formFieldsMapper}
       layoutMapper={layoutMapper}
@@ -75,21 +76,23 @@ const Sidebar = ({
     />
   );
 
+  const SchemaPreview = <pre>{ JSON.stringify(schema, null, '  ') }</pre>;
+
   return (
     <>
-      { Properties // Display either the edited component's Properties or the global schema
-        ? <div className="hide-small properties">{ Properties }</div>
-        : <pre className="hide-small schema">{ JSON.stringify(schema, null, '  ') }</pre>
-      }
-
-      <div className="modal-container" ref={modalContainer} />
+      <div className={classNames('hide-small', editItem ? 'properties' : 'schema')}>
+        { editItem ? Properties() : SchemaPreview }
+      </div>
 
       { PropertiesModal && (// Modal is being used on small resolutions
-        <PropertiesModal title="Properties" show={Properties && displayModal} onHide={() => dispatch({ type: 'editEnd' })} container={modalContainer.current}>
-          <div className="properties">
-            { Properties }
-          </div>
-        </PropertiesModal>
+        <>
+          <div className="modal-container" ref={modalContainer} />
+          <PropertiesModal title="Properties" show={editItem && displayModal} onHide={() => dispatch({ type: 'editEnd' })} container={modalContainer.current}>
+            <div className="properties">
+              { Properties() }
+            </div>
+          </PropertiesModal>
+        </>
       )}
     </>
   );
