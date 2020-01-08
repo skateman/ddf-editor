@@ -24,7 +24,6 @@ const Editor = ({
   editSchema,
   toolboxFields,
   initialSchema,
-  onSubmit,
   PreviewSwitch,
   PropertiesModal,
 }) => {
@@ -63,7 +62,7 @@ const Editor = ({
               <FormRender
                 formFieldsMapper={preview ? previewFieldsMapper : draggableFieldsMapper}
                 layoutMapper={preview ? previewLayoutMapper : draggableLayoutMapper}
-                onSubmit={onSubmit}
+                onSubmit={() => undefined}
                 schema={schema}
                 showFormControls={false}
               />

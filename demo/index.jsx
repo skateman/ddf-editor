@@ -169,7 +169,6 @@ const App = () => (
     editSchema={editSchema}
     toolboxFields={toolboxFields}
     initialSchema={schema}
-    onSubmit={() => undefined}
     PreviewSwitch={PreviewSwitch}
     PropertiesModal={PropertiesModal}
   />
