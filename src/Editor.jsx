@@ -26,6 +26,7 @@ const Editor = ({
   initialSchema,
   PreviewSwitch,
   PropertiesModal,
+  FormControls,
 }) => {
   const [{ schema, isDragging, edit, preview }, dispatch] = useReducer(reducer(customReducer), {
     preview: false,
@@ -80,8 +81,8 @@ const Editor = ({
             />
           </div>
         </div>
-        <div className="dialog-footer">
-          Here be footers!
+        <div className="dialog-footer container">
+          { FormControls && FormControls(edit && edit.item, schema) }
         </div>
       </div>
     </DndProvider>

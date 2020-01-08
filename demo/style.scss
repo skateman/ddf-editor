@@ -3,7 +3,7 @@
 @import '~patternfly-react/dist/css/patternfly-react.css';
 
 .dialog-editor {
-  $footer: 20px;
+  $footer: 40px;
   $width: 1200px;
 
   .dialog-content {
@@ -379,5 +379,8 @@
     bottom: 0px;
     width: 100%;
     height: $footer;
+    text-align: right;
+    line-height: $footer;
+    vertical-align: middle;
   }
 }

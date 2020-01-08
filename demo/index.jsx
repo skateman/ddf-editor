@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { componentTypes, layoutComponents, dataTypes } from '@data-driven-forms/react-form-renderer';
 import { formFieldsMapper, layoutMapper } from '@data-driven-forms/pf3-component-mapper';
-import { Switch, Modal, Icon } from 'patternfly-react';
+import { Switch, Modal, Icon, Button } from 'patternfly-react';
 
 import Editor from '../src';
 
@@ -149,6 +149,8 @@ const PropertiesModal = ({ title, show, onHide, container, children }) => (
   </Modal>
 );
 
+const FormControls = (disabled, schema) => <Button disabled={disabled} bsStyle="primary" onClick={() => console.log(schema)}>Submit</Button>;
+
 const editorFieldsMapper = {
   ...formFieldsMapper,
   [componentTypes.FIELD_ARRAY]: FieldArray,
@@ -171,6 +173,7 @@ const App = () => (
     initialSchema={schema}
     PreviewSwitch={PreviewSwitch}
     PropertiesModal={PropertiesModal}
+    FormControls={FormControls}
   />
 );
 
