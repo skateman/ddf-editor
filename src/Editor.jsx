@@ -81,7 +81,7 @@ const Editor = ({
             />
           </div>
         </div>
-        <div className="dialog-footer container">
+        <div className="dialog-footer">
           { FormControls && FormControls(edit && edit.item, schema) }
         </div>
       </div>
