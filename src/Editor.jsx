@@ -54,30 +54,35 @@ const Editor = ({
   return (
     <DndProvider backend={touch ? TouchBackend : HTML5Backend}>
       <div className="dialog-editor">
-        <div className="dialog-toolbox">
-          <Toolbox PreviewSwitch={PreviewSwitch} preview={preview} dispatch={dispatch} fields={toolboxFields} />
-        </div>
-        <div className={classNames('dialog-renderer', isDragging ? `drag-${isDragging}` : undefined)}>
-          <ReducerContext.Provider value={dispatch}>
-            <FormRender
-              formFieldsMapper={preview ? previewFieldsMapper : draggableFieldsMapper}
-              layoutMapper={preview ? previewLayoutMapper : draggableLayoutMapper}
-              onSubmit={onSubmit}
+        <div className="dialog-content">
+          <div className="dialog-toolbox">
+            <Toolbox PreviewSwitch={PreviewSwitch} preview={preview} dispatch={dispatch} fields={toolboxFields} />
+          </div>
+          <div className={classNames('dialog-renderer', isDragging ? `drag-${isDragging}` : undefined)}>
+            <ReducerContext.Provider value={dispatch}>
+              <FormRender
+                formFieldsMapper={preview ? previewFieldsMapper : draggableFieldsMapper}
+                layoutMapper={preview ? previewLayoutMapper : draggableLayoutMapper}
+                onSubmit={onSubmit}
+                schema={schema}
+                showFormControls={false}
+              />
+            </ReducerContext.Provider>
+          </div>
+          <div className="dialog-sidebar">
+            <Sidebar
+              formFieldsMapper={editorFieldsMapper}
+              layoutMapper={editorLayoutMapper}
+              PropertiesModal={PropertiesModal}
+              editSchema={editSchema}
               schema={schema}
-              showFormControls={false}
+              edit={edit}
+              dispatch={dispatch}
             />
-          </ReducerContext.Provider>
+          </div>
         </div>
-        <div className="dialog-sidebar">
-          <Sidebar
-            formFieldsMapper={editorFieldsMapper}
-            layoutMapper={editorLayoutMapper}
-            PropertiesModal={PropertiesModal}
-            editSchema={editSchema}
-            schema={schema}
-            edit={edit}
-            dispatch={dispatch}
-          />
+        <div className="dialog-footer">
+          Here be footers!
         </div>
       </div>
     </DndProvider>
